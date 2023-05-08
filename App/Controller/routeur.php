@@ -10,7 +10,7 @@
 		$controller = 'game';
 	}
 	else{
-		$controller = $_GET["controller"];
+		$controller = $_GET['controller'];
 	}
 
 	//verification que le controleur existe
@@ -24,7 +24,7 @@
 		$action = "home";
 	}
 	else {
-		$action = $_GET["action"];
+		$action = $_GET['action'];
 	}
 
 	//verifie que l'action existe
