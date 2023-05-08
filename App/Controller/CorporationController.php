@@ -21,7 +21,7 @@
         public static function created(){
 
             $corporationName = $_GET['corporation_name'];
-            $corpo = new CorporationModel($corporationName);
+            $corpo = new CorporationModel(NULL, $corporationName);
             var_dump($corpo);
 
             $success = $corpo->save();
