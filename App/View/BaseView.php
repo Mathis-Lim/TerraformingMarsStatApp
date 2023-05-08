@@ -17,7 +17,7 @@
     </header>
     <body>
         <?php
-            $filepath = File::build_path(array("view", $controller, "$view.php"));
+            $filepath = File::build_path(array("View", $controller, "$view.php"));
             require $filepath;
         ?>
     </body>
