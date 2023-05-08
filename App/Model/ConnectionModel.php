@@ -9,10 +9,10 @@
 			$port = "3306";
 			$database_name = "TerraformingMars";
 			$username = "root";
-			$password = "Root1234";
+			//$password = "Root1234";
 
 			try {
-				  self::$pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$database_name", $username, $password);
+			self::$pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$database_name", $username /*,$password*/);
 			} catch (PDOException $e) {
     				echo 'Une erreur est survenue';
   				die();
