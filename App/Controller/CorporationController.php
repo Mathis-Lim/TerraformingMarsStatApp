@@ -14,7 +14,7 @@
             $controller = "Corporation";
             $view = "create";
             $pageTitle = "on verra hein";
-            require File::build_path(array("View", "BaseView.php"))
+            require File::build_path(array("View", "BaseView.php"));
         }
 
 
