@@ -35,7 +35,7 @@
                 $view = "home";
                 $pageTitle = "home";
             }
-            require File::build_path(array("View", "BaseView.php"))
+            require File::build_path(array("View", "BaseView.php"));
     }   
 }
 
