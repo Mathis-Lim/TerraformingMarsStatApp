@@ -26,7 +26,7 @@
 
         public function save(){
             $sql = "INSERT INTO Corporations(corporationName) VALUES (:corporation_name)";
-            $req_prep = Model::getPDO()->prepare($sql);
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array("corporation_name" => $this->corporationName,);
 
             try{
