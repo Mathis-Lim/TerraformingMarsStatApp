@@ -22,6 +22,7 @@
 
             $corporationName = $_GET['corporation_name'];
             $corpo = new CorporationModel($corporationName);
+            var_dump($corpo);
 
             $success = $corpo->save();
             if($success == true){
