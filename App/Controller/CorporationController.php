@@ -3,16 +3,13 @@
 
 	class CorporationController{
 
-        public static function readAll($createdOne){
+        public static function readAll(){
             $corporationArray = CorporationModel::readAll();
             if(!isset($corporationArray)){
                 $controller = "Error";
                 $action = "readAllCorporation";
             }
             else{
-                if(isset($createdOne)){
-                    $creation = true;
-                }
                 $controller = "Corporation";
                 $view = "list";
                 $pageTitle = "Corporations";
@@ -35,7 +32,7 @@
 
             $success = $corpo->save();
             if($success == true){
-                CorporationController::readAll(true);
+                CorporationController::readAll();
             }
             else{
                 $controller = "Error";
