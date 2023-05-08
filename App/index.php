@@ -1,5 +1,5 @@
 <?php
-    echo ('Hello World');
+	$DS = DIRECTORY_SEPARATOR;
+	require __DIR__.$DS."lib".$DS."File.php";
+	require File::build_path(array('Controller','routeur.php'));
 ?>
-
-<html><h1>Test</h1></html>
