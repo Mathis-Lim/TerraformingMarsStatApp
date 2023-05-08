@@ -32,9 +32,10 @@
 
             $success = $corpo->save();
             if($success == true){
+                $creation = true;
                 $controller = "Corporation";
-                $view = "created";
-                $pageTitle = "on verra hein";
+                $view = "list";
+                $pageTitle = "Corporations";
             }
             else{
                 $controller = "Error";

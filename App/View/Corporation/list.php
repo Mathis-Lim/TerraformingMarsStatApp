@@ -1,3 +1,7 @@
+<?php
+    if(isset($creation)){
+        echo('<i>La corporation a bien été enregistrée</i>');
+    }
 <h1>Liste des corporations</h1>
 <ul>
     <?php
