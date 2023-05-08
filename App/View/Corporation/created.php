@@ -1,4 +1,5 @@
 <?php
-echo "<p>La corporation a bien été enregistrée</p>";
-require File::build_path(array("View","Corporation","list.php"));
+    echo "<p>La corporation a bien été enregistrée</p>";
+    CorporationController::readAll();
+    //require File::build_path(array("Corporation","list"));
 ?>

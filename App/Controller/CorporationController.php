@@ -3,7 +3,7 @@
 
 	class CorporationController{
 
-        public static function list(){
+        public static function readAll(){
             $corporationArray = CorporationModel::readAll();
             if(!isset($corporationArray)){
                 $controller = "Error";

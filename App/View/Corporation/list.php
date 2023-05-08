@@ -6,3 +6,6 @@
         }
     ?>
 </ul>
+<p>
+    <?php
+        require File::build_path(array("View", "Corporation","create.php"));
