@@ -14,7 +14,7 @@
 	}
 
 	//verification que le controleur existe
-	$nom_controller = 'Controller'.ucfirst($controller); 
+	$nom_controller = ucfirst($controller).'Controller'; 
 	if(!class_exists($nom_controller)){
 		$nom_controller = 'GameController';
 	}
