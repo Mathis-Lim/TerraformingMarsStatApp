@@ -5,7 +5,7 @@
 		private static $pdo = NULL;
 
 		public static function init(){
-			$hostname = "192.168.56.1";
+			$hostname = "127.0.0.1";
 			$port = "3306";
 			$database_name = "TerraformingMars";
 			$login = "root";
