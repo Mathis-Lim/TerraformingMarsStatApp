@@ -6,7 +6,7 @@
 
 		public static function init(){
 			$hostname = "127.0.0.1";
-			$port = "3306":
+			$port = "3306";
 			$database_name = "TerraformingMars";
 			$login = "root";
 			$password = "Root1234";
