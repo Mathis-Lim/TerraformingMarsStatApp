@@ -20,7 +20,7 @@
 
         public static function created(){
 
-            $corporationName = $_GET["corporation_name"];
+            $corporationName = $_GET['corporation_name'];
             $corpo = new CorporationModel($corporationName);
 
             $success = $corpo->save();
