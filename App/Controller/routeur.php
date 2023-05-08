@@ -7,7 +7,7 @@
 	
 	//verifie que $controller est pas nul
 	if(!isset($_GET['controller'])){
-		$controller = 'game';
+		$controller = 'error';
 	}
 	else{
 		$controller = $_GET['controller'];
@@ -16,12 +16,13 @@
 	//verification que le controleur existe
 	$nom_controller = ucfirst($controller).'Controller'; 
 	if(!class_exists($nom_controller)){
-		$nom_controller = 'GameController';
+		$nom_controller = 'ErrorController';
 	}
 
 	//verifie que $action n'est pas null
 	if (!isset($_GET['action'])){
-		$action = "home";
+		$action = "url";
+		$nom_controller = 'ErrorController';
 	}
 	else {
 		$action = $_GET['action'];
@@ -30,7 +31,8 @@
 	//verifie que l'action existe
 	$methods = get_class_methods($nom_controller);
 	if(!in_array($action,$methods)){
-		$action ="home";
+		$action = "url";
+		$nom_controller = 'ErrorController';
 	}
 	
 	//appel du controleur

@@ -22,7 +22,6 @@
 
             $corporationName = $_GET['corporation_name'];
             $corpo = new CorporationModel(NULL, $corporationName);
-            var_dump($corpo);
 
             $success = $corpo->save();
             if($success == true){
@@ -31,10 +30,8 @@
                 $pageTitle = "on verra hein";
             }
             else{
-                $someVar = "nnnnn";
-                $controller = "Game";
-                $view = "home";
-                $pageTitle = "home";
+                $controller = "Error";
+                $action = "corporationCreation";
             }
             require File::build_path(array("View", "BaseView.php"));
     }   

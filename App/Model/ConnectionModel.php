@@ -14,7 +14,7 @@
 			try {
 			self::$pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$database_name", $username ,$password);
 			} catch (PDOException $e) {
-    				echo 'Une erreur est survenue';
+    				echo 'Une erreur est survenue lors de la connexion à la base de données';
   				die();
 			}
 
