@@ -1,6 +1,7 @@
 <?php
 	require_once File::build_path(array('Controller', 'GameController.php'));
 	require_once File::build_path(array('Controller', 'CorporationController.php'));
+	require_once File::build_path(array('Controller', 'ErrorController.php'));
 	/*require_once File::build_path(array('controller', 'ControllerVetement.php'));
 	require_once File::build_path(array('controller', 'ControllerErreur.php'));
 	require_once File::build_path(array('controller', 'ControllerCommande.php'));*/
