@@ -8,6 +8,6 @@
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
-            require File::build_path(array('View', 'baseView.php'));
+            require File::build_path(array('View', 'BaseView.php'));
         }
     }
