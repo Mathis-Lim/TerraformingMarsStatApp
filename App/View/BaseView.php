@@ -14,6 +14,9 @@
     </head>
     <header>
         <h1>Menu</h1>
+        <ul>
+            <li><a href = "index.php?controller=Corporation&action=create">Créer corpo</a></li>
+        </ul>
     </header>
     <body>
         <?php
