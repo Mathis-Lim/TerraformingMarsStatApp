@@ -1,4 +1,4 @@
 <?php
-    echo('salut');
+    echo('salut <br>');
 
     echo($someVar);
