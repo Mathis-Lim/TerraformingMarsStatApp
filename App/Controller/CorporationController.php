@@ -35,8 +35,8 @@
 
             $success = $corpo->save();
             if($success == true){
-                //CorporationController::readAll();
                 header('Location: index.php?controller=corporation&action=readAll&creation=true');
+                exit;
             }
             else{
                 $controller = "Error";
