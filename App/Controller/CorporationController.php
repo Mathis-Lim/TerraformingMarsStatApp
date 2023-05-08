@@ -33,15 +33,16 @@
             $success = $corpo->save();
             if($success == true){
                 $creation = true;
-                $controller = "Corporation";
+                /*$controller = "Corporation";
                 $view = "list";
-                $pageTitle = "Corporations";
+                $pageTitle = "Corporations";*/
+                CorporationController::readAll();
             }
             else{
                 $controller = "Error";
                 $action = "corporationCreation";
+                require File::build_path(array("View", "BaseView.php"));
             }
-            require File::build_path(array("View", "BaseView.php"));
     }   
 }
 
