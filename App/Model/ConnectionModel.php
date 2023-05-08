@@ -8,7 +8,7 @@
 			$hostname = "127.0.0.1";
 			$port = "3306";
 			$database_name = "TerraformingMars";
-			$login = "root";
+			$username = "root";
 			$password = "Root1234";
 
 			try {
