@@ -5,8 +5,7 @@
 		private static $pdo = NULL;
 
 		public static function init(){
-			$hostname = "mysql:unix_socket=/run/mysqld/mysqld.sock";
-			$port = "3306";
+			$hostname = "localhost";
 			$database_name = "TerraformingMars";
 			$login = "root";
 			$password = "Root1234";
