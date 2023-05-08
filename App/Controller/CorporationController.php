@@ -4,9 +4,16 @@
 	class CorporationController{
 
         public static function list(){
-            $controller = "Corporation";
-            $view = "list";
-            $pageTitle = "Accueil";
+            $corporationArray = CorporationModel::readAll();
+            if(!isset($corporationArray)){
+                $controller = "Error";
+                $action = "readAllCorporation";
+            }
+            else{
+                $controller = "Corporation";
+                $view = "list";
+                $pageTitle = "Corporations";
+            }
             require File::build_path(array('View', 'BaseView.php'));
         }
 

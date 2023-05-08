@@ -37,5 +37,12 @@
             }
         }
 
+        public static function readAll(){
+            $req = ConnectionModel::getPDO()->query("SELECT * FROM Corporations");
+            $req->setFetchMode(PDO::FETCH_CLASS, 'CorporationModel');
+            $res = $req->fetchAll();
+            return $res;
+        }
+
     }
 ?>
