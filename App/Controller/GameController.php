@@ -10,3 +10,4 @@
             $pageTitle = "Accueil";
             require File::build_path(array('View', 'baseView.php'));
         }
+    }

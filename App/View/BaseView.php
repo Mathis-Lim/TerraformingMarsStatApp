@@ -24,4 +24,5 @@
     <footer>
         <h1>Quelque chose</h1>
     </footer>
+</html>
 
