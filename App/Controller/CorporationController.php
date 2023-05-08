@@ -10,7 +10,7 @@
                 $action = "readAllCorporation";
             }
             else{
-                if(isset $_GET['creation']){
+                if(isset($_GET['creation'])){
                     $creation = true;
                 }
                 $controller = "Corporation";
