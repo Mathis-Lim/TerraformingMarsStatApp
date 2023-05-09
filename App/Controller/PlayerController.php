@@ -1,65 +1,54 @@
 <?php
-	require_once File::build_path(array('Model', 'CorporationModel.php'));
+
+    require_once File::build_path(array('Model', 'PlayerModel.php'));
     require_once File::build_path(array('Controller', 'ErrorController.php'));
 
-	class CorporationController{
+    class PlayerController{
 
         public static function readAll(){
-            $corporationArray = CorporationModel::readAll();
-            if(!isset($corporationArray)){
-                ErrorController::readAllCorporations();
+            $playerArray = PlayerModel::readAll();
+            if(!isset($playerArray)){
+                ErrorController::readAllPlayers();
                 exit;
             }
             else{
                 if(isset($_GET['creation'])){
                     $creation = true;
                 }
-                $controller = "Corporation";
+                $controller = "Player";
                 $view = "list";
-                $pageTitle = "Corporations";
+                $pageTitle = "Joueurs";
             }
             require File::build_path(array('View', 'BaseView.php'));
         }
 
         public static function create(){
-            $controller = "Corporation";
+            $controller = "Player";
             $view = "create";
             require File::build_path(array("View", "BaseView.php"));
         }
 
-
         public static function created(){
 
-            if(isset($_GET['corporation_name'])){
-                $corporationName = $_GET['corporation_name'];
+            if(isset($_GET['player_name'])){
+                $playerName = $_GET['player_name'];
             }
             else{
                 ErrorController::retrieveFormData();
                 exit;
             }
             
-            $corpo = new CorporationModel(NULL, $corporationName);
+            $player = new PlayerModel(NULL, $playerName);
 
-            $success = $corpo->save();
+            $success = $player->save();
             if($success == true){
-                header('Location: index.php?controller=corporation&action=readAll&creation=true');
+                header('Location: index.php?controller=player&action=readAll&creation=true');
                 exit;
             }
             else{
-                ErrorController::createCorporation();
+                ErrorController::createPlayer();
                 exit;
             }
-    }   
+        }
 
-}
-
-
-
-
-
-
-
-
-
-
-
+    }

@@ -7,13 +7,28 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
-        public static function corporationCreation(){
+        public static function retrieveFormData(){
+            $errorMessage = "Une erreur est survenue lors de la récupération des données du formulaire";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function createCorporation(){
             $errorMessage = "Une erreur est survenue lors de la création de la corporation";
             require File::build_path(array("View", "ErrorView.php"));
         }
 
-        public static function readAllCorporation(){
+        public static function readAllCorporations(){
             $errorMessage = "Une erreur est survenue lors de l'affichage des corporations";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function createPlayer(){
+            $errorMessage = "Une erreur est survenue lors de la création du joueur";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function readAllPlayers(){
+            $errorMessage = "Une erreur est survenue lors de l'affichage des joueurs";
             require File::build_path(array("View", "ErrorView.php"));
         }
 
