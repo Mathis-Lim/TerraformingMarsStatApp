@@ -37,4 +37,14 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function createExtension(){
+            $errorMessage = "Une erreur est survenue lors de la création de l'extension";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function readAllExtensions(){
+            $errorMessage = "Une erreur est survenue lors de l'affichage des extensions";
+            require File::buildpath(array("View"; "ErrorView.php"));
+        }
+
     }
