@@ -17,7 +17,7 @@
         <menu>
             <li><a href = "index.php?controller=Corporation&action=readAll">Corporations</a></li>
             <li><a href = "index.php?controller=Player&action=readAll">Joueurs</a></li>
-            <li><a href = "index.php?controller=Extensions&action=readAll">Extensions</a></li>
+            <li><a href = "index.php?controller=Extension&action=readAll">Extensions</a></li>
         </menu>
     </header>
     <body>
