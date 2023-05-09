@@ -44,7 +44,7 @@
 
         public static function readAllExtensions(){
             $errorMessage = "Une erreur est survenue lors de l'affichage des extensions";
-            require File::buildpath(array("View"; "ErrorView.php"));
+            require File::build_path(array("View", "ErrorView.php"));
         }
 
     }
