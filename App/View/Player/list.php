@@ -1,6 +1,6 @@
 <?php
     if(isset($creation)){
-        echo('<i>Le joueura bien été enregistré</i>');
+        echo('<i>Le joueur a bien été enregistré</i>');
     }
 ?>
 <h1>Liste des joueurs</h1>
