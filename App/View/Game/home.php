@@ -1,4 +1,2 @@
 <?php
-    echo('salut <br>');
-
-    echo($someVar);
+    require File::build_path(array("View", "Game","create.php"));

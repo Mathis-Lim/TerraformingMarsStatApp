@@ -32,4 +32,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function createGame(){
+            $errorMessage = "Une erreur est survenue lors de la création de la partie";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

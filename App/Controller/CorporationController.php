@@ -39,8 +39,8 @@
             }
             
             $corpo = new CorporationModel(NULL, $corporationName);
-
             $success = $corpo->save();
+            
             if($success == true){
                 header('Location: index.php?controller=corporation&action=readAll&creation=true');
                 exit;
