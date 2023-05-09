@@ -3,6 +3,7 @@
 	require_once File::build_path(array('Controller', 'CorporationController.php'));
 	require_once File::build_path(array('Controller', 'ErrorController.php'));
 	require_once File::build_path(array('Controller', 'PlayerController.php'));
+	require_once File::build_path(array('Controller', 'ExtensionController.php'));
 	
 	//verifie que $controller est pas nul
 	if(!isset($_GET['controller'])){

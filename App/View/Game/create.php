@@ -17,7 +17,14 @@
         <label for="number_generation">Nombre de générations: </label>
         <input type="number" name="number_generation" id="number_generation" step="1" required/>
     </p>
+    <p>
+      <label for="extensions_used">Extensions utilisées: </label>
+      <select multiple name="extensions_used[]" id="extensions_used">
+        <!-- foreach php pour faire les options-->
+    <p>
       <input type="submit" value="Suivant"/>
     </p>
   </fieldset> 
 </form>	
+
+
