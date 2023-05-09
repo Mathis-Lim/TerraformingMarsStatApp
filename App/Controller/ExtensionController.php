@@ -38,7 +38,7 @@
                 exit;
             }
             
-            $extension = new ExtensionModel(NULL, $extensionnName);
+            $extension = new ExtensionModel(NULL, $extensionName);
             $success = $extension->save();
             
             if($success == true){
