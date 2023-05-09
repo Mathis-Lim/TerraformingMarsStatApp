@@ -31,7 +31,7 @@
         public static function created(){
 
             if(isset($_GET['extension_name'])){
-                $extension= $_GET['extension_name'];
+                $extensionName= $_GET['extension_name'];
             }
             else{
                 ErrorController::retrieveFormData();
