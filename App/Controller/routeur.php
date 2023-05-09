@@ -6,7 +6,7 @@
 	
 	//verifie que $controller est pas nul
 	if(!isset($_GET['controller'])){
-		$controller = 'error';
+		$controller = 'game';
 	}
 	else{
 		$controller = $_GET['controller'];
@@ -20,8 +20,7 @@
 
 	//verifie que $action n'est pas null
 	if (!isset($_GET['action'])){
-		$action = "url";
-		$nom_controller = 'ErrorController';
+		$action = "home";
 	}
 	else {
 		$action = $_GET['action'];
