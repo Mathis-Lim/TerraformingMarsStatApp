@@ -45,4 +45,21 @@
             return $res;
         }
 
+        public static function getExtensionId($name){
+            $sql = ConnectionModel::getPDO()->query("SELECT extensionId FROM Extensions WHERE extensionName=:extension_name");
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("extension_name" = > $name));
+
+            try{
+                $req_prep->execute($values);
+                $req_prep->setFetchMode(PDO::FETCH_OBJ);
+                $result = $req_prep->fetchAll();
+                $extensionId = $result[0]->extensionId;
+                return $extensionId;
+            }
+            catch(PDOException $e){
+                return -1;
+            }
+        }
+        
     }
