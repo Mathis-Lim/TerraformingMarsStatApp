@@ -28,7 +28,7 @@
         public function save(){
             $sql = "INSERT INTO Extensions(extensionName) VALUES (:extension_name)";
             $req_prep = ConnectionModel::getPDO()->prepare($sql);
-            $values = array("extension_name" => $this->extensionnName,);
+            $values = array("extension_name" => $this->extensionName,);
 
             try{
                 $req_prep->execute($values);
