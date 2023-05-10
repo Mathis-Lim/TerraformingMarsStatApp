@@ -5,7 +5,7 @@
     <input type='hidden' name='action' value='created'>
     <p>
         <label for="number_player">Nombre de joueurs: </label>
-        <select id="number_player" name="number_player">
+        <select id="number_player" name="number_player" required>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -19,7 +19,7 @@
     </p>
     <p>
       <label for="extensions_used">Extensions utilisées: </label>
-      <select multiple name="extensions_used[]" id="extensions_used">
+      <select multiple name="extensions_used[]" id="extensions_used" required>
         <?php
           foreach($extensionArray as $extension){
             echo('<option value="' .  $extension->getId() . '">' . $extension->getName() . '</option>');
