@@ -135,7 +135,7 @@
         }
 
         public static function getRecordWinner(){
-            $sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, winner FROM Games GROUP BY winner) as subquery;"
+            $sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, winner FROM Games GROUP BY winner) as subquery";
             $res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
