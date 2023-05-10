@@ -1,8 +1,6 @@
 <form method="post" action="index.php?controller=game&action=created">
   <fieldset>
     <legend>Enregistrer une partie:</legend>
-    <!--<input type='hidden' name='controller' value='game'>
-    <input type='hidden' name='action' value='created'>-->
     <p>
         <label for="number_player">Nombre de joueurs: </label>
         <select id="number_player" name="number_player" required>
