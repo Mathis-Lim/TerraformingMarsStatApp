@@ -113,9 +113,6 @@
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
             $nb = $result[0]->{'COUNT(*)'};
-            var_dump($nb);
-            var_dump($result);
-            var_dump($result[0]);
             return $nb;
         }
 
