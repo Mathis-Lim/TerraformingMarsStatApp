@@ -57,7 +57,22 @@
             } catch(PDOExeception $e){
                 return false;
             }
+        }
 
+        public function linkToExtension($extensionId){
+            $sql = "INSERT INTO ExtensionUsed(gameId, extensionId) VALUES (:game_id, :extension_id)";
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array(
+                "game_id" => $this->gameId,
+                "extension_id" => $extensionId,
+            );
+
+            try{
+                $req_prep->execute($values);
+                return true;
+            } catch(PDOExeception $e){
+                return false;
+            }
         }
 
     }

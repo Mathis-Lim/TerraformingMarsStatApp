@@ -1,4 +1,4 @@
-<form method="get" action="index.php">
+<form method="post" action="index.php">
   <fieldset>
     <legend>Enregistrer une partie:</legend>
     <input type='hidden' name='controller' value='game'>
@@ -20,7 +20,6 @@
     <p>
       <label for="extensions_used">Extensions utilisées: </label>
       <select multiple name="extensions_used[]" id="extensions_used">
-        <!-- foreach php pour faire les options-->
         <?php
           foreach($extensionArray as $extension){
             echo('<option value="' .  $extension->getId() . '">' . $extension->getName() . '</option>');

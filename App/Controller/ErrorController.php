@@ -47,4 +47,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function linkGameToExtension(){
+            $errorMessage = "Une erreur est survenue lors de la sélection des extensions pour la partie";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

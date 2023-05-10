@@ -26,9 +26,10 @@
         }
 
         public static function created(){
-            if(isset($_GET['number_player']) && isset($_GET['number_generation'])){
-                $nbPlayer = $_GET['number_player'];
-                $nbGen = $_GET['number_generation'];
+            if(isset($_POST['number_player']) && isset($_POST['number_generation']) && isset($_POST['extensions_used'])){
+                $nbPlayer = $_POST['number_player'];
+                $nbGen = $_POST['number_generation'];
+                $selectedExtensions = $_POST['extensions_used'];
             }
             else{
                 ErrorController::retrieveFormData();
@@ -36,9 +37,17 @@
             }
 
             $game = new GameModel(NULL, $nbPlayer, $nbGen, NULL);
-            $success = $game->save();
+            $gameSuccess = $game->save();
 
-            if($success == true){
+            foreach ($selectedExtensions as $extensionId) {
+                $linkSuccess = $game->linkToExtension($extensionId);
+                if($linkSuccess != true){
+                    ErrorController::linkGameToExtension();
+                    exit;
+                }
+            }    
+
+            if($gamesuccess == true){
                 echo 'chouette';
             }
             else{
