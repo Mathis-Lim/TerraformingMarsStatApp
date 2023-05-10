@@ -36,6 +36,8 @@
                 exit;
             }
 
+            var_dump($selectedExtensions);
+
             $game = new GameModel(NULL, $nbPlayer, $nbGen, NULL);
             $gameSuccess = $game->save();
 
