@@ -24,8 +24,9 @@
           foreach($extensionArray as $extension){
             echo('<option value="' .  $extension->getId() . '">' . $extension->getName() . '</option>');
           }
-         ?>
-        </select>  
+        ?>
+      </select>
+    </p>      
     <p>
       <input type="submit" value="Suivant"/>
     </p>
