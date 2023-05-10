@@ -79,6 +79,10 @@
             $game = new GameModel(NULL, $nbPlayer, $nbGen, NULL);
             $gameSuccess = $game->save();
             $id = GameModel::getLastCreatedId();
+            if(!isset($id)){
+                ErrorController::getLastCreatedGameId();
+                exit;
+            }
             $game->setId($id);
 
             foreach ($selectedExtensions as $extensionId) {
