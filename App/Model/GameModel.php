@@ -112,7 +112,7 @@
             $res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
-            $nb = $result[0]->{0}->{'COUNT(*)'};
+            $nb = $result[0]->{'COUNT(*)'};
             vardump($nb);
             vardump($result);
             vardump($result[0]);
