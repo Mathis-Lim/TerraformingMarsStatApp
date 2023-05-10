@@ -47,6 +47,12 @@
                 exit;
             }
 
+            $recordWinner = GameModel::getRecordWinner();
+            if(!isset($recordWinner)){
+                ErrorController::getRecordWinner();
+                exit;
+            }
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";

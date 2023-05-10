@@ -126,12 +126,35 @@
         }
 
         public static function getAverageGenerationNumber(){
-            $sql = " SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games;";
+            $sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games;";
             $res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
             $nb = $result[0]->{'avg'};
             return $nb;
+        }
+
+        public static function getRecordWinner(){
+            $sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, winner FROM Games GROUP BY winner) as subquery;"
+            $res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $max = $result[0]->{'MAX(nb)'};
+
+            $sql = "SELECT playerName FROM Players JOIN Games 
+			ON Players.playerId = Games.winner 
+			WHERE playerId IN 
+				(SELECT winner FROM (SELECT COUNT(gameId) as nb, winner FROM Games GROUP BY winner)
+			as subquery WHERE nb = " .$max .")";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+			$playerName = $result[0]->{'playerName'};
+
+			return array(
+				"player" => $playerName,
+				"number" => $max,
+			);
         }
 
     }
