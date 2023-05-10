@@ -6,8 +6,8 @@
 <b><a href = "index.php?controller=Game&action=create">Enregistrer une partie</a></b>
 <br><br><br>
 <ul>
-    <?php
+    <?php/*
         echo('<li>Nombre de parties jouées: ' . $nbGames .'</li>');
 
-    ?>
+    */?>
 </ul>
