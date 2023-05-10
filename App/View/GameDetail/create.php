@@ -1,4 +1,4 @@
-<form method="post" action="index.php?controller=game&action=created">
+<form method="post" action="index.php?controller=GameDetail&action=gameDetailsSet">
   <fieldset>
     <legend>Enregistrer une partie:</legend>
     <input type='hidden' name='game_id' value='<?php echo($gameId); ?>'>
