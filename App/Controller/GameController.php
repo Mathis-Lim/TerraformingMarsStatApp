@@ -1,15 +1,22 @@
 <?php
 	require_once File::build_path(array('Model', 'GameModel.php'));
+    require_once File::build_path(array('Model', 'ExtensionModel.php'));
     require_once File::build_path(array('Controller', 'ErrorController.php'));
 
 	class GameController{
 
         public static function home(){
-            $someVar = "abcd";
-            $controller = "Game";
-            $view = "home";
-            $pageTitle = "Accueil";
-            require File::build_path(array('View', 'BaseView.php'));
+            $extensionArray = ExtensionModel::readAll();
+            if(!isset($extensionArray)){
+                ErrorController::readAllExtensions();
+                exit;
+            }
+            else{
+                $controller = "Game";
+                $view = "home";
+                $pageTitle = "Accueil";
+                require File::build_path(array('View', 'BaseView.php'));
+            }
         }
 
         public static function create(){

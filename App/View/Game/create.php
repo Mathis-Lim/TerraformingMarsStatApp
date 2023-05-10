@@ -21,6 +21,12 @@
       <label for="extensions_used">Extensions utilisées: </label>
       <select multiple name="extensions_used[]" id="extensions_used">
         <!-- foreach php pour faire les options-->
+        <?php
+          foreach($extensionArray as $extension){
+            echo('<option value="' .  $extension->getId() . '">' . $extension->getName() . '</option>');
+          }
+         ?>
+        </select>  
     <p>
       <input type="submit" value="Suivant"/>
     </p>

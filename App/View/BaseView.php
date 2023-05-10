@@ -15,6 +15,7 @@
     <header>
         <h1>Menu</h1>
         <menu>
+            <li><a href = "index.php?controller=Game&action=home">Accueil</a></li>
             <li><a href = "index.php?controller=Corporation&action=readAll">Corporations</a></li>
             <li><a href = "index.php?controller=Player&action=readAll">Joueurs</a></li>
             <li><a href = "index.php?controller=Extension&action=readAll">Extensions</a></li>
