@@ -23,6 +23,18 @@
                 exit;
             }
 
+            $nbPoints = GameDetailModel::getTotalPoints();
+            if(!isset($nbPoints)){
+                ErrorController::getTotalPoints();
+                exit;
+            }
+
+            $avgPoints = GameDetailModel::getAveragePoints();
+            if(!$isset($avgPoints)){
+                ErrorController::getAveragePoints();
+                exit;
+            }
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";

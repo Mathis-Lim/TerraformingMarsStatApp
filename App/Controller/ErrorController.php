@@ -67,4 +67,14 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getTotalPoints(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre total de points marqués";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getAveragePoints(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre de points marqués en moyenne";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

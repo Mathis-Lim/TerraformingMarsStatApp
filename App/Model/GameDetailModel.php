@@ -101,6 +101,22 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             }
         }
 
-	
+		public static function getTotalPoints(){
+			$sql = "SELECT SUM(score) FROM GameDetails";
+            $res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $nb = $result[0]->{'SUM(score)'};
+            return $nb;
+		}
+
+		public static function getAveragePoints(){
+			$sql = "SELECT AVG(score) FROM GameDetails";
+            $res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $nb = $result[0]->{'AVG(score)'};
+            return $nb;
+		}
 
     }
