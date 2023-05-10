@@ -36,10 +36,10 @@
                 exit;
             }
 
-            var_dump($selectedExtensions);
-
             $game = new GameModel(NULL, $nbPlayer, $nbGen, NULL);
             $gameSuccess = $game->save();
+            $id = GameModel::getLastCreatedId();
+            $game->setIt($id);
 
             foreach ($selectedExtensions as $extensionId) {
                 $linkSuccess = $game->linkToExtension($extensionId);

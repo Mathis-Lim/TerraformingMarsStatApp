@@ -25,6 +25,10 @@
             return $this->winner;
         }
 
+        public function setId($id){
+            $this->gameId = $id;
+        }
+
         public function setWinner($winner){
             $this->winner = $winner;
         }
@@ -59,7 +63,19 @@
             }
         }
 
+        public static function getLastCreatedId(){
+            $innerSQL = "(SELECT MAX(gameId) FROM Games;)";
+            $sql = "SELECT gameId FROM Games WHERE gamedId=" . $innerSQL;
+            $res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $id = $result[0]->extensionId;
+            return $id;
+        }
+
         public function linkToExtension($extensionId){
+            echo("extid:" . $extensionId);
+            echo("gameid:" . $this->gameId);
             $sql = "INSERT INTO ExtensionUsed(gameId, extensionId) VALUES (:game_id, :extension_id)";
             $req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array(
