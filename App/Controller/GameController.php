@@ -40,6 +40,7 @@
             $gameSuccess = $game->save();
             $id = GameModel::getLastCreatedId();
             $game->setId($id);
+            var_dump($game, $id);
 
             foreach ($selectedExtensions as $extensionId) {
                 $linkSuccess = $game->linkToExtension($extensionId);
