@@ -8,6 +8,6 @@
 <ul>
     <?php
         echo('<li>Nombre de parties jouées: ' . $nbGames .'</li>');
-
+        echo('<li>Nombre de générations jouées: ' . $nbGenerations .'</li>');
     ?>
 </ul>
