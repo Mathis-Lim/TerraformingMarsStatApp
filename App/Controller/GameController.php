@@ -17,6 +17,12 @@
                 exit; 
             }
 
+            $nbGenerations = GameModel::getNumberOfGenerationsPlayed();
+            if(!isset($nbGenerations)){
+                ErrorController::getNumberOfGenerationsPlayed();
+                exit;
+            }
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";

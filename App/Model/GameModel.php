@@ -116,5 +116,14 @@
             return $nb;
         }
 
+        public static function getNumberOfGenerationsPlayed(){
+            $sql = "SELECT SUM(numberOfGenerations) FROM Games";
+            $res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $nb = $result[0]->{'SUM(numberOfGenerations)'};
+            return $nb;
+        }
+
 
     }

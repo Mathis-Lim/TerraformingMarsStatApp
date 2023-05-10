@@ -58,7 +58,12 @@
         }
 
         public static function getNumberOfGamesPlayed(){
-            $errorMessage = "Une erreur est survenue lors de la récupération du nombre de parties joués";
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre de parties jouées";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getNumberOfGenerationsPlayed(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre de générations jouées";
             require File::build_path(array("View", "ErrorView.php"));
         }
 
