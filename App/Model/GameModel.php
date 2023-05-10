@@ -125,4 +125,13 @@
             return $nb;
         }
 
+        public static function getAverageGenerationNumber(){
+            $sql = " SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games;";
+            $res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $nb = $result[0]->{'avg'};
+            return $nb;
+        }
+
     }

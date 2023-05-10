@@ -77,4 +77,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getAverageGenerationNumber(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre moyen de génération par parties";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

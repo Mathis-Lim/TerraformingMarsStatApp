@@ -35,6 +35,12 @@
                 exit;
             }
 
+            $avgGen = GameModel::getAverageGenerationNumber();
+            if(!isset($avgGen)){
+                ErrorController::getAverageGenerationNumber();
+                exit;
+            }
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
