@@ -16,7 +16,7 @@
                 ErrorController::getNumberOfGamesPlayed();
                 exit; 
             }
-            
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
@@ -29,7 +29,7 @@
                 ErrorController::readAllExtensions();
                 exit;
             }
-            $pageTitle = "Enregistrer une partie"
+            $pageTitle = "Enregistrer une partie";
             $controller = "Game";
             $view = "create";
             require File::build_path(array('View', 'BaseView.php'));
