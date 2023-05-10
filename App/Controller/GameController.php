@@ -39,7 +39,7 @@
             $game = new GameModel(NULL, $nbPlayer, $nbGen, NULL);
             $gameSuccess = $game->save();
             $id = GameModel::getLastCreatedId();
-            $game->setIt($id);
+            $game->setId($id);
 
             foreach ($selectedExtensions as $extensionId) {
                 $linkSuccess = $game->linkToExtension($extensionId);
