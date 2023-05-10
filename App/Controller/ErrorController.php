@@ -82,4 +82,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getMostPlayed(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du joueur avec le plus de parties";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

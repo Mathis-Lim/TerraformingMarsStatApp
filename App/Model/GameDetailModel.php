@@ -111,12 +111,35 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getAveragePoints(){
-			$sql = " SELECT ROUND(AVG(score), 2) as avg FROM GameDetails;";
+			$sql = "SELECT ROUND(AVG(score), 2) as avg FROM GameDetails;";
             $res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
             $nb = $result[0]->{'avg'};
             return $nb;
+		}
+
+		public static function getMostPlayed(){
+			$sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $max = $result[0]->{'MAX(nb)'};
+
+			$sql = "SELECT playerName FROM Players JOIN GameDetails 
+			ON Players.playerId = GameDetails.playerId 
+			WHERE Players.playerId IN 
+				(SELECT playerId FROM (SELECT COUNT(gameId) as nb, playerId FROM GameDetails GROUP BY playerId)
+			as subquery WHERE nb = " .$max .")";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+			$playerName = $result[0]->{'playerName'};
+
+			return array(
+				"player" => $playerName,
+				"number" => $max,
+			);
 		}
 
     }

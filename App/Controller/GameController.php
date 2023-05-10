@@ -41,6 +41,12 @@
                 exit;
             }
 
+            $mostPlayed = GameDetailModel::getMostPlayed();
+            if(!isset($mostPlayed)){
+                ErrorController:getMostPlayed();
+                exit;
+            }
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
