@@ -97,4 +97,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getRecordPoints(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du record de points";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

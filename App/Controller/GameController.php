@@ -53,6 +53,12 @@
                 exit;
             }
 
+            $recordPoints = GameDetailModel::getRecordPoints();
+            if(!isset($recordPoints)){
+                ErrorController::getRecordPoints();
+                exit;
+            }
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";

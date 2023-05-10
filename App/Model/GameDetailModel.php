@@ -142,4 +142,27 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			);
 		}
 
+		public static function getRecordPoints(){
+			$sql = "SELECT MAX(nb) FROM (SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $max = $result[0]->{'MAX(nb)'};
+
+			$sql = "SELECT playerName FROM Players JOIN GameDetails 
+			ON Players.playerId = GameDetails.playerId  
+			WHERE Players.playerId IN 
+				(SELECT playerId FROM (SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId)
+			as subquery WHERE nb = " .$max .")";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+			$playerName = $result[0]->{'playerName'};
+
+			return array(
+				"player" => $playerName,
+				"number" => $max,
+			);
+		}
+
     }

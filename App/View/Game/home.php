@@ -17,9 +17,12 @@
         echo('<li>Joueur ayant gagné le plus de parties: ' . $recordWinner['player'] . ', ' . 
             $recordWinner['number'] . ' parties gagnées</li>');
 
-
+        echo('<li>Joueur ayant marqué le plus de points: ' . $recordPoints['player'] . ', ' . 
+            $recordPoints['number'] . ' points marqués</li>');
 
 
             
     ?>
 </ul>
+
+
