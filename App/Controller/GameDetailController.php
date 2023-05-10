@@ -37,7 +37,7 @@
                     $game->setWinner($playerId);
                 }
 
-                $gameDetail = new GameDetail($gameId, $playerId, $chosenCorporation, $rejectedCorporation, $rank,
+                $gameDetail = new GameDetailMoodel($gameId, $playerId, $chosenCorporation, $rejectedCorporation, $rank,
                     $trScore, $boardScore, $cardScore, $goalScore, $awardScore);
                 $success = $gameDetail->save();    
                 if($success == FALSE){
