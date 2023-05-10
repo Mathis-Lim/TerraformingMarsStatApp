@@ -111,11 +111,11 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getAveragePoints(){
-			$sql = "SELECT AVG(score) FROM GameDetails";
+			$sql = " SELECT ROUND(AVG(score), 2) as avg FROM GameDetails;";
             $res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
-            $nb = $result[0]->{'AVG(score)'};
+            $nb = $result[0]->{'avg'};
             return $nb;
 		}
 
