@@ -14,6 +14,62 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 	    private $cardScore;
 	    private $goalScore;
 	    private $awardScore;
-	    private $score;
+
+		public function __construct($gameId, $playerId, $chosenCorporation, $rejectedCorporation, $rank,
+			$trScore, $boardScore, $cardScore, $goalScore, $awardScore) {
+				
+			$this->gameId = $gameId;
+			$this->playerId = $playerId;
+			$this->chosenCorporation = $chosenCorporation;
+			$this->rejectedCorporation = $rejectedCorporation;
+			$this->rank = $rank;
+			$this->trScore = $trScore;
+			$this->boardScore = $boardScore;
+			$this->cardScore = $cardScore;
+			$this->goalScore = $goalScore;
+			$this->awardScore = $awardScore;
+		}
+
+		public function getGameId() {
+			return $this->gameId;
+		}
+	
+		public function getPlayerId() {
+			return $this->playerId;
+		}
+	
+		public function getChosenCorporation() {
+			return $this->chosenCorporation;
+		}
+	
+		public function getRejectedCorporation() {
+			return $this->rejectedCorporation;
+		}
+	
+		public function getRank() {
+			return $this->rank;
+		}
+	
+		public function getTrScore() {
+			return $this->trScore;
+		}
+	
+		public function getBoardScore() {
+			return $this->boardScore;
+		}
+	
+		public function getCardScore() {
+			return $this->cardScore;
+		}
+	
+		public function getGoalScore() {
+			return $this->goalScore;
+		}
+	
+		public function getAwardScore() {
+			return $this->awardScore;
+		}
+
+	
 
     }
