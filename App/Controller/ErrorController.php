@@ -92,7 +92,7 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
         
-        public static function public static function getRecordWinner(){
+        public static function getRecordWinner(){
             $errorMessage = "Une erreur est survenue lors de la récupération du record de victoires";
             require File::build_path(array("View", "ErrorView.php"));
         }
