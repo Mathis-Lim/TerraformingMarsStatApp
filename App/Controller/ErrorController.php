@@ -88,7 +88,7 @@
         }
 
         public static function getLastCreatedGameId(){
-            $errorMessage = "Une erreur est survenue lors de la récupération de la dernière partie crééee";
+            $errorMessage = "Une erreur est survenue lors de la récupération de la dernière partie créee";
             require File::build_path(array("View", "ErrorView.php"));
         }
 
