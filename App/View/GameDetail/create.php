@@ -44,7 +44,7 @@
             echo('<input type="number" name="goal_score_' . $i . '" id="goal_score_' . $i . '" step="1" required/>');
 
             echo('<label for="award_score_' . $i. '">Points de récompenses </label>');
-            echo('<input type="number" name="award__score_' . $i . '" id="award__score_' . $i . '" step="1" required/></p>');
+            echo('<input type="number" name="award_score_' . $i . '" id="award_score_' . $i . '" step="1" required/></p>');
         }
     ?>
     <input type="submit" value="Enregistrer"/>
