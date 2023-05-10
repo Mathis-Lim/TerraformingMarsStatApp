@@ -113,7 +113,7 @@
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
             $nb = $result[0]->{0};
-            var_dump($nb);
+            var_dump($result);
             return $nb;
         }
 
