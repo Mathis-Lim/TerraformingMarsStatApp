@@ -12,12 +12,13 @@
                 ErrorController::readAllExtensions();
                 exit;
             }
-            else{
-                $controller = "Game";
-                $view = "home";
-                $pageTitle = "Accueil";
-                require File::build_path(array('View', 'BaseView.php'));
+            if(isset($_GET['creation'])){
+                $creation = true;
             }
+            $controller = "Game";
+            $view = "home";
+            $pageTitle = "Accueil";
+            require File::build_path(array('View', 'BaseView.php'));
         }
 
         public static function create(){

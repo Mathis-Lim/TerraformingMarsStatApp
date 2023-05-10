@@ -45,6 +45,9 @@
                 $this->numberOfPlayers = $nbPlayer;
                 $this->numberOfGenerations = $nbGen;
             }
+            elseif(!is_null($id)){
+                $this->gameId = $id;
+            }
         }
 
         public function save(){
@@ -78,6 +81,22 @@
             $values = array(
                 "game_id" => $this->gameId,
                 "extension_id" => $extensionId,
+            );
+
+            try{
+                $req_prep->execute($values);
+                return true;
+            } catch(PDOExeception $e){
+                return false;
+            }
+        }
+
+        public function saveWinner(){
+            $sql = "UPDATE Games SET winner = :winner WHERE gameId = :game_id";
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array(
+                "game_id" => $this->gameId,
+                "winner" => $this->winner,
             );
 
             try{

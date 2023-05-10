@@ -14,6 +14,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 	    private $cardScore;
 	    private $goalScore;
 	    private $awardScore;
+		private $score;
 
 		public function __construct($gameId, $playerId, $chosenCorporation, $rejectedCorporation, $rank,
 			$trScore, $boardScore, $cardScore, $goalScore, $awardScore) {
@@ -28,6 +29,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$this->cardScore = $cardScore;
 			$this->goalScore = $goalScore;
 			$this->awardScore = $awardScore;
+			$this->score = $trScore + $boardScore + $cardScore +$goalScore + $awardScore;
 		}
 
 		public function getGameId() {
@@ -72,9 +74,9 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public function save() {
             $sql = "INSERT INTO GameDetails (gameId, playerId, chosenCorporation, rejectedCorporation, rank, 
-                trScore, boardScore, cardScore, goalScore, awardScore) 
+                trScore, boardScore, cardScore, goalScore, awardScore, score) 
                 VALUES (:gameId, :playerId, :chosenCorporation, :rejectedCorporation, :rank, 
-                :trScore, :boardScore, :cardScore, :goalScore, :awardScore)";
+                :trScore, :boardScore, :cardScore, :goalScore, :awardScore, :score)";
 
             $req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array(
@@ -88,6 +90,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
                 "cardScore" => $this->cardScore,
                 "goalScore" => $this->goalScore,
                 "awardScore" => $this->awardScore,
+				"score" => $this->score,
             );
     
             try {
