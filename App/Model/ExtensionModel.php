@@ -48,7 +48,7 @@
         public static function getExtensionId($name){
             $sql = ConnectionModel::getPDO()->query("SELECT extensionId FROM Extensions WHERE extensionName=:extension_name");
             $req_prep = ConnectionModel::getPDO()->prepare($sql);
-            $values = array("extension_name" = > $name));
+            $values = array("extension_name" = > $name);
 
             try{
                 $req_prep->execute($values);
