@@ -26,6 +26,7 @@
         }
 
         public static function created(){
+            console.log('?');
             echo('breakpoint1');
             if(isset($_POST['number_player']) && isset($_POST['number_generation']) && isset($_POST['extensions_used'])){
                 $nbPlayer = $_POST['number_player'];
