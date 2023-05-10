@@ -30,7 +30,7 @@
             }
 
             $avgPoints = GameDetailModel::getAveragePoints();
-            if(!$isset($avgPoints)){
+            if(!isset($avgPoints)){
                 ErrorController::getAveragePoints();
                 exit;
             }
