@@ -17,7 +17,7 @@
             require File::build_path(array('View', 'BaseView.php'));
         }
 
-        public static function gameDetailsSet()
+        public static function gameDetailsSet(){
             $nbPlayer = $_POST['player_number'];
             $gameId = $_POST['game_id'];
             $game = new GameModel($gameId, NULL, NULL, NULL);
@@ -55,16 +55,6 @@
                 ErrorController::setGameDetails();
                     exit;
             }
-    }
+        }
+    }    
 
-    $this->gameId = $gameId;
-			$this->playerId = $playerId;
-			$this->chosenCorporation = $chosenCorporation;
-			$this->rejectedCorporation = $rejectedCorporation;
-			$this->rank = $rank;
-			$this->trScore = $trScore;
-			$this->boardScore = $boardScore;
-			$this->cardScore = $cardScore;
-			$this->goalScore = $goalScore;
-			$this->awardScore = $awardScore;
-			$this->score = $trScore + $boardScore + $cardScore +$goalScore + $awardScore;
