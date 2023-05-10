@@ -68,7 +68,7 @@
             $res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
-            $id = $result[0]->extensionId;
+            $id = $result[0]->gameId;
             return $id;
         }
 
