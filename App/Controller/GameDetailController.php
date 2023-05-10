@@ -10,7 +10,7 @@
         public static function setGameDetails($gameId, $nbPlayer){
 
             $playerArray = PlayerModel::readAll();
-            $corporationArray = CorporationMode::readAll();
+            $corporationArray = CorporationModel::readAll();
             $controller = "GameDetail";
             $view = "create";
             $pageTitle = "Enregistrer une partie";
