@@ -90,32 +90,4 @@
             }
         }
 
-        public function save() {
-            $sql = "INSERT INTO GameDetails (gameId, playerId, chosenCorporation, rejectedCorporation, rank, 
-                trScore, boardScore, cardScore, goalScore, awardScore) 
-                VALUES (:gameId, :playerId, :chosenCorporation, :rejectedCorporation, :rank, 
-                :trScore, :boardScore, :cardScore, :goalScore, :awardScore)";
-
-            $req_prep = ConnectionModel::getPDO()->prepare($sql);
-            $values = array(
-                "gameId" => $this->gameId,
-                "playerId" => $this->playerId,
-                "chosenCorporation" => $this->chosenCorporation,
-                "rejectedCorporation" => $this->rejectedCorporation,
-                "rank" => $this->rank,
-                "trScore" => $this->trScore,
-                "boardScore" => $this->boardScore,
-                "cardScore" => $this->cardScore,
-                "goalScore" => $this->goalScore,
-                "awardScore" => $this->awardScore,
-            );
-    
-            try {
-                $req_prep->execute($values);
-                return true;
-            } catch(PDOException $e) {
-                return false;
-            }
-        }
-
     }

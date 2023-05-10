@@ -2,6 +2,7 @@
 	require_once File::build_path(array('Model', 'GameModel.php'));
     require_once File::build_path(array('Model', 'ExtensionModel.php'));
     require_once File::build_path(array('Controller', 'ErrorController.php'));
+    require_once File::build_path(array('Controller', 'GameDetailController.php'));
 
 	class GameController{
 
@@ -51,7 +52,7 @@
             }    
 
             if($gameSuccess == true){
-                echo 'chouette';
+                GameDetailController::setGameDetails($id, $nbPlayer);
             }
             else{
                 ErrorController::createGame();

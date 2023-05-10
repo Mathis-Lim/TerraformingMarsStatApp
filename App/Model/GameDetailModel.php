@@ -17,7 +17,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public function __construct($gameId, $playerId, $chosenCorporation, $rejectedCorporation, $rank,
 			$trScore, $boardScore, $cardScore, $goalScore, $awardScore) {
-				
+
 			$this->gameId = $gameId;
 			$this->playerId = $playerId;
 			$this->chosenCorporation = $chosenCorporation;
@@ -69,6 +69,34 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		public function getAwardScore() {
 			return $this->awardScore;
 		}
+
+		public function save() {
+            $sql = "INSERT INTO GameDetails (gameId, playerId, chosenCorporation, rejectedCorporation, rank, 
+                trScore, boardScore, cardScore, goalScore, awardScore) 
+                VALUES (:gameId, :playerId, :chosenCorporation, :rejectedCorporation, :rank, 
+                :trScore, :boardScore, :cardScore, :goalScore, :awardScore)";
+
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array(
+                "gameId" => $this->gameId,
+                "playerId" => $this->playerId,
+                "chosenCorporation" => $this->chosenCorporation,
+                "rejectedCorporation" => $this->rejectedCorporation,
+                "rank" => $this->rank,
+                "trScore" => $this->trScore,
+                "boardScore" => $this->boardScore,
+                "cardScore" => $this->cardScore,
+                "goalScore" => $this->goalScore,
+                "awardScore" => $this->awardScore,
+            );
+    
+            try {
+                $req_prep->execute($values);
+                return true;
+            } catch(PDOException $e) {
+                return false;
+            }
+        }
 
 	
 
