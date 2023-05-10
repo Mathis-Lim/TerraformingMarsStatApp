@@ -7,7 +7,7 @@
 
     class GameDetailController{
 
-        public static function setGameDetail($gameId, $nbPlayer){
+        public static function setGameDetails($gameId, $nbPlayer){
 
             $playerArray = PlayerModel::readAll();
             $corporationArray = CorporationMode::readAll();

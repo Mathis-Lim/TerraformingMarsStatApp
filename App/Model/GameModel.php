@@ -73,8 +73,6 @@
         }
 
         public function linkToExtension($extensionId){
-            echo("extid:" . $extensionId);
-            echo("gameid:" . $this->gameId);
             $sql = "INSERT INTO ExtensionUsed(gameId, extensionId) VALUES (:game_id, :extension_id)";
             $req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array(
