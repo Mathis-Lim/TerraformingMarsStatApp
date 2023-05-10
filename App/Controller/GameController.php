@@ -50,13 +50,12 @@
                 }
             }    
 
-            if($gamesuccess == true){
+            if($gameSuccess == true){
                 echo 'chouette';
             }
             else{
                 ErrorController::createGame();
                 exit;
             }
-
         }
     }
