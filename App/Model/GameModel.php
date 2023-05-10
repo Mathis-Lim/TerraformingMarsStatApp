@@ -71,7 +71,7 @@
             $res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
-            $id = $result[0]->{'MAX(gameId)'};
+            $nb = $result[0]->{'COUNT(*)'};
             return $id;
         }
 
