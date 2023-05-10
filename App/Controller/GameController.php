@@ -7,14 +7,16 @@
 	class GameController{
 
         public static function home(){
-            $extensionArray = ExtensionModel::readAll();
-            if(!isset($extensionArray)){
-                ErrorController::readAllExtensions();
-                exit;
-            }
             if(isset($_GET['creation'])){
                 $creation = true;
             }
+
+            $nbGames = GameModel::getNumberOfGamesPlayed();
+            if(!isset($nbGames)){
+                ErrorController::getNumberOfGamesPlayed();
+                exit; 
+            }
+            
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
@@ -22,6 +24,12 @@
         }
 
         public static function create(){
+            $extensionArray = ExtensionModel::readAll();
+            if(!isset($extensionArray)){
+                ErrorController::readAllExtensions();
+                exit;
+            }
+            $pageTitle = "Enregistrer une partie"
             $controller = "Game";
             $view = "create";
             require File::build_path(array('View', 'BaseView.php'));

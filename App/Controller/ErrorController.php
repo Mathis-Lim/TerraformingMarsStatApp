@@ -57,4 +57,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getNumberOfGamesPlayed(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre de parties joués";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

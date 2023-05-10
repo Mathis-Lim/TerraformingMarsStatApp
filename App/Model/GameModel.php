@@ -107,4 +107,14 @@
             }
         }
 
+        public static function getNumberOfGamesPlayed(){
+            $sql = "SELECT COUNT(*) FROM Games";
+            $res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $nb = $result[0]->{0};
+            return $nb;
+        }
+
+
     }
