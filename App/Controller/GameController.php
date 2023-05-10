@@ -11,11 +11,11 @@
                 $creation = true;
             }
 
-            /*$nbGames = GameModel::getNumberOfGamesPlayed();
+            $nbGames = GameModel::getNumberOfGamesPlayed();
             if(!isset($nbGames)){
                 ErrorController::getNumberOfGamesPlayed();
                 exit; 
-            }*/
+            }
 
             $controller = "Game";
             $view = "home";
