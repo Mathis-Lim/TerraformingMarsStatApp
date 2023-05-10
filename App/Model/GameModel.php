@@ -64,8 +64,7 @@
         }
 
         public static function getLastCreatedId(){
-            $innerSQL = "(SELECT MAX(gameId) FROM Games;)";
-            $sql = "SELECT gameId FROM Games WHERE gamedId=" . $innerSQL;
+            $sql = "SELECT MAX(gameId) FROM Games";
             $res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
