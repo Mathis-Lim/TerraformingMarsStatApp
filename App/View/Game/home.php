@@ -16,10 +16,14 @@
             $mostPlayed['number'] . ' parties jouées</li>');
         echo('<li>Joueur ayant gagné le plus de parties: ' . $recordWinner['player'] . ', ' . 
             $recordWinner['number'] . ' parties gagnées</li>');
-
         echo('<li>Joueur ayant marqué le plus de points: ' . $recordPoints['player'] . ', ' . 
             $recordPoints['number'] . ' points marqués</li>');
-
+        echo('<li>Corporation la plus choisie: ' . $mostChosenCorp['name']) . ' ' .
+            round($mostChosenCorp['frequency'] * 100, 2) . '% sur ' .  $mostChosenCorp['total'] . ' parties</li>';
+        echo('<li>Corporation la moins choisie: ' . $leastChosenCorp['name']) . ' ' .
+            round($leastChosenCorp['frequency'] * 100, 2) . '% sur ' .  $leastChosenCorp['total'] . ' parties</li>';    
+           
+        
 
             
     ?>

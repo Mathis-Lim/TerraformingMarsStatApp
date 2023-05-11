@@ -59,6 +59,14 @@
                 exit;
             }
 
+            $corporationFrequencyRecords = GameDetailModel::getRecordChosenCorporation();
+            if(!isset($corporationFrequencyRecords)){
+                ErrorController::getRecordChosenCorporation();
+                exit;
+            }
+            $mostChosenCorp = $corporationFrequencyRecords['most'];
+            $leastChosenCorp = $corporationFrequencyRecords['least'];
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
