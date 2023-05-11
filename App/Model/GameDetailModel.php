@@ -286,7 +286,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $values = array("player_id" => $id,);
 			$req_prep->execute($values);
 			$req_prep->setFetchMode(PDO::FETCH_OBJ);
-			$result = $res->fetchAll();
+			$result = $req_prep->fetchAll();
 			$nb = $result[0]->{'nb'};
 		}
 
