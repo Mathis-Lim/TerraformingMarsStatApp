@@ -83,7 +83,7 @@
                 exit;
             }
 
-            $freqVictory = GameDetailMode::getFreqVictoryPlayer($playerId);
+            $freqVictory = GameDetailModel::getFreqVictoryPlayer($playerId);
             if(!isset($freqVictory)){
                 ErrorController::getFreqVictoryPlayer();
                 exit;
