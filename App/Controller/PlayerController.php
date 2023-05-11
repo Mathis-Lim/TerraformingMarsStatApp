@@ -65,7 +65,7 @@
             }
 
             $controller = "Player";
-            $view = "read";
+            $view = "detail";
             $pageTitle = $player->getName() . " - Détails";
             require File::build_path(array('View', 'BaseView.php'));
         }
