@@ -52,7 +52,7 @@
         }
 
         public static function read(){
-            if(!isset($_GET['player_id']){
+            if(!isset($_GET['player_id'])){
                 ErrorController::url();
                 exit;
             })
