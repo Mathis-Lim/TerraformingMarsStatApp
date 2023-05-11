@@ -1,5 +1,5 @@
 <?php
-    if(isset(creation)){
+    if(isset($creation)){
         echo('<i>La partie a bien été enregistrée</i><br><br>');
     }
 ?>
