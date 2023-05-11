@@ -51,4 +51,23 @@
             }
         }
 
+        public static function read(){
+            if(!isset($_GET['player_id']){
+                ErrorController::url();
+                exit;
+            })
+            $playerId = $_GET['player_id'];
+
+            $player = PlayerModel::getPlayerById($playerId);
+            if(!isset($player)){
+                ErrorController::getPlayer();
+                exit;
+            }
+
+            $controller = "Player";
+            $view = "read";
+            $pageTitle = $player->getName() . " - Détails";
+            require File::build_path(array('View', 'BaseView.php'));
+        }
+
     }

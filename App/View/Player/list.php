@@ -7,7 +7,8 @@
 <ul>
     <?php
         foreach($playerArray as $player){
-            echo('<li>' . $player->getName() . '</li>');
+            echo('<li><a href = "index.php?controller=Player&action=read&player_id=' . $player->getId() . '">'
+             . $player->getName() . '</a></li>');
         }
     ?>
 </ul>
