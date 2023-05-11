@@ -66,8 +66,14 @@
             }
 
             $nbGames = GameDetailModel::getNbGamePlayedPlayer($playerId);
-            if(!isset($player)){
+            if(!isset($nbGames)){
                 ErrorController::getNumberOfGamesPlayed();
+                exit;
+            }
+
+            $avgGen = GameDetailModel::getAvgGameTimePlayer($playerId);
+            if(!isset($avgGen)){
+                ErrorController::getAverageGenerationNumber();
                 exit;
             }
 

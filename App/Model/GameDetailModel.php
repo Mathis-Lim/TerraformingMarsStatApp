@@ -291,4 +291,16 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return $nb;
 		}
 
+		public static function getAvgGameTimePlayer($id){
+			$sql = "SELECT AVG(numberOfGenerations) as avg FROM Games JOIN GameDetails ON Games.gameId = GameDetails.gameId
+			WHERE playerId=:player_id GROUP BY playerId";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("player_id" => $id,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			$nb = $result[0]->{'avg'};
+			return $nb;
+		}
+
     }

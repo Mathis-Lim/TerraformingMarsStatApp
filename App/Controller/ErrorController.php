@@ -52,7 +52,7 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
-        public static function setGameDeetails(){
+        public static function setGameDetails(){
             $errorMessage = "Une erreur est survenue lors de l'enregistrement des détails de la partie";
             require File::build_path(array("View", "ErrorView.php"));
         }
