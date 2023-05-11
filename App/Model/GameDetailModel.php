@@ -288,6 +288,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$req_prep->setFetchMode(PDO::FETCH_OBJ);
 			$result = $req_prep->fetchAll();
 			$nb = $result[0]->{'nb'};
+			return $nb;
 		}
 
     }
