@@ -65,7 +65,7 @@
                 exit;
             }
 
-            $nbGames = GameDetailModel($playerId);
+            $nbGames = GameDetailModel::getNbGamePlayedPlayer($playerId);
             if(!isset($player)){
                 ErrorController::getNumberOfGamesPlayed();
                 exit;
