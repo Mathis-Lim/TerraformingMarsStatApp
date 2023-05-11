@@ -83,6 +83,12 @@
                 exit;
             }
 
+            $freqVictory = GameDetailMode::getFreqVictoryPlayer($playerId);
+            if(!isset($freqVictory)){
+                ErrorController::getFreqVictoryPlayer();
+                exit;
+            }
+
             $controller = "Player";
             $view = "detail";
             $pageTitle = $player->getName() . " - Détails";

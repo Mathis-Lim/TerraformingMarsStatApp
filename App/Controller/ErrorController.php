@@ -127,4 +127,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getFreqVictoryPlayer(){
+            $errorMessage = "Une erreur est survenue lors de la récupération de la fréquence de victoire du joueur";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

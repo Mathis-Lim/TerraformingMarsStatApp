@@ -314,6 +314,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return $nb;
 		}
 
+		public static function getFreqVictoryPlayer($id){
+			$nbVictory = GameDetailModel::getNbVictoryPlayer($id);
+			$nbGames = GameDetailModel::getNbGamePlayedPlayer($id);
+			$freq = $nbVictory / $nbGames;
+			return $freq;
+		}
+
     }
 
 
