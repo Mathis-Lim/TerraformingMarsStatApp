@@ -188,7 +188,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				"frequency" => 0,
 				"total" => 0,
 			);
-			
+
 			foreach($result as $line){
 				$nbChosen = $line->{'chosenCount'};
 				$total = $nbChosen + $line->{'rejectedCount'};
@@ -230,6 +230,54 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				"least" => $least,
 			);
 			return $records;
+		}
+
+		public static function getRecordWinsCorporation(){
+			$sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, chosenCorporation FROM GameDetails
+			WHERE rank = 1 GROUP BY chosenCorporation) as subquery";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $max = $result[0]->{'MAX(nb)'};
+
+			$sql = "SELECT corporationName FROM Corporations JOIN GameDetails 
+			ON Corporations.corporationId = GameDetails.chosenCorporation  
+			WHERE corporationId IN 
+				(SELECT chosenCorporation FROM (SELECT COUNT(gameId) as nb, chosenCorporation FROM GameDetails
+				WHERE rank = 1 GROUP BY chosenCorporation)
+			as subquery WHERE nb = " .$max .")";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+			$playerName = $result[0]->{'corporationName'};
+
+			return array(
+				"corporation" => $playerName,
+				"number" => $max,
+			);
+		}
+
+		public static function getRecordPointsCorporation(){
+			$sql = "SELECT MAX(nb) FROM (SELECT SUM(score) as nb, chosenCorporation FROM GameDetails GROUP BY chosenCorporation) as subquery";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $max = $result[0]->{'MAX(nb)'};
+
+			$sql = "SELECT corporationName FROM Corporations JOIN GameDetails 
+			ON Corporations.corporationId = GameDetails.chosenCorporation  
+			WHERE corporationId IN 
+				(SELECT chosenCorporation FROM (SELECT SUM(score) as nb, chosenCorporation FROM GameDetails GROUP BY chosenCorporation)
+			as subquery WHERE nb = " .$max .")";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+			$playerName = $result[0]->{'corporationName'};
+
+			return array(
+				"corporation" => $playerName,
+				"number" => $max,
+			);
 		}
 
     }

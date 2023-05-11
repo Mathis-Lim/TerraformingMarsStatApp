@@ -98,12 +98,22 @@
         }
 
         public static function getRecordPoints(){
-            $errorMessage = "Une erreur est survenue lors de la récupération du record de points";
+            $errorMessage = "Une erreur est survenue lors de la récupération du record de points totals";
             require File::build_path(array("View", "ErrorView.php"));
         }
 
         public static function getRecordChosenCorporation(){
             $errorMessage = "Une erreur est survenue lors de la récupération des fréquences de choix des corporations";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getRecordWinsCorporation(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du record de victoires - Corporations";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getRecordPointsCorporation(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du record de points totals - Corporations";
             require File::build_path(array("View", "ErrorView.php"));
         }
 

@@ -67,6 +67,18 @@
             $mostChosenCorp = $corporationFrequencyRecords['most'];
             $leastChosenCorp = $corporationFrequencyRecords['least'];
 
+            $recordWinnerCorporation = GameDetailModel::getRecordWinsCorporation();
+            if(!isset($recordWinnerCorporation)){
+                ErrorController::getRecordWinsCorporation();
+                exit;
+            }
+
+            $recordPointsCorporation = GameDetailModel::getRecordPointsCorporation();
+            if(!isset($recordPointsCorporation)){
+                ErrorController::getRecordPointsCorporation();
+                exit;
+            }
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
