@@ -55,7 +55,7 @@
             if(!isset($_GET['player_id'])){
                 ErrorController::url();
                 exit;
-            })
+            }
             $playerId = $_GET['player_id'];
 
             $player = PlayerModel::getPlayerById($playerId);
