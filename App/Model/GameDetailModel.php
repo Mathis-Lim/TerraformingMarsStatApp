@@ -303,6 +303,17 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return $nb;
 		}
 
+		public static function getNbVictoryPlayer($id){
+			$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId=:player_id AND rank=1";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("player_id" => $id,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			$nb = $result[0]->{'nb'};
+			return $nb;
+		}
+
     }
 
 

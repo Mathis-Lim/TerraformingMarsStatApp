@@ -77,6 +77,12 @@
                 exit;
             }
 
+            $nbVictories = GameDetailModel::getNbVictoryPlayer($playerId);
+            if(!isset($nbVictories)){
+                ErrorController::getNbVictoryPlayer();
+                exit;
+            }
+
             $controller = "Player";
             $view = "detail";
             $pageTitle = $player->getName() . " - Détails";
