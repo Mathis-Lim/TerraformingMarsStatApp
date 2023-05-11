@@ -292,7 +292,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getAvgGameTimePlayer($id){
-			$sql = "SELECT AVG(numberOfGenerations) as avg FROM Games JOIN GameDetails ON Games.gameId = GameDetails.gameId
+			$sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games JOIN GameDetails ON Games.gameId = GameDetails.gameId
 			WHERE playerId=:player_id GROUP BY playerId";
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array("player_id" => $id,);
@@ -304,3 +304,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
     }
+
+
+
+	
