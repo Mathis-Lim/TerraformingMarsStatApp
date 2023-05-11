@@ -280,4 +280,14 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			);
 		}
 
+		public static function getNbGamePlayedPlayer($id){
+			$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId = :player_id";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("player_id" => $id,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $res->fetchAll();
+			$nb = $result[0]->{'nb'};
+		}
+
     }

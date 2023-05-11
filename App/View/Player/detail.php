@@ -1,3 +1,4 @@
-<?php
-
-    echo('<h1>' . $player->getName() . '</h1>');
+<?php echo('<h2>' . $player->getName() . '</h2>'); ?>
+<ul>
+    <?php
+        echo('<li>' .$nbGames . ' parties jouées </li>');

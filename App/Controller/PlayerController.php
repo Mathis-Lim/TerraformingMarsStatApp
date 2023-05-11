@@ -1,6 +1,7 @@
 <?php
 
     require_once File::build_path(array('Model', 'PlayerModel.php'));
+    require_once File::build_path(array('Model', 'GameDetailModel.php'));
     require_once File::build_path(array('Controller', 'ErrorController.php'));
 
     class PlayerController{
@@ -61,6 +62,12 @@
             $player = PlayerModel::getPlayerById($playerId);
             if(!isset($player)){
                 ErrorController::getPlayer();
+                exit;
+            }
+
+            $nbGames = GameDetailModel($playerId);
+            if(!isset($player)){
+                ErrorController::getNumberOfGamesPlayed();
                 exit;
             }
 
