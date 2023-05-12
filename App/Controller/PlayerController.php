@@ -64,14 +64,13 @@
                 exit;
             }
 
-            var_dump($player);
-
             $nbGames = $player->getNbGamesPlayed();
             if(!isset($nbGames)){
                 ErrorController::getNumberOfGamesPlayed();
                 exit;
             }
 
+            var_dump($player);
             $avgGen = $player->getAvgGameTime();
             if(!isset($avgGen)){
                 ErrorController::getAverageGenerationNumber();
