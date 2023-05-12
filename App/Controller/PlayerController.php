@@ -70,20 +70,19 @@
                 exit;
             }
 
-            var_dump($player);
             $avgGen = $player->getAvgGameTime();
             if(!isset($avgGen)){
                 ErrorController::getAverageGenerationNumber();
                 exit;
             }
 
-            $nbVictories = $player->getNbPostion(1);
+            $nbVictories = $player->getNbPosition(1);
             if(!isset($nbVictories)){
                 ErrorController::getNbVictoryPlayer();
                 exit;
             }
 
-            $freqVictory = $player->getFreqPostion(1);
+            $freqVictory = $player->getFreqPosition(1);
             if(!isset($freqVictory)){
                 ErrorController::getFreqVictoryPlayer();
                 exit;
