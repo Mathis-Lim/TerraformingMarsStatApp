@@ -71,6 +71,18 @@
                 exit;
             }
 
+            $nbVictories = $corporation->getNbPosition(1);
+            if(!isset($nbVictories)){
+                ErrorController::getNbVictoryCorporation();
+                exit;
+            }
+
+            $freqVictory = $corporation->getFreqPosition(1);
+            if(!isset($freqVictory)){
+                ErrorController::getFreqVictoryCorporation();
+                exit;
+            }
+
             $controller = "Corporation";
             $view = "detail";
             $pageTitle = $corporation->getName();

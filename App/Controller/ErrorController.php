@@ -157,4 +157,14 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getNbVictoryCorporation(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre de victoires de la corporation";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getFreqVictoryCorporation(){
+            $errorMessage = "Une erreur est survenue lors de la récupération de la fréquence de victoire de la corporation";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

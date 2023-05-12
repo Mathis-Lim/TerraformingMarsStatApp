@@ -78,5 +78,29 @@
             return $avg;
         }
 
+        public function getNbPosition($rank){
+			$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE chosenCorporation=:corporation_id AND rank=:rank";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array(
+                "corporation_id" => $this->corporationId,
+                "rank" => $rank,
+            );
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			$nb = $result[0]->{'nb'};
+			return $nb;
+		}
+
+        public function getFreqPosition($rank){
+			$nbPosition = $this->getNbPosition($rank);
+			$nbGames = $this->getNbGamesPlayed();
+			$freq = $nbPosition / $nbGames;
+			return $freq;
+		}
+
+
+        
+
     }
 ?>
