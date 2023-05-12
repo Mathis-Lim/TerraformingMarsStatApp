@@ -64,6 +64,8 @@
                 exit;
             }
 
+            var_dump($player);
+
             $nbGames = $player->getNbGamesPlayed();
             if(!isset($nbGames)){
                 ErrorController::getNumberOfGamesPlayed();
