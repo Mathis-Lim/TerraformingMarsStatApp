@@ -112,7 +112,7 @@
         }
 
         public function getAvgPoints(){
-            $sql = "SELECT AVG(score) as avg FROM GameDetails WHERE playerId=:player_id";
+            $sql = "SELECT ROUND(AVG(score), 2) as avg FROM GameDetails WHERE playerId=:player_id";
             $req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array("player_id" => $this->playerId,);
 			$req_prep->execute($values);
