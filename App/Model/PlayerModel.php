@@ -69,7 +69,7 @@
 
         public function getAvgGameTime(){
 			$sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games JOIN GameDetails ON Games.gameId = GameDetails.gameId
-			WHERE playerId=:player_id GROUP BY playerId";
+			WHERE playerId=:player_id";
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array("player_id" => $this->playerId,);
 			$req_prep->execute($values);

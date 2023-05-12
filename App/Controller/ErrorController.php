@@ -152,4 +152,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getAvgGameTimeCorporation(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du temps moyen dd'une partie de la corporation";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

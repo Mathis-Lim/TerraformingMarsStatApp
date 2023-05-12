@@ -66,5 +66,17 @@
             return $nb;
         }
 
+        public function getAvgGameTime(){
+            $sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games JOIN GameDetails ON 
+            Games.gameId = GameDetails.gameId WHERE chosenCorporation=:chosen_corporation";
+            $req = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("corporation_id" => $this->corporationId,);
+            $req->execute($values);
+            $req->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req->fetchAll();
+            $avg = $result[0]->{'avg'};
+            return $avg;
+        }
+
     }
 ?>

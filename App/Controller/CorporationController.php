@@ -65,6 +65,12 @@
                 exit;
             }
 
+            $avgGameTime = $corporation->getAvgGameTime();
+            if(!isset($avgGameTime)){
+                ErrorController::getAvgGameTimeCorporation();
+                exit;
+            }
+
             $controller = "Corporation";
             $view = "detail";
             $pageTitle = $corporation->getName();

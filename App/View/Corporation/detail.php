@@ -2,5 +2,6 @@
 <ul>
     <?php
         echo('<li>' .$nbPlayed . ' parties jouées </li>');
+        echo('<li>' . $avgGameTime . ' générations par parties en moyenne </li>');
     ?>
 </ul>      
