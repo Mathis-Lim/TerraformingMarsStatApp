@@ -7,7 +7,8 @@
 <ul>
     <?php
         foreach($corporationArray as $corporation){
-            echo('<li>' . $corporation->getName() . '</li>');
+            echo('<li><a href = "index.php?controller=Corporation&action=read&corporation_id=' . $corporation->getId() . '">'
+             . $corporation->getName() . '</a></li>');
         }
     ?>
 </ul>

@@ -49,7 +49,21 @@
                 ErrorController::createCorporation();
                 exit;
             }
-    }   
+        }   
+
+        public static function read(){
+            if(!isset($_GET['corporation_id'])){
+                ErrorController::url();
+                exit;
+            }
+            $corporationId = $_GET['corporation_id'];
+            $corporation = CorporationModel::getCorporationById($corporationId);
+
+            $controller = "Corporation";
+            $view = "detail";
+            $pageTitle = $corporation->getName();
+            require File::build_path(array("View", "BaseView.php"));
+        }
 
 }
 
