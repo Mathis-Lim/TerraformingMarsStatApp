@@ -99,6 +99,14 @@
                 ErrorController::getAveragePointsPlayer();
                 exit;
             }
+            
+            $corporationChoice = $player->getRecordChosenCorporation();
+            if(!isset($corporationChoice)){
+                ErrorController::getRecordChosenCorporationPlayer();
+                exit;
+            }
+            $mostChosenCorp = $corporationChoice['most'];
+            $leastChosenCorp = $corporationChoice['least'];
 
             $controller = "Player";
             $view = "detail";

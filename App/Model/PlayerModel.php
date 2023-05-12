@@ -122,6 +122,75 @@
             return $avg;
         }
 
+        public function getRecordChosenCorporation(){
+			$sql = "SELECT Corporations.corporationId, corporationName, SUM(chosenCount) AS chosenCount, 
+				SUM(rejectedCount) AS rejectedCount 
+				FROM ( SELECT chosenCorporation AS corporationId, COUNT(gameId) AS chosenCount, 
+				0 AS rejectedCount FROM GameDetails WHERE playerId=:player_id GROUP BY chosenCorporation 
+				UNION SELECT rejectedCorporation AS corporationId, 0 AS chosenCount, COUNT(gameId) AS rejectedCount 
+				FROM GameDetails playerId=:player_id GROUP BY rejectedCorporation) AS subquery 
+				JOIN Corporations ON subquery.corporationId = Corporations.corporationId 
+				GROUP BY Corporations.corporationId, corporationName";
+            $res = ConnectionModel::getPDO()->prepare($sql);  
+            $values = array("player_id" => $this->playerId,);  
+			$res->execute($valies);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+			
+			$most = array(
+				"name" => "placeholder",
+				"frequency" => 0,
+				"total" => 0,
+			);
+			$least = array(
+				"name" => "placeholder",
+				"frequency" => 0,
+				"total" => 0,
+			);
+
+			foreach($result as $line){
+				$nbChosen = $line->{'chosenCount'};
+				$total = $nbChosen + $line->{'rejectedCount'};
+				$freqChosen = $nbChosen / $total;
+
+				if($most['frequency'] < $freqChosen){
+					$most = array(
+						"name" => $line->{'corporationName'},
+						"frequency" => $freqChosen,
+						"total" => $total,
+					);
+				}
+				elseif($most['frequency'] == $freqChosen && $most['total'] < $total){
+					$most = array(
+						"name" => $line->{'corporationName'},
+						"frequency" => $freqChosen,
+						"total" => $total,
+					);
+				}
+				
+				if($least['frequency'] > $freqChosen){
+					$least = array(
+						"name" => $line->{'corporationName'},
+						"frequency" => $freqChosen,
+						"total" => $total,
+					);
+				}
+				elseif($least['frequency'] == $freqChosen && $least['total'] < $total){
+					$least = array(
+						"name" => $line->{'corporationName'},
+						"frequency" => $freqChosen,
+						"total" => $total,
+					);
+				}		
+			}
+
+			$records = array(
+				"most" => $most,
+				"least" => $least,
+			);
+			return $records;
+		}
+
 
     }
 
