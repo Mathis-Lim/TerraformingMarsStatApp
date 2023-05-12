@@ -88,6 +88,18 @@
                 exit;
             }
 
+            $totalPoints = $player->getTotalPoints();
+            if(!isset($totalPoints)){
+                ErrorController::getTotalPointsPlayer();
+                exit;
+            }
+
+            $avgPoints = $player->getAvgPoints();
+            if(!isset($avgPoints)){
+                ErrorController::getAveragePointsPlayer();
+                exit;
+            }
+
             $controller = "Player";
             $view = "detail";
             $pageTitle = $player->getName() . " - Détails";

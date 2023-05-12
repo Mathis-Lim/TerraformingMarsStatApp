@@ -96,9 +96,31 @@
         public function getFreqPosition($rank){
 			$nbPosition = $this->getNbPosition($rank);
 			$nbGames = $this->getNbGamesPlayed();
-			$freq = $nbVictory / $nbGames;
+			$freq = $nbPosition / $nbGames;
 			return $freq;
 		}
+
+        public function getTotalPoints(){
+            $sql = "SELECT SUM(score) as nb FROM GameDetails WHERE playerId=:player_id";
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("player_id" => $this->playerId,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			$nb = $result[0]->{'nb'};
+			return $nb;
+        }
+
+        public function getAvgPoints(){
+            $sql = "SELECT AVG(score) as avg FROM GameDetails WHERE playerId=:player_id";
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("player_id" => $this->playerId,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+            $avg = $result[0]->{'avg'};
+            return $avg;
+        }
 
 
     }

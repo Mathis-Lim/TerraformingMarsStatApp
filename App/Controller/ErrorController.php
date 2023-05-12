@@ -132,4 +132,14 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getTotalPointsPlayer(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre total de points marqués du joueur";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getAveragePointsPlayer(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre de points marqués en moyenne par le joueur";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }
