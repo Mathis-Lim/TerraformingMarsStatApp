@@ -57,7 +57,6 @@
                 exit;
             }
             $playerId = $_GET['player_id'];
-            $player = PlayerModel::getPlayerById($playerId);
 
             $player = PlayerModel::getPlayerById($playerId);
             if(!isset($player)){
@@ -71,7 +70,7 @@
                 exit;
             }
 
-            $avgGen = $payer->getAvgGameTime();
+            $avgGen = $player->getAvgGameTime();
             if(!isset($avgGen)){
                 ErrorController::getAverageGenerationNumber();
                 exit;
