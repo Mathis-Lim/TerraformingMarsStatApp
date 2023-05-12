@@ -55,5 +55,16 @@
             return $corporation;
         }
 
+        public function getNbGamesPlayed(){
+            $sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE chosenCorporation = :corporation_id";
+            $req = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("corporation_id" => $id,);
+            $req->execute($values);
+            $req->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			$nb = $result[0]->{'nb'};
+            return $nb;
+        }
+
     }
 ?>

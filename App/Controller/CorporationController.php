@@ -59,6 +59,12 @@
             $corporationId = $_GET['corporation_id'];
             $corporation = CorporationModel::getCorporationById($corporationId);
 
+            $nbPlayed = $corporation->getNbGamesPlayed();
+            if(!isset($nbPlayed)){
+                ErrorController::getNbPlayedCorporation();
+                exit;
+            }
+
             $controller = "Corporation";
             $view = "detail";
             $pageTitle = $corporation->getName();

@@ -147,4 +147,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getNbPlayedCorporation(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre de parties jouées de la corporation";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }
