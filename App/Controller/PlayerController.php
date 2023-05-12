@@ -1,7 +1,6 @@
 <?php
 
     require_once File::build_path(array('Model', 'PlayerModel.php'));
-    require_once File::build_path(array('Model', 'GameDetailModel.php'));
     require_once File::build_path(array('Controller', 'ErrorController.php'));
 
     class PlayerController{
@@ -58,6 +57,7 @@
                 exit;
             }
             $playerId = $_GET['player_id'];
+            $player = PlayerModel::getPlayerById($playerId);
 
             $player = PlayerModel::getPlayerById($playerId);
             if(!isset($player)){
@@ -65,25 +65,25 @@
                 exit;
             }
 
-            $nbGames = GameDetailModel::getNbGamePlayedPlayer($playerId);
+            $nbGames = $player->getNbGamesPlayed();
             if(!isset($nbGames)){
                 ErrorController::getNumberOfGamesPlayed();
                 exit;
             }
 
-            $avgGen = GameDetailModel::getAvgGameTimePlayer($playerId);
+            $avgGen = $payer->getAvgGameTime();
             if(!isset($avgGen)){
                 ErrorController::getAverageGenerationNumber();
                 exit;
             }
 
-            $nbVictories = GameDetailModel::getNbVictoryPlayer($playerId);
+            $nbVictories = $player->getNbPostion(1);
             if(!isset($nbVictories)){
                 ErrorController::getNbVictoryPlayer();
                 exit;
             }
 
-            $freqVictory = GameDetailModel::getFreqVictoryPlayer($playerId);
+            $freqVictory = $player->getFreqPostion(1);
             if(!isset($freqVictory)){
                 ErrorController::getFreqVictoryPlayer();
                 exit;

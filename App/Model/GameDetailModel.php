@@ -280,7 +280,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			);
 		}
 
-		public static function getNbGamePlayedPlayer($id){
+		/*public static function getNbGamePlayedPlayer($id){
 			$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId = :player_id";
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array("player_id" => $id,);
@@ -319,7 +319,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$nbGames = GameDetailModel::getNbGamePlayedPlayer($id);
 			$freq = $nbVictory / $nbGames;
 			return $freq;
-		}
+		}*/
 
     }
 
