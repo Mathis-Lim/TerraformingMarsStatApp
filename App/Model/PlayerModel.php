@@ -133,7 +133,7 @@
 				GROUP BY Corporations.corporationId, corporationName";
             $res = ConnectionModel::getPDO()->prepare($sql);  
             $values = array("player_id" => $this->playerId,);  
-			$res->execute($valies);
+			$res->execute($values);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
 			
