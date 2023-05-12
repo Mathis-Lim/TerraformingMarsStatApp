@@ -128,7 +128,7 @@
 				FROM ( SELECT chosenCorporation AS corporationId, COUNT(gameId) AS chosenCount, 
 				0 AS rejectedCount FROM GameDetails WHERE playerId=:player_id GROUP BY chosenCorporation 
 				UNION SELECT rejectedCorporation AS corporationId, 0 AS chosenCount, COUNT(gameId) AS rejectedCount 
-				FROM GameDetails playerId=:player_id GROUP BY rejectedCorporation) AS subquery 
+				FROM GameDetails WHERE playerId=:player_id GROUP BY rejectedCorporation) AS subquery 
 				JOIN Corporations ON subquery.corporationId = Corporations.corporationId 
 				GROUP BY Corporations.corporationId, corporationName";
             $res = ConnectionModel::getPDO()->prepare($sql);  
