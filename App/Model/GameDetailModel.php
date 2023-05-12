@@ -280,47 +280,6 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			);
 		}
 
-		/*public static function getNbGamePlayedPlayer($id){
-			$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId = :player_id";
-			$req_prep = ConnectionModel::getPDO()->prepare($sql);
-            $values = array("player_id" => $id,);
-			$req_prep->execute($values);
-			$req_prep->setFetchMode(PDO::FETCH_OBJ);
-			$result = $req_prep->fetchAll();
-			$nb = $result[0]->{'nb'};
-			return $nb;
-		}
-
-		public static function getAvgGameTimePlayer($id){
-			$sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games JOIN GameDetails ON Games.gameId = GameDetails.gameId
-			WHERE playerId=:player_id GROUP BY playerId";
-			$req_prep = ConnectionModel::getPDO()->prepare($sql);
-            $values = array("player_id" => $id,);
-			$req_prep->execute($values);
-			$req_prep->setFetchMode(PDO::FETCH_OBJ);
-			$result = $req_prep->fetchAll();
-			$nb = $result[0]->{'avg'};
-			return $nb;
-		}
-
-		public static function getNbVictoryPlayer($id){
-			$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId=:player_id AND rank=1";
-			$req_prep = ConnectionModel::getPDO()->prepare($sql);
-            $values = array("player_id" => $id,);
-			$req_prep->execute($values);
-			$req_prep->setFetchMode(PDO::FETCH_OBJ);
-			$result = $req_prep->fetchAll();
-			$nb = $result[0]->{'nb'};
-			return $nb;
-		}
-
-		public static function getFreqVictoryPlayer($id){
-			$nbVictory = GameDetailModel::getNbVictoryPlayer($id);
-			$nbGames = GameDetailModel::getNbGamePlayedPlayer($id);
-			$freq = $nbVictory / $nbGames;
-			return $freq;
-		}*/
-
     }
 
 
