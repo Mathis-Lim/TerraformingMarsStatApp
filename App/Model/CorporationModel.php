@@ -97,7 +97,7 @@
 			return $freq;
 		}
 
-        public static function getTotalPoints(){
+        public function getTotalPoints(){
             $sql = "SELECT SUM(score) as nb FROM GameDetails WHERE chosenCorporation = :corporation_id";
             $req = ConnectionModel::getPDO()->prepare($sql);
             $values = array("corporation_id" => $this->corporationId,);
@@ -108,7 +108,7 @@
             return $nb;
         }
 
-        public static function getAvgPoints($totalPoints, $nbGames){
+        public function getAvgPoints($totalPoints, $nbGames){
             $avg = $totalPoints / $nbGames;
             return $avg;
         }
