@@ -93,9 +93,7 @@
 			return $nb;
 		}
 
-        public function getFreqPosition($rank){
-			$nbPosition = $this->getNbPosition($rank);
-			$nbGames = $this->getNbGamesPlayed();
+        public function getFreqPosition($nbPosition, $nbGames){
 			$freq = $nbPosition / $nbGames;
 			return $freq;
 		}

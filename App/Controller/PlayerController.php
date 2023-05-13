@@ -82,7 +82,7 @@
                 exit;
             }
 
-            $freqVictory = $player->getFreqPosition(1);
+            $freqVictory = $player->getFreqPosition($nbVictories, $nbGames);
             if(!isset($freqVictory)){
                 ErrorController::getFreqVictoryPlayer();
                 exit;
