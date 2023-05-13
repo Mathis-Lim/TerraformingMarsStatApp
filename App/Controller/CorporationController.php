@@ -96,7 +96,8 @@
             }
 
             $choice = $corporation->getChoiceFreq($nbPlayed);
-            var_dump($choice);
+            $freqChoice = $choice['freq'];
+            $totalDistributed = $choice['total'];
             if(!isset($choice)){
                 ErrorController::getChoiceFreqCorporation();
                 exit;
