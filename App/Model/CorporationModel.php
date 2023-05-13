@@ -75,7 +75,12 @@
             $req->setFetchMode(PDO::FETCH_OBJ);
 			$result = $req->fetchAll();
             $avg = $result[0]->{'avg'};
-            return $avg;
+            if(isset($avg)){
+                return $avg;
+            }
+            else{
+                return 0;
+            }
         }
 
         public function getNbPosition($rank){
