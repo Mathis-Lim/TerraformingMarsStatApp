@@ -110,7 +110,27 @@
 
         public function getAvgPoints($totalPoints, $nbGames){
             $avg = $totalPoints / $nbGames;
-            return $avg;
+            return round($avg, 2);
+        }
+
+        public function getChoiceFreq($nbGames){
+            $sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE rejectedCorporation = :corporation_id";
+            $req = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("corporation_id" => $this->corporationId,);
+            $req->execute($values);
+            $req->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req->fetchAll();
+			$nbRejected = $result[0]->{'nb'};
+
+            $totalDraw = $nbGames + $nbRejected;
+            $freqChoice = $nbGames / $totalDraw;
+
+            $choice = array(
+                "freq" => $freqChoice,
+                "total" => $totalDraw,
+            );
+
+            return $choice;
         }
         
 

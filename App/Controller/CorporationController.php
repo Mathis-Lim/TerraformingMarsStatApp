@@ -95,6 +95,12 @@
                 exit;
             }
 
+            $choice = $corporation->getChoiceFreq($nbPlayed);
+            if(!isset($choice)){
+                ErrorController::getChoiceFreqCorporation();
+                exit;
+            }
+
             $controller = "Corporation";
             $view = "detail";
             $pageTitle = $corporation->getName();

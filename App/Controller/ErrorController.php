@@ -177,4 +177,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getChoiceFreqCorporation(){
+            $errorMessage = "Une erreur est survenue lors de la récupération de la fréquence de choic de la croporation";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }
