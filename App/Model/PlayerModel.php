@@ -111,7 +111,12 @@
 			$req_prep->setFetchMode(PDO::FETCH_OBJ);
 			$result = $req_prep->fetchAll();
 			$nb = $result[0]->{'nb'};
-			return $nb;
+			if(isset($nb)){
+				return $nb;
+			}
+			else{
+				return 0;
+			}
         }
 
         public function getAvgPoints(){
