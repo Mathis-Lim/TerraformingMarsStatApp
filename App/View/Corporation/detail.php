@@ -7,6 +7,6 @@
         echo('<li>' . round($freqVictory * 100, 2) . '% de parties gagnées </li>');
         echo('<li>' .$totalPoints . ' points marqués </li>');
         echo('<li>' . $avgPoints . ' points marqués par partie en moyenne </li>');
-        echo('<li>' . round($freqChoice * 100, 2) . '% de choix sur ' $totalDistributed . ' parties distribuées');
+        echo('<li>' . round($freqChoice * 100, 2) . '% de choix sur ' . $totalDistributed . ' parties distribuées');
     ?>
 </ul>      
