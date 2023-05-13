@@ -99,7 +99,7 @@
 		}
 
         public function getFreqPosition($nbPosition, $nbGames){
-			if($nbGames <= 1){
+			if($nbGames <= 0){
 				return 0;
 			}
 			$freq = $nbPosition / $nbGames;
@@ -170,7 +170,7 @@
 				$nbChosen = $line->{'chosenCount'};
 				$total = $nbChosen + $line->{'rejectedCount'};
 				$name = $line->{'corporationName'};
-				if($total <= 1){
+				if($total <= 0){
 					$freqChosen = 0;
 				}
 				else{

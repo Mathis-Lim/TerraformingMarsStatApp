@@ -98,7 +98,7 @@
 		}
 
         public function getFreqPosition($nbPosition, $nbGames){
-            if($nbGames <= 1){
+            if($nbGames <= 0){
                 return 0;
             }
 			$freq = $nbPosition / $nbGames;
@@ -122,7 +122,7 @@
         }
 
         public function getAvgPoints($totalPoints, $nbGames){
-            if($nbGames <= 1){
+            if($nbGames <= 0){
                 return 0;
             }
             $avg = $totalPoints / $nbGames;
@@ -139,7 +139,7 @@
 			$nbRejected = $result[0]->{'nb'};
 
             $totalDraw = $nbGames + $nbRejected;
-            if($totalDraw <= 1){
+            if($totalDraw <= 0){
                 $freqChoice = 0;
             }
             else{
