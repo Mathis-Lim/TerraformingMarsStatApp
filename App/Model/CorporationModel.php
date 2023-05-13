@@ -104,7 +104,6 @@
             $req->execute($values);
             $req->setFetchMode(PDO::FETCH_OBJ);
 			$result = $req->fetchAll();
-            var_dump($result);
 			$nb = $result[0]->{'nb'};
             return $nb;
         }
