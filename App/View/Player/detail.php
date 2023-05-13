@@ -14,15 +14,15 @@
     ?>
 </ul>
 <?php echo('<h3> Détails de la fréquence de choix des corporations </h3>'); ?>
-<tbody>
+<table>
 <?php    
     echo('<tr><th>Nom</th>');
     echo('<th>Fréquence de choix</th>');
     echo('<th>Nombre de choix</th></tr>');
     foreach($corporationChoices as $corporation){
         echo('<tr><td>' . $corporation['name'] . '</td>');
-        echo('<td>' . $corporation['frequency'] . '</td');
+        echo('<td>' . round($corporation['frequency'] * 100, 2) . '</td');
         echo('<td>' .$corporation['total'] . '</td></tr>');
     }
 ?>
-</tbody>
+</table>
