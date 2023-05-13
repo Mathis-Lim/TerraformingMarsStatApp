@@ -119,6 +119,9 @@
         }
 
         public function getAvgPoints($totalPoints, $nbGames){
+            if($nbGames <= 1){
+                return 0;
+            }
             $avg = $totalPoints / $nbGames;
             return round($avg, 2);
         }
