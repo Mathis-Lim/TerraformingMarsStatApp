@@ -138,7 +138,7 @@
 			}
         }
 
-        public function getRecordChosenCorporation(){
+        public function getCorporationFrequencyChoice(){
 			$sql = "SELECT Corporations.corporationId, corporationName, SUM(chosenCount) AS chosenCount, 
 				SUM(rejectedCount) AS rejectedCount 
 				FROM ( SELECT chosenCorporation AS corporationId, COUNT(gameId) AS chosenCount, 
@@ -164,47 +164,49 @@
 				"total" => 0,
 			);
 
+			$all = array();
+
 			foreach($result as $line){
 				$nbChosen = $line->{'chosenCount'};
 				$total = $nbChosen + $line->{'rejectedCount'};
-				$freqChosen = $nbChosen / $total;
+				$name = $line->{'corporationName'};
+				if($total <= 1){
+					$freqChosen = 0;
+				}
+				else{
+					$freqChosen = $nbChosen / $total;
+				}
+
+				$currentCorp = array({
+					"name" => $name,
+					"frequency" => $freqChosen,
+					"total" => $total,
+				});
 
 				if($most['frequency'] < $freqChosen){
-					$most = array(
-						"name" => $line->{'corporationName'},
-						"frequency" => $freqChosen,
-						"total" => $total,
-					);
+					$most = $currentCorp;
 				}
 				elseif($most['frequency'] == $freqChosen && $most['total'] < $total){
-					$most = array(
-						"name" => $line->{'corporationName'},
-						"frequency" => $freqChosen,
-						"total" => $total,
-					);
+					$most = $currentCorp;
 				}
 				
 				if($least['frequency'] > $freqChosen){
-					$least = array(
-						"name" => $line->{'corporationName'},
-						"frequency" => $freqChosen,
-						"total" => $total,
-					);
+					$least = $currentCorp;
 				}
 				elseif($least['frequency'] == $freqChosen && $least['total'] < $total){
-					$least = array(
-						"name" => $line->{'corporationName'},
-						"frequency" => $freqChosen,
-						"total" => $total,
-					);
-				}		
+					$least = $currentCorp;
+				}
+			
+				array_push($all, $currentCorp);
 			}
 
 			$records = array(
 				"most" => $most,
 				"least" => $least,
 			);
-			return $records;
+			
+			$all['records'] = $records;
+			return $all;
 		}
 
 

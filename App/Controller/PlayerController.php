@@ -100,13 +100,14 @@
                 exit;
             }
             
-            $corporationChoice = $player->getRecordChosenCorporation();
-            if(!isset($corporationChoice)){
+            $corporationChoices = $player->getCorporationFrequencyChoice();
+            if(!isset($corporationChoices)){
                 ErrorController::getRecordChosenCorporationPlayer();
                 exit;
             }
-            $mostChosenCorp = $corporationChoice['most'];
-            $leastChosenCorp = $corporationChoice['least'];
+            $mostChosenCorp = $corporationChoices['records']['most'];
+            $leastChosenCorp = $corporationChoices['records']['least'];
+            unset($corporationChoices['records']);
 
             $controller = "Player";
             $view = "detail";
