@@ -98,6 +98,9 @@
 		}
 
         public function getFreqPosition($nbPosition, $nbGames){
+            if($nbGames <= 1){
+                return 0;
+            }
 			$freq = $nbPosition / $nbGames;
 			return $freq;
 		}
@@ -136,7 +139,12 @@
 			$nbRejected = $result[0]->{'nb'};
 
             $totalDraw = $nbGames + $nbRejected;
-            $freqChoice = $nbGames / $totalDraw;
+            if($totalDraw <= 1){
+                $freqChoice = 0;
+            }
+            else{
+                $freqChoice = $nbGames / $totalDraw;
+            }
 
             $choice = array(
                 "freq" => $freqChoice,

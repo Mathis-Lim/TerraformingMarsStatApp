@@ -99,6 +99,9 @@
 		}
 
         public function getFreqPosition($nbPosition, $nbGames){
+			if($nbGames <= 1){
+				return 0;
+			}
 			$freq = $nbPosition / $nbGames;
 			return $freq;
 		}
