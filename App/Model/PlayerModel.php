@@ -177,11 +177,11 @@
 					$freqChosen = $nbChosen / $total;
 				}
 
-				$currentCorp = array({
+				$currentCorp = array(
 					"name" => $name,
 					"frequency" => $freqChosen,
 					"total" => $total,
-				});
+				);
 
 				if($most['frequency'] < $freqChosen){
 					$most = $currentCorp;
