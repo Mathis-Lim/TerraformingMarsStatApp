@@ -92,7 +92,7 @@
 			return $nb;
 		}
 
-        public function getFreqPosition($nbPostion, $nbGames){
+        public function getFreqPosition($nbPosition, $nbGames){
 			$freq = $nbPosition / $nbGames;
 			return $freq;
 		}
