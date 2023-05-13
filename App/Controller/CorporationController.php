@@ -96,6 +96,7 @@
             }
 
             $choice = $corporation->getChoiceFreq($nbPlayed);
+            var_dump($choice);
             if(!isset($choice)){
                 ErrorController::getChoiceFreqCorporation();
                 exit;
