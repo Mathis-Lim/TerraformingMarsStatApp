@@ -92,14 +92,26 @@
 			return $nb;
 		}
 
-        public function getFreqPosition($rank){
-			$nbPosition = $this->getNbPosition($rank);
-			$nbGames = $this->getNbGamesPlayed();
+        public function getFreqPosition($nbPostion, $nbGames){
 			$freq = $nbPosition / $nbGames;
 			return $freq;
 		}
 
+        public static function getTotalPoints(){
+            $sql = "SELECT SUM(score) as nb FROM GameDetails WHERE chosenCorporation = :corporation_id";
+            $req = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("corporation_id" => $this->corporationId,);
+            $req->execute($values);
+            $req->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req->fetchAll();
+			$nb = $result[0]->{'nb'};
+            return $nb;
+        }
 
+        public static function getAvgPoints($totalPoints, $nbGames){
+            $avg = $totalPoints / $nbGames;
+            return $avg;
+        }
         
 
     }

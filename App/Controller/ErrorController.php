@@ -167,4 +167,14 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getTotalPointsCorporation(){
+            $errorMessage = "Une erreur est survenue lors de la récupération ddu nombre de points total de la corporation";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getAvgPointsCorporation(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du nombre de points moyens de la corporation";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

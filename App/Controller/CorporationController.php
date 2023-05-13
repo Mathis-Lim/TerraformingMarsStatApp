@@ -77,9 +77,21 @@
                 exit;
             }
 
-            $freqVictory = $corporation->getFreqPosition(1);
+            $freqVictory = $corporation->getFreqPosition($nbVictories, $nbPlayed);
             if(!isset($freqVictory)){
                 ErrorController::getFreqVictoryCorporation();
+                exit;
+            }
+
+            $totalPoints = $corporation->getTotalPoints();
+            if(!isset($totalPoints)){
+                ErrorController::getTotalPointsCorporation();
+                exit;
+            }
+
+            $avgPoints = $corporation->getAvgPoints($totalPoints, $nbPlayed);
+            if(!isset($avgPoints)){
+                ErrorController::getAvgPointsCorporation();
                 exit;
             }
 
