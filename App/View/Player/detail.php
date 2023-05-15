@@ -23,7 +23,7 @@
             foreach($pointDetails as $pointDetail){
                 echo('<tr><td>' . $pointDetail['description'] . '</td>');
                 echo('<td>' . $pointDetail['score'] . '</td>');
-                echo('<td>' . $pointDetail['proportion'] . '%</td></tr>');
+                echo('<td>' . round($pointDetail['proportion'] * 100, 2) . '%</td></tr>');
             }
             echo('</table>');
         }
