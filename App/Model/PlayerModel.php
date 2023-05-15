@@ -210,7 +210,7 @@
 		}
 
 		public function getPointsDetail($total){
-			
+
 			$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
 			SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id";
             $req_prep = ConnectionModel::getPDO()->prepare($sql);
@@ -228,31 +228,31 @@
 				"description" => "NT",
 				"score" => $trScore,
 				"proportion" => $trScore/$total,
-			)
+			);
 
 			$board = array(
 				"description" => "Plateau",
 				"score" => $boardScore,
 				"proportion" => $boardScore/$total,
-			)
+			);
 
 			$cards = array(
 				"description" => "Cartes",
 				"score" => $cardScore,
 				"proportion" => $cardScore/$total,
-			)
+			);
 
 			$goals = array(
 				"description" => "Objectifs",
 				"score" => $goalScore,
 				"proportion" => $goalScore/$total,
-			)
+			);
 
 			$awards = array(
 				"description" => "Récompenses",
 				"score" => $awardScore,
 				"proportion" => $awardScore/$total,
-			)
+			);
 
 			$details = array($tr, $board, $cards, $goals, $awards,);
 
