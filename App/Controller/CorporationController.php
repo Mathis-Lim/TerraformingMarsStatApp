@@ -89,6 +89,15 @@
                 exit;
             }
 
+            $pointDetails = null;
+            if($totalPoints > 0){
+                $pointDetails = $corporation->getPointsDetail($totalPoints);
+                if(!isset($pointDetails)){
+                    ErrorController::getPointDetailCorporation();
+                    exit;
+                }
+            }
+
             $avgPoints = $corporation->getAvgPoints($totalPoints, $nbPlayed);
             if(!isset($avgPoints)){
                 ErrorController::getAvgPointsCorporation();

@@ -153,6 +153,57 @@
 
             return $choice;
         }
+
+        public function getPointsDetail($total){
+
+			$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
+			SUM(awardScore) as award FROM GameDetails WHERE chosenCorporation=:corporation_id";
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("corporation_id" => $this->corporationId,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			$trScore = $result[0]->{'tr'};
+			$boardScore = $result[0]->{'board'};
+			$cardScore = $result[0]->{'card'};
+			$goalScore = $result[0]->{'goal'};
+			$awardScore = $result[0]->{'award'};
+
+			$tr = array(
+				"description" => "NT",
+				"score" => $trScore,
+				"proportion" => $trScore/$total,
+			);
+
+			$board = array(
+				"description" => "Plateau",
+				"score" => $boardScore,
+				"proportion" => $boardScore/$total,
+			);
+
+			$cards = array(
+				"description" => "Cartes",
+				"score" => $cardScore,
+				"proportion" => $cardScore/$total,
+			);
+
+			$goals = array(
+				"description" => "Objectifs",
+				"score" => $goalScore,
+				"proportion" => $goalScore/$total,
+			);
+
+			$awards = array(
+				"description" => "Récompenses",
+				"score" => $awardScore,
+				"proportion" => $awardScore/$total,
+			);
+
+			$details = array($tr, $board, $cards, $goals, $awards,);
+
+			return $details;
+			
+		}
         
 
     }
