@@ -94,6 +94,15 @@
                 exit;
             }
 
+            $pointDetails = null;
+            if($totalPoints > 0){
+                $pointDetails = $player->getPointsDetail($totalPoints);
+                if(!isset($totalPoints)){
+                    ErrorController::getPointDetailPlayer();
+                    exit;
+                }
+            }
+
             $avgPoints = $player->getAvgPoints();
             if(!isset($avgPoints)){
                 ErrorController::getAveragePointsPlayer();

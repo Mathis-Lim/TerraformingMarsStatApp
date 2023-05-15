@@ -178,7 +178,17 @@
         }
 
         public static function getChoiceFreqCorporation(){
-            $errorMessage = "Une erreur est survenue lors de la récupération de la fréquence de choic de la croporation";
+            $errorMessage = "Une erreur est survenue lors de la récupération de la fréquence de choix de la croporation";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getPointDetailPlayer(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du détail des points du joueur";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getPointDetailCorporation(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du détail des points de la corporation";
             require File::build_path(array("View", "ErrorView.php"));
         }
 

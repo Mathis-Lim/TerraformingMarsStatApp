@@ -13,7 +13,22 @@
             round($leastChosenCorp['frequency'] * 100, 2) . '% sur ' .  $leastChosenCorp['total'] . ' parties</li>';
     ?>
 </ul>
-<?php echo('<h3> Détails de la fréquence de choix des corporations </h3>'); ?>
+<h3>Détail des points</h3>
+    <?php
+        if (!isset($pointDetails)){
+            echo('Aucun points marqués');
+        }
+        else{
+            echo('<table><tr><th>Catégorie</th><th>Total</th><th>Pourcentage</th></tr>');
+            foreach($pointDetails as $pointDetail){
+                echo('<tr><td>' . $pointDetail['description'] . '</td>');
+                echo('<td>' . $pointDetail['score'] . '</td>');
+                echo('<td>' . $pointDetail['proportion'] . '%</td></tr>');
+            }
+            echo('</table>');
+        }
+    ?>
+<h3>Détail de la fréquence de choix des corporations</h3>
 <table>
 <?php    
     echo('<tr><th>Nom</th>');
