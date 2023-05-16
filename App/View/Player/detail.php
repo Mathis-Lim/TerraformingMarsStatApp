@@ -19,10 +19,11 @@
             echo('Aucun points marqués');
         }
         else{
-            echo('<table><tr><th>Catégorie</th><th>Total</th><th>Pourcentage</th></tr>');
+            echo('<table><tr><th>Catégorie</th><th>Total</th><th>Moyenne</th><th>Pourcentage</th></tr>');
             foreach($pointDetails as $pointDetail){
                 echo('<tr><td>' . $pointDetail['description'] . '</td>');
                 echo('<td>' . $pointDetail['score'] . '</td>');
+                echo('<td>' . $pointDetail['avg'] . '</td>');
                 echo('<td>' . round($pointDetail['proportion'] * 100, 2) . '%</td></tr>');
             }
             echo('</table>');

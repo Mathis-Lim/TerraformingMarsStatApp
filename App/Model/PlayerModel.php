@@ -209,7 +209,7 @@
 			return $all;
 		}
 
-		public function getPointsDetail($total){
+		public function getPointsDetail($total, $nbGames){
 
 			$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
 			SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id";
@@ -227,30 +227,35 @@
 			$tr = array(
 				"description" => "NT",
 				"score" => $trScore,
+				"avg" => round($trScore / $nbGames, 2);
 				"proportion" => $trScore/$total,
 			);
 
 			$board = array(
 				"description" => "Plateau",
 				"score" => $boardScore,
+				"avg" => round($boardScore / $nbGames, 2);
 				"proportion" => $boardScore/$total,
 			);
 
 			$cards = array(
 				"description" => "Cartes",
 				"score" => $cardScore,
+				"avg" => round($cardScore / $nbGames, 2);
 				"proportion" => $cardScore/$total,
 			);
 
 			$goals = array(
 				"description" => "Objectifs",
 				"score" => $goalScore,
+				"avg" => round($goalScore / $nbGames, 2);
 				"proportion" => $goalScore/$total,
 			);
 
 			$awards = array(
 				"description" => "Récompenses",
 				"score" => $awardScore,
+				"avg" => round($awardScore / $nbGames, 2);
 				"proportion" => $awardScore/$total,
 			);
 
