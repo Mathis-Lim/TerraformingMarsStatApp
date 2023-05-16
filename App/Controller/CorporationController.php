@@ -91,7 +91,7 @@
 
             $pointDetails = null;
             if($totalPoints > 0){
-                $pointDetails = $corporation->getPointsDetail($totalPoints);
+                $pointDetails = $corporation->getPointsDetail($totalPoints, $nbPlayed);
                 if(!isset($pointDetails)){
                     ErrorController::getPointDetailCorporation();
                     exit;

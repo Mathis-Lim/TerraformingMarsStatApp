@@ -96,7 +96,7 @@
 
             $pointDetails = null;
             if($totalPoints > 0){
-                $pointDetails = $player->getPointsDetail($totalPoints);
+                $pointDetails = $player->getPointsDetail($totalPoints, $nbGames);
                 if(!isset($totalPoints)){
                     ErrorController::getPointDetailPlayer();
                     exit;
