@@ -24,7 +24,7 @@
             for ($i = 1; $i < 4; $i++) {
                 echo('<p><h2>Récompense n°' . $i . ': <h2>');
                 echo('<label for="award_' . $i. '">récompense: </label>');
-                echo('<select id="award_' . $i .'" name="award_' . $i. '"'>);
+                echo('<select id="award_' . $i .'" name="award_' . $i. '">');
                 foreach($awardArray as $award){
                     echo('<option value="' . $award->getId() . '">' . $award->getName() . '</option>');
                 }
