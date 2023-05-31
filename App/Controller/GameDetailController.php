@@ -62,7 +62,7 @@
             }
         }
 
-        public static function setGoalsAwards($game, $playersId){
+        public static function setGoalsAwards($gameId, $playersId){
             $playerArray = array();
             foreach($playersId as $playerId){
                 $player = PlayerModel::getPlayerById($playerId);
