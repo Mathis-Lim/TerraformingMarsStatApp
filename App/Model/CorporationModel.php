@@ -154,7 +154,7 @@
             return $choice;
         }
 
-        public function getPointsDetail($total){
+        public function getPointsDetail($total, $nbGames){
 
 			$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
 			SUM(awardScore) as award FROM GameDetails WHERE chosenCorporation=:corporation_id";
