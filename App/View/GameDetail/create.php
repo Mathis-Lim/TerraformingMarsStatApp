@@ -49,8 +49,6 @@
     ?>
     <input type="submit" value="Suivant"/>
 
-
-
 </fieldset> 
 </form>	
 
