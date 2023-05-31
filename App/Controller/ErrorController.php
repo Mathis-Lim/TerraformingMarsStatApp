@@ -192,4 +192,14 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function setGoals(){
+            $errorMessage = "Une erreur est survenue lors de l'enregistrement des objectifs";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function setAwards(){
+            $errorMessage = "Une erreur est survenue lors de l'enregistrement des récompenses";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

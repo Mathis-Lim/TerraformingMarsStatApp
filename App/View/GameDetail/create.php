@@ -47,7 +47,7 @@
             echo('<input type="number" name="award_score_' . $i . '" id="award_score_' . $i . '" step="1" required/></p></p>');
         }
     ?>
-    <input type="submit" value="Enregistrer"/>
+    <input type="submit" value="Suivant"/>
 
 
 

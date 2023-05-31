@@ -157,4 +157,38 @@
 			);
         }
 
+        public function setGoal($goalId, $playerId){
+            $sql = "INSERT INTO GoalFinanced(gameId, goalId, playerId) VALUES(:game_id, :goal_id, :player_id)";
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array(
+                ":game_id" => $this->gameId,
+                ":goal_id" => $goalId,
+                ":player_id" => $playerId,
+            );
+            
+            try{
+                $req_prep->execute($values);
+                return true;
+            } catch(PDOExeception $e){
+                return false;
+            }
+        }
+
+        public function setAward($awardId, $playerId){
+            $sql = "INSERT INTO AwardFinanced(gameId, awardId, playerId) VALUES(:game_id, :award_id, :player_id)";
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array(
+                ":game_id" => $this->gameId,
+                ":award_id" => $awardId,
+                ":player_id" => $playerId,
+            );
+            
+            try{
+                $req_prep->execute($values);
+                return true;
+            } catch(PDOExeception $e){
+                return false;
+            }
+        }
+
     }
