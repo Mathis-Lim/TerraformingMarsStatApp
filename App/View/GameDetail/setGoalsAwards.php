@@ -1,4 +1,4 @@
-<form method="post" action="index.php?controller=game&action=goalsAwardsSet">
+<form method="post" action="index.php?controller=gameDetail&action=goalsAwardsSet">
   <fieldset>
     <legend>Enregistrer les objectifs et les récompenses:</legend>
 
