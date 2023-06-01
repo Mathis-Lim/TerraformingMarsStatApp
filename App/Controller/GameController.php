@@ -83,7 +83,7 @@
                 exit;
             }
 
-            $recordAvgPoints = GameDetailModel::getRecordAvgPointsDetail(){
+            $recordAvgPoints = GameDetailModel::getRecordAvgPointsDetail();
                 if(!isset($recordAvgPoints)){
                     ErrorController::getRecordPoints();
                     exit;
