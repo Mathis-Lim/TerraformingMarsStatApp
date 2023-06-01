@@ -299,7 +299,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getRecordPoints(){
-			$sql = "SELECT FROM MAX(score) FROM GameDetails";
+			$sql = "SELECT MAX(score) FROM GameDetails";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
@@ -322,7 +322,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getRecordTrPoints(){
-			$sql = "SELECT FROM MAX(trScore) FROM GameDetails";
+			$sql = "SELECT MAX(trScore) FROM GameDetails";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
@@ -345,7 +345,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getRecordBoardPoints(){
-			$sql = "SELECT FROM MAX(boardScore) FROM GameDetails";
+			$sql = "SELECT MAX(boardScore) FROM GameDetails";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
@@ -368,7 +368,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 		
 		public static function getRecordCardPoints(){
-			$sql = "SELECT FROM MAX(cardScore) FROM GameDetails";
+			$sql = "SELECT MAX(cardScore) FROM GameDetails";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
