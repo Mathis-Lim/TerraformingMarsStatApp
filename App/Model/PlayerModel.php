@@ -276,7 +276,7 @@
 			
 			$gameIds = array();
 			foreach($result as $gameId){
-				array_push($gameId->gameId');
+				array_push($gameId->gameId);
 			}
 			$nbGames = sizeof($gameIds);
 
