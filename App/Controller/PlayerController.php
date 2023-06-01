@@ -118,6 +118,8 @@
             $leastChosenCorp = $corporationChoices['records']['least'];
             unset($corporationChoices['records']);
 
+           $player->getPositionDetailAux();
+
             $controller = "Player";
             $view = "detail";
             $pageTitle = $player->getName() . " - Détails";

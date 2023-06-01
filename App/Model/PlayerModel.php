@@ -265,6 +265,19 @@
 			
 		}
 
+		public function getPositionDetailAux($nbPlayers){
+			$sql = "SELECT gameId FROM (SELECT gameId, COUNT(*) as nb FROM GameDetails GROUP BY gameId) as subquery 
+			WHERE nb = :nb_player";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("nb_player" => $nbPlayers,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$gameIds = $req_prep->fetchAll();
+			
+			$nbGames = sizeof($gameIds);
+
+			var_dump($gameIds);
+		}
 
     }
 
