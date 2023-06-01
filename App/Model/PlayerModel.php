@@ -272,11 +272,51 @@
             $values = array("nb_player" => $nbPlayers,);
 			$req_prep->execute($values);
 			$req_prep->setFetchMode(PDO::FETCH_OBJ);
-			$gameIds = $req_prep->fetchAll();
+			$result = $req_prep->fetchAll();
 			
+			$gameIds = array();
+			foreach($result as $gameId){
+				array_push($gameId{'gameId'});
+			}
 			$nbGames = sizeof($gameIds);
 
-			var_dump($gameIds);
+			$detailByPosition = array();
+
+			for($i = 1; i <= $nbPlayers; i++){
+				$sql = "SELECT COUNT(*) as nb FROM GameDetails 
+				WHERE gameId IN :game_ids AND playerId = :player_id AND position = :position";
+				$req_prep = ConnectionModel::getPDO()->prepare($sql);
+				$values = array(
+					"game_ids" => $gameIds,
+					"player_id" => $this->$playerId,
+					"position" => $i,
+ 				);
+				$req_prep->execute($values);
+				$req_prep->setFetchMode(PDO::FETCH_OBJ);
+				$result = $req_prep->fetchAll();
+				$nb = $result[0]->{'nb'};
+
+				$positionDetail = array(
+					"position" => $i,
+					"total" => $nb,
+					"proportion" => 0,
+				);
+
+				if($nb > 0){
+					$positionDetail['proportion'] = round(($nb / $nbGames) * 100, 2);
+				}
+
+				array_push($detailByPosition, $positionDetail);
+
+			}
+			
+			$detail = array(
+				"nbPlayers" => $nbPlayers,
+				"stats" => $detailByPosition,
+			);
+
+			var_dump($detail);
+	
 		}
 
     }
