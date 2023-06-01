@@ -308,7 +308,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId
 			WHERE Players.playerId IN
-				(SELECT playerId WHERE score = " . $max .")";
+				(SELECT playerId FROM GameDetails WHERE score = " . $max .")";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
@@ -331,7 +331,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId
 			WHERE Players.playerId IN
-				(SELECT playerId WHERE trScore = " . $max .")";
+				(SELECT playerId FROM GameDetails WHERE trScore = " . $max .")";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
@@ -354,7 +354,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId
 			WHERE Players.playerId IN
-				(SELECT playerId WHERE boardScore = " . $max .")";
+				(SELECT playerId FROM GameDetails WHERE boardScore = " . $max .")";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
@@ -377,7 +377,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId
 			WHERE Players.playerId IN
-				(SELECT playerId WHERE cardScore = " . $max .")";
+				(SELECT playerId FROM GameDetails WHERE cardScore = " . $max .")";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
