@@ -63,7 +63,7 @@
         <?php
             foreach($recordAvgPoints as $record){
                 echo('<li>Joueur marquant le plus de points de ' . $record['description'] . ' en moyenne: ' . $record['player']
-                 . ', ' . $record['number'] . ' points marqués</li>');
+                 . ', ' . $record['number'] . ' points marqués par partie</li>');
             }
         ?>
     </ul>
