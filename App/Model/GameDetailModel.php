@@ -410,7 +410,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT AVG(score) as nb, playerId FROM GameDetails GROUP BY playerId)
+				(SELECT playerId FROM (SELECT ROUND(AVG(score),2) as nb, playerId FROM GameDetails GROUP BY playerId)
 			as subquery WHERE nb = " .$max .")";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
@@ -434,7 +434,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT AVG(trScore) as nb, playerId FROM GameDetails GROUP BY playerId)
+				(SELECT playerId FROM (SELECT ROUND(AVG(trScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
 			as subquery WHERE nb = " .$max .")";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
@@ -458,7 +458,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT AVG(boardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
+				(SELECT playerId FROM (SELECT ROUND(AVG(boardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
 			as subquery WHERE nb = " .$max .")";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
@@ -482,7 +482,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT AVG(cardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
+				(SELECT playerId FROM (SELECT ROUND(AVG(cardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
 			as subquery WHERE nb = " .$max .")";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
@@ -506,7 +506,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT AVG(goalScore) as nb, playerId FROM GameDetails GROUP BY playerId)
+				(SELECT playerId FROM (SELECT ROUND(AVG(goalScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
 			as subquery WHERE nb = " .$max .")";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
@@ -514,7 +514,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$playerName = $result[0]->{'playerName'};
 
 			return array(
-				"description" => "d'objectifs'",
+				"description" => "d'objectifs",
 				"player" => $playerName,
 				"number" => $max,
 			);
@@ -530,7 +530,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT AVG(awardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
+				(SELECT playerId FROM (SELECT ROUND(AVG(awardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
 			as subquery WHERE nb = " .$max .")";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
