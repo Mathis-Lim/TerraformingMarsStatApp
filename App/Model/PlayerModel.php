@@ -282,7 +282,7 @@
 
 			$detailByPosition = array();
 
-			for($i = 1; i <= $nbPlayers; i++){
+			for($i = 1; i <= $nbPlayers; $i++){
 				$sql = "SELECT COUNT(*) as nb FROM GameDetails 
 				WHERE gameId IN :game_ids AND playerId = :player_id AND position = :position";
 				$req_prep = ConnectionModel::getPDO()->prepare($sql);
