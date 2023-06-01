@@ -283,6 +283,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		public function getTotalPointDetails($totalPoints, $nbGames){
             $sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
 			SUM(awardScore) as award FROM GameDetails";
+			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
 
