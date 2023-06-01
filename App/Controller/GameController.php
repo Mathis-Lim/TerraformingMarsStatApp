@@ -71,7 +71,13 @@
                 exit;
             }
 
-            $recordPoints = GameDetailModel::getTotalPointsRecordsDetails();
+            $recordTotalPoints = GameDetailModel::getTotalPointsRecordsDetails();
+            if(!isset($recordTotalPoints)){
+                ErrorController::getRecordPoints();
+                exit;
+            }
+
+            $recordPoints = GameDetailModel::getPointsRecordDetails();
             if(!isset($recordPoints)){
                 ErrorController::getRecordPoints();
                 exit;

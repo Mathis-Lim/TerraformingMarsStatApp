@@ -36,18 +36,32 @@
 </ul>
 <h2>Statistiques sur les joueurs: </h2>
 <ul>
+    <h3>Global</h3>
+    <ul>
     <?php
         echo('<li>Joueur ayant joué le plus de parties: ' . $mostPlayed['player'] . ', ' . 
             $mostPlayed['number'] . ' parties jouées</li>');
         echo('<li>Joueur ayant gagné le plus de parties: ' . $recordWinner['player'] . ', ' . 
             $recordWinner['number'] . ' parties gagnées</li>');
-        foreach($recordPoints as $record){
+        foreach($recordTotalPoints as $record){
             echo('<li>Joueur ayant marqué le plus de points ' . $record['description'] . ': ' . $record['player'] . ', ' . 
             $record['number'] . ' points marqués</li>');
         }
-        echo('<li>Joueur ayant marqué le plus de points: ' . $recordPoints['player'] . ', ' . 
-            $recordPoints['number'] . ' points marqués</li>');
     ?>
+    </ul>
+    <h3>Sur une partie</h3>
+    <ul>
+        <?php
+            echo('<li>Joueur ayant joué le plus de parties: ' . $mostPlayed['player'] . ', ' . 
+                $mostPlayed['number'] . ' parties jouées</li>');
+            echo('<li>Joueur ayant gagné le plus de parties: ' . $recordWinner['player'] . ', ' . 
+                $recordWinner['number'] . ' parties gagnées</li>');
+            foreach($recordPoints as $record){
+                echo('<li>Joueur ayant le record de points ' . $record['description'] . ': ' . $record['player'] . ', ' . 
+                $record['number'] . ' points marqués</li>');
+            }
+        ?>
+    </ul>    
 </ul>
 <h2>Statistiques sur les corporations: </h2>
 <ul>
