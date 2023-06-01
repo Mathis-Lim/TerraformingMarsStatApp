@@ -202,4 +202,9 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getGameTotalPointDetail(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du détail des points";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

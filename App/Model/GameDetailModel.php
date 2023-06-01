@@ -280,6 +280,60 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			);
 		}
 
+		public function getTotalPointDetails($totalPoints, $nbGames){
+            $sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
+			SUM(awardScore) as award FROM GameDetails";
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+
+            $tr = $result[0]->{'tr'};
+            $board = $result[0]->{'board'};
+            $card = $result[0]->{'card'};
+            $goal = $result[0]->{'goal'};
+            $award = $result[0]->{'award'};
+
+            $trDetail = array(
+                "description" => "NT",
+                "score" => $tr,
+                "avg" => round($tr / $nbGames, 2),
+                "proportion" => $tr / $totalPoints,
+            );
+
+            $boardDetail = array(
+                "description" => "Plateau",
+                "score" => $board,
+                "avg" => round($board / $nbGames, 2),
+                "proportion" => $board / $totalPoints,
+            );
+
+
+            $cardDetail = array(
+                "description" => "Cartes",
+                "score" => $card,
+                "avg" => round($card / $nbGames, 2),
+                "proportion" => $card / $totalPoints,
+            );
+
+
+            $goalDetail = array(
+                "description" => "Objectifs",
+                "score" => $goal,
+                "avg" => round($goal / $nbGames, 2),
+                "proportion" => $goal / $totalPoints,
+            );
+
+
+            $awardDetail = array(
+                "description" => "Récompenses",
+                "score" => $award,
+                "avg" => round($award / $nbGames, 2),
+                "proportion" => $award / $totalPoints,
+            );
+
+            $details = array($trDetail, $boardDetail, $cardDetail, $goalDetail, $awardDetail);
+            return($details);
+        }
+
     }
 
 

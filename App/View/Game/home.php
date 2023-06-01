@@ -13,7 +13,24 @@
         echo('<li>Nombre de générations par partie en moyenne: ' . $avgGen . '</li>');
         echo('<li>Nombre de points marqués au total: ' . $nbPoints . '</li>');
         echo('<li>Nombre de points marqués en moyenne: ' . $avgPoints . '</li>');
-     ?>   
+
+     ?>
+     <h3>Détail des points</h3>
+    <?php
+        if (!isset($pointDetails)){
+            echo('Aucun points marqués');
+        }
+        else{
+            echo('<table><tr><th>Catégorie</th><th>Total</th><th>Moyenne</th><th>Pourcentage</th></tr>');
+            foreach($pointDetails as $pointDetail){
+                echo('<tr><td>' . $pointDetail['description'] . '</td>');
+                echo('<td>' . $pointDetail['score'] . '</td>');
+                echo('<td>' . $pointDetail['avg'] . '</td>');
+                echo('<td>' . round($pointDetail['proportion'] * 100, 2) . '%</td></tr>');
+            }
+            echo('</table>');
+        }
+    ?>   
 </ul>
 <h2>Statistiques sur les joueurs: </h2>
 <ul>

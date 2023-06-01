@@ -35,6 +35,12 @@
                 exit;
             }
 
+            $pointDetails = GameDetailModel::getTotalPointDetails($nbPoints, $nbGames);
+            if(!isset($pointDetails)){
+                ErrorController::getGameTotalPointDetail();
+                exit;
+            }
+
             $avgGen = GameModel::getAverageGenerationNumber();
             if(!isset($avgGen)){
                 ErrorController::getAverageGenerationNumber();
