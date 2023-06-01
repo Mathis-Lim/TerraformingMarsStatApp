@@ -299,11 +299,11 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getRecordPoints(){
-			$sql = "SELECT MAX(score) FROM GameDetails";
+			$sql = "SELECT MAX(score) as max FROM GameDetails";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
+            $max = $result[0]->{'max'};
 
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId
@@ -322,11 +322,11 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getRecordTrPoints(){
-			$sql = "SELECT MAX(trScore) FROM GameDetails";
+			$sql = "SELECT MAX(trScore) as max FROM GameDetails";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
+            $max = $result[0]->{'max'};
 
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId
@@ -345,11 +345,11 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getRecordBoardPoints(){
-			$sql = "SELECT MAX(boardScore) FROM GameDetails";
+			$sql = "SELECT MAX(boardScore) as max FROM GameDetails";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
+            $max = $result[0]->{'max'};
 
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId
@@ -368,11 +368,11 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 		
 		public static function getRecordCardPoints(){
-			$sql = "SELECT MAX(cardScore) FROM GameDetails";
+			$sql = "SELECT MAX(cardScore) as max FROM GameDetails";
 			$res = ConnectionModel::getPDO()->query($sql);
             $res->setFetchMode(PDO::FETCH_OBJ);
             $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
+            $max = $result[0]->{'max'};
 
 			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId
