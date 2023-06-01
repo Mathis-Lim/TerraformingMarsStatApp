@@ -256,7 +256,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$playerName = $result[0]->{'playerName'};
 
 			return array(
-				"description" => "d'objectifs"
+				"description" => "d'objectifs",
 				"player" => $playerName,
 				"number" => $max,
 			);
