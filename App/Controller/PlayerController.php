@@ -118,7 +118,7 @@
             $leastChosenCorp = $corporationChoices['records']['least'];
             unset($corporationChoices['records']);
 
-           $player->getPositionDetailAux();
+           $player->getPositionDetailAux(3);
 
             $controller = "Player";
             $view = "detail";
