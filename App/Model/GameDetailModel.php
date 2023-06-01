@@ -126,7 +126,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $result = $res->fetchAll();
             $max = $result[0]->{'MAX(nb)'};
 
-			$sql = "SELECT playerName FROM Players JOIN GameDetails 
+			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId 
 			WHERE Players.playerId IN 
 				(SELECT playerId FROM (SELECT COUNT(gameId) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -149,7 +149,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $result = $res->fetchAll();
             $max = $result[0]->{'MAX(nb)'};
 
-			$sql = "SELECT playerName FROM Players JOIN GameDetails 
+			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
 				(SELECT playerId FROM (SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -173,7 +173,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $result = $res->fetchAll();
             $max = $result[0]->{'MAX(nb)'};
 
-			$sql = "SELECT playerName FROM Players JOIN GameDetails 
+			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
 				(SELECT playerId FROM (SELECT SUM(trScore) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -197,7 +197,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $result = $res->fetchAll();
             $max = $result[0]->{'MAX(nb)'};
 
-			$sql = "SELECT playerName FROM Players JOIN GameDetails 
+			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
 				(SELECT playerId FROM (SELECT SUM(boardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -221,7 +221,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $result = $res->fetchAll();
             $max = $result[0]->{'MAX(nb)'};
 
-			$sql = "SELECT playerName FROM Players JOIN GameDetails 
+			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
 				(SELECT playerId FROM (SELECT SUM(cardscore) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -245,7 +245,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $result = $res->fetchAll();
             $max = $result[0]->{'MAX(nb)'};
 
-			$sql = "SELECT playerName FROM Players JOIN GameDetails 
+			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
 				(SELECT playerId FROM (SELECT SUM(goalScore) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -269,7 +269,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $result = $res->fetchAll();
             $max = $result[0]->{'MAX(nb)'};
 
-			$sql = "SELECT playerName FROM Players JOIN GameDetails 
+			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
 			ON Players.playerId = GameDetails.playerId  
 			WHERE Players.playerId IN 
 				(SELECT playerId FROM (SELECT SUM(awardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
