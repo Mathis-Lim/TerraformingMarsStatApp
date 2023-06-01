@@ -52,16 +52,21 @@
     <h3>Sur une partie</h3>
     <ul>
         <?php
-            echo('<li>Joueur ayant joué le plus de parties: ' . $mostPlayed['player'] . ', ' . 
-                $mostPlayed['number'] . ' parties jouées</li>');
-            echo('<li>Joueur ayant gagné le plus de parties: ' . $recordWinner['player'] . ', ' . 
-                $recordWinner['number'] . ' parties gagnées</li>');
             foreach($recordPoints as $record){
                 echo('<li>Joueur ayant le record de points ' . $record['description'] . ': ' . $record['player'] . ', ' . 
                 $record['number'] . ' points marqués</li>');
             }
         ?>
-    </ul>    
+    </ul>
+    <h3>En moyenne</h3>
+    <ul>
+        <?php
+            foreach($recordAvgPoints as $record){
+                echo('<li>Joueur marquant le plus de points de ' . $record['description'] . ' en moyenne: ' . $record['player']
+                 . ', ' . $record['number'] . ' points marqués</li>');
+            }
+        ?>
+    </ul>
 </ul>
 <h2>Statistiques sur les corporations: </h2>
 <ul>

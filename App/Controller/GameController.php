@@ -83,6 +83,12 @@
                 exit;
             }
 
+            $recordAvgPoints = GameDetailModel::getRecordAvgPointsDetail(){
+                if(!isset($recordAvgPoints)){
+                    ErrorController::getRecordPoints();
+                    exit;
+            }
+
             $corporationFrequencyRecords = GameDetailModel::getRecordChosenCorporation();
             if(!isset($corporationFrequencyRecords)){
                 ErrorController::getRecordChosenCorporation();
