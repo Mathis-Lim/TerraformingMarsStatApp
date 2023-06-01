@@ -41,6 +41,10 @@
             $mostPlayed['number'] . ' parties jouées</li>');
         echo('<li>Joueur ayant gagné le plus de parties: ' . $recordWinner['player'] . ', ' . 
             $recordWinner['number'] . ' parties gagnées</li>');
+        foreach($recordPoints as $record){
+            echo('<li>Joueur ayant marqué le plus de points ' . $record['description'] . ': ' . $record['player'] . ', ' . 
+            $record['number'] . ' points marqués</li>');
+        }
         echo('<li>Joueur ayant marqué le plus de points: ' . $recordPoints['player'] . ', ' . 
             $recordPoints['number'] . ' points marqués</li>');
     ?>
