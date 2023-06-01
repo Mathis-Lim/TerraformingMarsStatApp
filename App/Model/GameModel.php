@@ -191,4 +191,22 @@
             }
         }
 
+        public static function getMostGenerations(){
+            $sql = "SELECT MAX(numberOfGenerations) as max FROM Games";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $nb = $result[0]->{'max'};
+            return $nb;
+        }
+
+        public static function getLeastGenerations(){
+            $sql = "SELECT MIN(numberOfGenerations) as min FROM Games";
+			$res = ConnectionModel::getPDO()->query($sql);
+            $res->setFetchMode(PDO::FETCH_OBJ);
+            $result = $res->fetchAll();
+            $nb = $result[0]->{'min'};
+            return $nb;
+        }
+
     }

@@ -207,4 +207,14 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
+        public static function getMostGenerations(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du record du plus de générations en une partie";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getLeastGenerations(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du record du moins de générations en une partie";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
     }

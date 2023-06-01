@@ -11,6 +11,8 @@
         echo('<li>Nombre de parties jouées: ' . $nbGames .'</li>');
         echo('<li>Nombre de générations jouées: ' . $nbGenerations .'</li>');
         echo('<li>Nombre de générations par partie en moyenne: ' . $avgGen . '</li>');
+        echo('<li>Partie la plus longue: ' . $maxGen . ' générations</li>');
+        echo('<li>Partie la plus courte: ' . $minGen . ' générations</li>');
         echo('<li>Nombre de points marqués au total: ' . $nbPoints . '</li>');
         echo('<li>Nombre de points marqués en moyenne: ' . $avgPoints . '</li>');
 

@@ -23,6 +23,18 @@
                 exit;
             }
 
+            $maxGen = GameModel::getMostGenerations();
+            if(!isset ($maxGen)){
+                ErrorController::getMostGenerations();
+                exit;
+            }
+
+            $minGen = GameModel::getLeastGenerations();
+            if(!isset($minGen)){
+                ErrorController::getLeastGenerations();
+                exit;
+            }
+
             $nbPoints = GameDetailModel::getTotalPoints();
             if(!isset($nbPoints)){
                 ErrorController::getTotalPoints();
