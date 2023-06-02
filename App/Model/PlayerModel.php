@@ -39,7 +39,7 @@
         }
 
         public static function readAll(){
-			tru{
+			try{
 				$req = ConnectionModel::getPDO()->query("SELECT * FROM Players");
 				$req->setFetchMode(PDO::FETCH_CLASS, 'PlayerModel');
 				$res = $req->fetchAll();
