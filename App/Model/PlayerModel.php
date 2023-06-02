@@ -279,14 +279,14 @@
 			$nbGames = sizeof($result);
 			
 			for($i = 0; $i < $nbGames-1; $i++){
-				$gameIds = $gameIds . $result[$i]->gameId . ", ";
+				$gameIds = $gameIds . $result[$i]->{'gameId'} . ", ";
 			}
-			$gameIds = $gameIds . $result[$nbGames - 1]->gameId . ")";
+			$gameIds = $gameIds . $result[$nbGames - 1]->{'gameId'} . ")";
 
 
 			$detailByPosition = array();
 
-			for($i = 1; i <= $nbPlayers; $i++){
+			for($i = 1; $i <= $nbPlayers; $i++){
 				$sql = "SELECT COUNT(*) as nb FROM GameDetails 
 				WHERE gameId IN :game_ids AND playerId = :player_id AND position = :position";
 				$req_prep = ConnectionModel::getPDO()->prepare($sql);
