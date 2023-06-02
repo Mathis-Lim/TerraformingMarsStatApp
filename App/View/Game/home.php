@@ -85,7 +85,7 @@
 <ul>
 <h3>Objectifs</h3>
     <?php
-        echo('<table><tr><th>Objectif</th><th>Occurences</th><th>Proportion</th>');
+        echo('<table><tr><th>Objectif</th><th>Occurences</th><th>Fréquence</th>');
         foreach($goalStats as $goalStat){
             echo('<tr><td>' . $goalStat['goal'] . '</td>');
             echo('<td>' . $goalStat['count'] . '</td>');
@@ -95,7 +95,7 @@
     ?>
 <h3>Récompenses</h3>
     <?php
-        echo('<table><tr><th>Récompense</th><th>Occurences</th><th>Proportion</th>');
+        echo('<table><tr><th>Récompense</th><th>Occurences</th><th>Fréquence</th>');
         foreach($awardStats as $awardStat){
             echo('<tr><td>' . $awardStat['award'] . '</td>');
             echo('<td>' . $awardStat['count'] . '</td>');
