@@ -288,7 +288,7 @@
 
 			for($i = 1; $i <= $nbPlayers; $i++){
 				$sql = "SELECT COUNT(*) as nb FROM GameDetails 
-				WHERE gameId IN " . $gameIds . " AND playerId = " . $this->playerId . " AND position = ". $i;
+				WHERE gameId IN " . $gameIds . " AND playerId = " . $this->playerId . " AND rank = ". $i;
 				$req = ConnectionModel::getPDO()->query($sql);
 				$req->setFetchMode(PDO::FETCH_OBJ);
 				$result = $req_prep->fetchAll();
