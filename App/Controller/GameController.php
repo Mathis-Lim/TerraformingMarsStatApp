@@ -115,7 +115,7 @@
                 exit;
             }
 
-            $awardStats = GameModel::getGoalStats();
+            $awardStats = GameModel::getAwardStats();
             if(!isset($awardStats)){
                 ErrorController::getAwardStats();
                 exit;
