@@ -102,188 +102,225 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
         }
 
 		public static function getTotalPoints(){
-			$sql = "SELECT SUM(score) FROM GameDetails";
-            $res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $nb = $result[0]->{'SUM(score)'};
-            return $nb;
+			try{
+				$sql = "SELECT SUM(score) FROM GameDetails";
+            	$res = ConnectionModel::getPDO()->query($sql);
+            	$res->setFetchMode(PDO::FETCH_OBJ);
+            	$result = $res->fetchAll();
+            	$nb = $result[0]->{'SUM(score)'};
+				return $nb;
+			} catch(PDOException $e) {
+                return null;
+            }
+            
 		}
 
 		public static function getAveragePoints(){
-			$sql = "SELECT ROUND(AVG(score), 2) as avg FROM GameDetails;";
-            $res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $nb = $result[0]->{'avg'};
-            return $nb;
+			try{
+				$sql = "SELECT ROUND(AVG(score), 2) as avg FROM GameDetails;";
+            	$res = ConnectionModel::getPDO()->query($sql);
+            	$res->setFetchMode(PDO::FETCH_OBJ);
+            	$result = $res->fetchAll();
+            	$nb = $result[0]->{'avg'};
+            	return $nb;
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getMostPlayed(){
-			$sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+            	$res->setFetchMode(PDO::FETCH_OBJ);
+            	$result = $res->fetchAll();
+            	$max = $result[0]->{'MAX(nb)'};
 
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId 
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT COUNT(gameId) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId 
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT COUNT(gameId) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+            	$res->setFetchMode(PDO::FETCH_OBJ);
+            	$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
 
-			return array(
-				"player" => $playerName,
-				"number" => $max,
-			);
+				return array(
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordTotalPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "en tout",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "en tout",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordTotalTrPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT SUM(trScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT SUM(trScore) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de NT",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT SUM(trScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT SUM(trScore) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de NT",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordTotalBoardPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT SUM(boardScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT SUM(boardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de plateau",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT SUM(boardScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT SUM(boardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de plateau",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordTotalCardPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT SUM(cardScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT SUM(cardscore) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de cartes",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT SUM(cardScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT SUM(cardscore) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de cartes",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordTotalGoalPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT SUM(goalScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT SUM(goalScore) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "d'objectifs",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT SUM(goalScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT SUM(goalScore) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "d'objectifs",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordTotalAwardPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT SUM(awardScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT SUM(awardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de récompenses",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT SUM(awardScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT SUM(awardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de récompenses",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getTotalPointsRecordsDetails(){
@@ -299,95 +336,111 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getRecordPoints(){
-			$sql = "SELECT MAX(score) as max FROM GameDetails";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'max'};
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId
-			WHERE Players.playerId IN
-				(SELECT playerId FROM GameDetails WHERE score = " . $max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "totaux",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(score) as max FROM GameDetails";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'max'};
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId
+				WHERE Players.playerId IN
+					(SELECT playerId FROM GameDetails WHERE score = " . $max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "totaux",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordTrPoints(){
-			$sql = "SELECT MAX(trScore) as max FROM GameDetails";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'max'};
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId
-			WHERE Players.playerId IN
-				(SELECT playerId FROM GameDetails WHERE trScore = " . $max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de NT",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(trScore) as max FROM GameDetails";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'max'};
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId
+				WHERE Players.playerId IN
+					(SELECT playerId FROM GameDetails WHERE trScore = " . $max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de NT",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordBoardPoints(){
-			$sql = "SELECT MAX(boardScore) as max FROM GameDetails";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'max'};
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId
-			WHERE Players.playerId IN
-				(SELECT playerId FROM GameDetails WHERE boardScore = " . $max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de plateau",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(boardScore) as max FROM GameDetails";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'max'};
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId
+				WHERE Players.playerId IN
+					(SELECT playerId FROM GameDetails WHERE boardScore = " . $max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de plateau",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 		
 		public static function getRecordCardPoints(){
-			$sql = "SELECT MAX(cardScore) as max FROM GameDetails";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'max'};
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId
-			WHERE Players.playerId IN
-				(SELECT playerId FROM GameDetails WHERE cardScore = " . $max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de cartes",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(cardScore) as max FROM GameDetails";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'max'};
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId
+				WHERE Players.playerId IN
+					(SELECT playerId FROM GameDetails WHERE cardScore = " . $max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de cartes",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getPointsRecordDetails(){
@@ -401,147 +454,171 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getRecordAvgPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(score), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};   	
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT ROUND(AVG(score),2) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "totaux",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(score), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};   	
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT ROUND(AVG(score),2) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "totaux",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordAvgTrPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(trScore), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};   	
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT ROUND(AVG(trScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de NT",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(trScore), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};   	
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT ROUND(AVG(trScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de NT",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordAvgBoardPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(boardScore), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};   	
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT ROUND(AVG(boardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de plateau",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(boardScore), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};   	
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT ROUND(AVG(boardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de plateau",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordAvgCardPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(cardScore), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};   	
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT ROUND(AVG(cardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de cartes",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(cardScore), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};   	
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT ROUND(AVG(cardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de cartes",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordAvgGoalPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(goalScore), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};   	
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT ROUND(AVG(goalScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "d'objectifs",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(goalScore), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};   	
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT ROUND(AVG(goalScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "d'objectifs",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordAvgAwardPoints(){
-			$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(awardScore), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};   	
-
-			$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
-			ON Players.playerId = GameDetails.playerId  
-			WHERE Players.playerId IN 
-				(SELECT playerId FROM (SELECT ROUND(AVG(awardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"description" => "de récompenses",
-				"player" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT ROUND(AVG(awardScore), 2) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};   	
+	
+				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				ON Players.playerId = GameDetails.playerId  
+				WHERE Players.playerId IN 
+					(SELECT playerId FROM (SELECT ROUND(AVG(awardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'playerName'};
+	
+				return array(
+					"description" => "de récompenses",
+					"player" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
 		}
 
 		public static function getRecordAvgPointsDetail(){
@@ -557,7 +634,8 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getRecordChosenCorporation(){
-			$sql = "SELECT Corporations.corporationId, corporationName, SUM(chosenCount) AS chosenCount, 
+			try{
+				$sql = "SELECT Corporations.corporationId, corporationName, SUM(chosenCount) AS chosenCount, 
 				SUM(rejectedCount) AS rejectedCount 
 				FROM ( SELECT chosenCorporation AS corporationId, COUNT(gameId) AS chosenCount, 
 				0 AS rejectedCount FROM GameDetails GROUP BY chosenCorporation 
@@ -581,156 +659,171 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			);
 
 			foreach($result as $line){
-				$nbChosen = $line->{'chosenCount'};
-				$total = $nbChosen + $line->{'rejectedCount'};
-				$freqChosen = $nbChosen / $total;
-
-				if($most['frequency'] < $freqChosen){
-					$most = array(
-						"name" => $line->{'corporationName'},
-						"frequency" => $freqChosen,
-						"total" => $total,
-					);
+					$nbChosen = $line->{'chosenCount'};
+					$total = $nbChosen + $line->{'rejectedCount'};
+					$freqChosen = $nbChosen / $total;
+	
+					if($most['frequency'] < $freqChosen){
+						$most = array(
+							"name" => $line->{'corporationName'},
+							"frequency" => $freqChosen,
+							"total" => $total,
+						);
+					}
+					elseif($most['frequency'] == $freqChosen && $most['total'] < $total){
+						$most = array(
+							"name" => $line->{'corporationName'},
+							"frequency" => $freqChosen,
+							"total" => $total,
+						);
+					}
+					
+					if($least['frequency'] > $freqChosen){
+						$least = array(
+							"name" => $line->{'corporationName'},
+							"frequency" => $freqChosen,
+							"total" => $total,
+						);
+					}
+					elseif($least['frequency'] == $freqChosen && $least['total'] < $total){
+						$least = array(
+							"name" => $line->{'corporationName'},
+							"frequency" => $freqChosen,
+							"total" => $total,
+						);
+					}		
+	
+				$records = array(
+					"most" => $most,
+					"least" => $least,
+				);
+				return $records;
 				}
-				elseif($most['frequency'] == $freqChosen && $most['total'] < $total){
-					$most = array(
-						"name" => $line->{'corporationName'},
-						"frequency" => $freqChosen,
-						"total" => $total,
-					);
-				}
-				
-				if($least['frequency'] > $freqChosen){
-					$least = array(
-						"name" => $line->{'corporationName'},
-						"frequency" => $freqChosen,
-						"total" => $total,
-					);
-				}
-				elseif($least['frequency'] == $freqChosen && $least['total'] < $total){
-					$least = array(
-						"name" => $line->{'corporationName'},
-						"frequency" => $freqChosen,
-						"total" => $total,
-					);
-				}		
+			} catch(PDOException $e) {
+				return null;
 			}
-
-			$records = array(
-				"most" => $most,
-				"least" => $least,
-			);
-			return $records;
 		}
 
 		public static function getRecordWinsCorporation(){
-			$sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, chosenCorporation FROM GameDetails
-			WHERE rank = 1 GROUP BY chosenCorporation) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
-
-			$sql = "SELECT corporationName FROM Corporations JOIN GameDetails 
-			ON Corporations.corporationId = GameDetails.chosenCorporation  
-			WHERE corporationId IN 
-				(SELECT chosenCorporation FROM (SELECT COUNT(gameId) as nb, chosenCorporation FROM GameDetails
-				WHERE rank = 1 GROUP BY chosenCorporation)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'corporationName'};
-
-			return array(
-				"corporation" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, chosenCorporation FROM GameDetails
+				WHERE rank = 1 GROUP BY chosenCorporation) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};
+	
+				$sql = "SELECT corporationName FROM Corporations JOIN GameDetails 
+				ON Corporations.corporationId = GameDetails.chosenCorporation  
+				WHERE corporationId IN 
+					(SELECT chosenCorporation FROM (SELECT COUNT(gameId) as nb, chosenCorporation FROM GameDetails
+					WHERE rank = 1 GROUP BY chosenCorporation)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'corporationName'};
+	
+				return array(
+					"corporation" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+				return null;
+			}
 		}
 
 		public static function getRecordPointsCorporation(){
-			$sql = "SELECT MAX(nb) FROM (SELECT SUM(score) as nb, chosenCorporation FROM GameDetails GROUP BY chosenCorporation) as subquery";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
-
-			$sql = "SELECT corporationName FROM Corporations JOIN GameDetails 
-			ON Corporations.corporationId = GameDetails.chosenCorporation  
-			WHERE corporationId IN 
-				(SELECT chosenCorporation FROM (SELECT SUM(score) as nb, chosenCorporation FROM GameDetails GROUP BY chosenCorporation)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'corporationName'};
-
-			return array(
-				"corporation" => $playerName,
-				"number" => $max,
-			);
+			try{
+				$sql = "SELECT MAX(nb) FROM (SELECT SUM(score) as nb, chosenCorporation FROM GameDetails GROUP BY chosenCorporation) as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};
+	
+				$sql = "SELECT corporationName FROM Corporations JOIN GameDetails 
+				ON Corporations.corporationId = GameDetails.chosenCorporation  
+				WHERE corporationId IN 
+					(SELECT chosenCorporation FROM (SELECT SUM(score) as nb, chosenCorporation FROM GameDetails GROUP BY chosenCorporation)
+				as subquery WHERE nb = " .$max .")";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{'corporationName'};
+	
+				return array(
+					"corporation" => $playerName,
+					"number" => $max,
+				);
+			} catch(PDOException $e) {
+				return null;
+			}
 		}
 
 		public function getTotalPointDetails($totalPoints){
-            $sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
-			SUM(awardScore) as award FROM GameDetails";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-
-            $tr = $result[0]->{'tr'};
-            $board = $result[0]->{'board'};
-            $card = $result[0]->{'card'};
-            $goal = $result[0]->{'goal'};
-            $award = $result[0]->{'award'};
-
-			$sql = "SELECT COUNT(*) as nb FROM GameDetails";
-			$req = ConnectionModel::getPDO()->query($sql);
-			$req->setFetchMode(PDO::FETCH_OBJ);
-			$result = $req->fetchAll();
-			$nbEntries = $result[0]->{'nb'};
-
-            $trDetail = array(
-                "description" => "NT",
-                "score" => $tr,
-                "avg" => round($tr / $nbEntries, 2),
-                "proportion" => $tr / $totalPoints,
-            );
-
-            $boardDetail = array(
-                "description" => "Plateau",
-                "score" => $board,
-                "avg" => round($board / $nbEntries, 2),
-                "proportion" => $board / $totalPoints,
-            );
-
-
-            $cardDetail = array(
-                "description" => "Cartes",
-                "score" => $card,
-                "avg" => round($card / $nbEntries, 2),
-                "proportion" => $card / $totalPoints,
-            );
-
-
-            $goalDetail = array(
-                "description" => "Objectifs",
-                "score" => $goal,
-                "avg" => round($goal / $nbEntries, 2),
-                "proportion" => $goal / $totalPoints,
-            );
-
-
-            $awardDetail = array(
-                "description" => "Récompenses",
-                "score" => $award,
-                "avg" => round($award / $nbEntries, 2),
-                "proportion" => $award / $totalPoints,
-            );
-
-            $details = array($trDetail, $boardDetail, $cardDetail, $goalDetail, $awardDetail);
-            return($details);
-        }
+			try{
+				$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
+				SUM(awardScore) as award FROM GameDetails";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+	
+				$tr = $result[0]->{'tr'};
+				$board = $result[0]->{'board'};
+				$card = $result[0]->{'card'};
+				$goal = $result[0]->{'goal'};
+				$award = $result[0]->{'award'};
+	
+				$sql = "SELECT COUNT(*) as nb FROM GameDetails";
+				$req = ConnectionMode::getPDO()->query($sql);
+				$req->setFetchMode(PDO::FETCH_OBJ);
+				$result = $req->fetchAll();
+				$nbEntries = $result[0]->{'nb'};
+	
+				$trDetail = array(
+					"description" => "NT",
+					"score" => $tr,
+					"avg" => round($tr / $nbEntries, 2),
+					"proportion" => $tr / $totalPoints,
+				);
+	
+				$boardDetail = array(
+					"description" => "Plateau",
+					"score" => $board,
+					"avg" => round($board / $nbEntries, 2),
+					"proportion" => $board / $totalPoints,
+				);
+	
+	
+				$cardDetail = array(
+					"description" => "Cartes",
+					"score" => $card,
+					"avg" => round($card / $nbEntries, 2),
+					"proportion" => $card / $totalPoints,
+				);
+	
+	
+				$goalDetail = array(
+					"description" => "Objectifs",
+					"score" => $goal,
+					"avg" => round($goal / $nbEntries, 2),
+					"proportion" => $goal / $totalPoints,
+				);
+	
+	
+				$awardDetail = array(
+					"description" => "Récompenses",
+					"score" => $award,
+					"avg" => round($award / $nbEntries, 2),
+					"proportion" => $award / $totalPoints,
+				);
+	
+				$details = array($trDetail, $boardDetail, $cardDetail, $goalDetail, $awardDetail);
+				return($details);
+			}
+        } catch(PDOException $e) {
+			return null;
+		}
 
     }
 
