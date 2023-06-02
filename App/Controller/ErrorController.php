@@ -217,7 +217,7 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
-        public static funciton getPositionDetailPlayer(){
+        public static function getPositionDetailPlayer(){
             $errorMessage = "Une erreur est survenue lors de la récupération du détail des positions du joueur";
             require File::build_path(array("View", "ErrorView.php"));
         }
