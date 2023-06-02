@@ -358,8 +358,6 @@
                 return null;
             }
 		}
-	
-		}
 
 		public function getPositionDetail(){
 			$details = array();
