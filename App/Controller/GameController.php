@@ -109,13 +109,13 @@
                 exit;
             }
 
-            $goalStats = GameModel::getGoalStats();
+            $goalStats = GameModel::getGoalStats($nbGames);
             if(!isset($goalStats)){
                 ErrorController::getGoalStats();
                 exit;
             }
 
-            $awardStats = GameModel::getAwardStats();
+            $awardStats = GameModel::getAwardStats($nbGames);
             if(!isset($awardStats)){
                 ErrorController::getAwardStats();
                 exit;

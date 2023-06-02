@@ -209,18 +209,12 @@
             return $nb;
         }
 
-        public static function getGoalStats(){
-            $sql = "SELECT COUNT(*) as nb FROM GoalFinanced";
-            $req = ConnectionModel::getPDO()->query($sql);
-            $req->setFetchMode(PDO::FETCH_OBJ);
-            $result = $req->fetchAll();
-            $nbGoalFinanced = $result[0]->{'nb'};
-
+        public static function getGoalStats($nbGames){
             $sql = "SELECT IFNULL(subquery2.nb, 0) AS count, goalName FROM
                 (SELECT goalId, goalName FROM Goals) as subquery
             LEFT JOIN
                 (SELECT COUNT(*) as nb, goalId FROM GoalFinanced GROUP BY goalId) as subquery2
-            ON subquery.goalId = subquery2.goalId";
+            ON subquery.goalId = subquery2.goalId ORDER BY count DESC";
             $req = ConnectionModel::getPDO()->query($sql);
             $req->setFetchMode(PDO::FETCH_OBJ);
             $result = $req->fetchAll();
@@ -235,7 +229,7 @@
                     "proportion" => 0,
                 );
                 if($count > 0){
-                    $goalStat['proportion'] = round(($count / $nbGoalFinanced) * 100, 2);
+                    $goalStat['proportion'] = round(($count / $nbGames) * 100, 2);
                 }
 
                 array_push($goalStats, $goalStat);
@@ -244,18 +238,12 @@
             return($goalStats);
         }
 
-        public static function getAwardStats(){
-            $sql = "SELECT COUNT(*) as nb FROM AwardFinanced";
-            $req = ConnectionModel::getPDO()->query($sql);
-            $req->setFetchMode(PDO::FETCH_OBJ);
-            $result = $req->fetchAll();
-            $nbAwardFinanced = $result[0]->{'nb'}; 
-
+        public static function getAwardStats($nbGames){
             $sql = "SELECT IFNULL(subquery2.nb, 0) AS count, awardName FROM
                 (SELECT awardId, awardName FROM Awards) as subquery
             LEFT JOIN
                 (SELECT COUNT(*) as nb, awardId FROM AwardFinanced GROUP BY awardId) as subquery2
-            ON subquery.awardId = subquery2.awardId";
+            ON subquery.awardId = subquery2.awardId ORDER BY count DESC";
             $req = ConnectionModel::getPDO()->query($sql);
             $req->setFetchMode(PDO::FETCH_OBJ);
             $result = $req->fetchAll();
@@ -270,7 +258,7 @@
                     "proportion" => 0,
                 );
                 if($count > 0){
-                    $awardStat['proportion'] = round(($count / $nbAwardFinanced) * 100, 2);
+                    $awardStat['proportion'] = round(($count / $nbGames) * 100, 2);
                 }
 
                 array_push($awardStats, $awardStat);
