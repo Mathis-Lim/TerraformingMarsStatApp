@@ -67,12 +67,16 @@
         }
 
         public static function getLastCreatedId(){
-            $sql = "SELECT MAX(gameId) FROM Games";
-            $res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $id = $result[0]->{'MAX(gameId)'};
-            return $id;
+            try{
+                $sql = "SELECT MAX(gameId) FROM Games";
+                $res = ConnectionModel::getPDO()->query($sql);
+                $res->setFetchMode(PDO::FETCH_OBJ);
+                $result = $res->fetchAll();
+                $id = $result[0]->{'MAX(gameId)'};
+                return $id;
+            } catch(PDOExeception $e){
+                return null;
+            } 
         }
 
         public function linkToExtension($extensionId){
@@ -108,53 +112,69 @@
         }
 
         public static function getNumberOfGamesPlayed(){
-            $sql = "SELECT COUNT(*) FROM Games";
-            $res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $nb = $result[0]->{'COUNT(*)'};
-            return $nb;
+            try{
+                $sql = "SELECT COUNT(*) FROM Games";
+                $res = ConnectionModel::getPDO()->query($sql);
+                $res->setFetchMode(PDO::FETCH_OBJ);
+                $result = $res->fetchAll();
+                $nb = $result[0]->{'COUNT(*)'};
+                return $nb;
+            } catch(PDOExeception $e){
+                return null;
+            }
         }
 
         public static function getNumberOfGenerationsPlayed(){
-            $sql = "SELECT SUM(numberOfGenerations) FROM Games";
-            $res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $nb = $result[0]->{'SUM(numberOfGenerations)'};
-            return $nb;
-        }
+            try{
+                $sql = "SELECT SUM(numberOfGenerations) FROM Games";
+                $res = ConnectionModel::getPDO()->query($sql);
+                $res->setFetchMode(PDO::FETCH_OBJ);
+                $result = $res->fetchAll();
+                $nb = $result[0]->{'SUM(numberOfGenerations)'};
+                return $nb;
+            } catch(PDOExeception $e){
+                return null;
+            }
+        }    
 
         public static function getAverageGenerationNumber(){
-            $sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games;";
-            $res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $nb = $result[0]->{'avg'};
-            return $nb;
+            try{
+                $sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games;";
+                $res = ConnectionModel::getPDO()->query($sql);
+                $res->setFetchMode(PDO::FETCH_OBJ);
+                $result = $res->fetchAll();
+                $nb = $result[0]->{'avg'};
+                return $nb;
+            } catch(PDOExeception $e){
+                return null;
+            }
         }
 
         public static function getRecordWinner(){
-            $sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, winner FROM Games GROUP BY winner) as subquery";
-            $res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $max = $result[0]->{'MAX(nb)'};
-
-            $sql = "SELECT playerName FROM Players JOIN Games 
-			ON Players.playerId = Games.winner 
-			WHERE playerId IN 
-				(SELECT winner FROM (SELECT COUNT(gameId) as nb, winner FROM Games GROUP BY winner)
-			as subquery WHERE nb = " .$max .")";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
-
-			return array(
-				"player" => $playerName,
-				"number" => $max,
-			);
+            try{
+                $sql = "SELECT MAX(nb) FROM (SELECT COUNT(gameId) as nb, winner FROM Games GROUP BY winner) as subquery";
+                $res = ConnectionModel::getPDO()->query($sql);
+                $res->setFetchMode(PDO::FETCH_OBJ);
+                $result = $res->fetchAll();
+                $max = $result[0]->{'MAX(nb)'};
+    
+                $sql = "SELECT playerName FROM Players JOIN Games 
+                ON Players.playerId = Games.winner 
+                WHERE playerId IN 
+                    (SELECT winner FROM (SELECT COUNT(gameId) as nb, winner FROM Games GROUP BY winner)
+                as subquery WHERE nb = " .$max .")";
+                $res = ConnectionModel::getPDO()->query($sql);
+                $res->setFetchMode(PDO::FETCH_OBJ);
+                $result = $res->fetchAll();
+                $playerName = $result[0]->{'playerName'};
+    
+                return array(
+                    "player" => $playerName,
+                    "number" => $max,
+                );
+            } catch(PDOExeception $e){
+                return null;
+            }
         }
 
         public function setGoal($goalId, $playerId){
@@ -192,79 +212,95 @@
         }
 
         public static function getMostGenerations(){
-            $sql = "SELECT MAX(numberOfGenerations) as max FROM Games";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $nb = $result[0]->{'max'};
-            return $nb;
+            try{
+                $sql = "SELECT MAX(numberOfGenerations) as max FROM Games";
+                $res = ConnectionModel::getPDO()->query($sql);
+                $res->setFetchMode(PDO::FETCH_OBJ);
+                $result = $res->fetchAll();
+                $nb = $result[0]->{'max'};
+                return $nb;
+            } catch(PDOExeception $e){
+                return null;
+            }
         }
 
         public static function getLeastGenerations(){
-            $sql = "SELECT MIN(numberOfGenerations) as min FROM Games";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
-            $nb = $result[0]->{'min'};
-            return $nb;
+            try{
+                $sql = "SELECT MIN(numberOfGenerations) as min FROM Games";
+                $res = ConnectionModel::getPDO()->query($sql);
+                $res->setFetchMode(PDO::FETCH_OBJ);
+                $result = $res->fetchAll();
+                $nb = $result[0]->{'min'};
+                return $nb;
+            } catch(PDOExeception $e){
+                return null;
+            }
         }
 
         public static function getGoalStats($nbGames){
-            $sql = "SELECT IFNULL(subquery2.nb, 0) AS count, goalName FROM
-                (SELECT goalId, goalName FROM Goals) as subquery
-            LEFT JOIN
-                (SELECT COUNT(*) as nb, goalId FROM GoalFinanced GROUP BY goalId) as subquery2
-            ON subquery.goalId = subquery2.goalId ORDER BY count DESC";
-            $req = ConnectionModel::getPDO()->query($sql);
-            $req->setFetchMode(PDO::FETCH_OBJ);
-            $result = $req->fetchAll();
+            try{
+                $sql = "SELECT IFNULL(subquery2.nb, 0) AS count, goalName FROM
+                    (SELECT goalId, goalName FROM Goals) as subquery
+                LEFT JOIN
+                    (SELECT COUNT(*) as nb, goalId FROM GoalFinanced GROUP BY goalId) as subquery2
+                ON subquery.goalId = subquery2.goalId ORDER BY count DESC";
+                $req = ConnectionModel::getPDO()->query($sql);
+                $req->setFetchMode(PDO::FETCH_OBJ);
+                $result = $req->fetchAll();
 
-            $goalStats = array();
+                $goalStats = array();
 
-            foreach($result as $row){
-                $count = $row->{'count'};
-                $goalStat = array(
-                    "goal" => $row->{'goalName'},
-                    "count" => $count,
-                    "proportion" => 0,
-                );
-                if($count > 0){
-                    $goalStat['proportion'] = round(($count / $nbGames) * 100, 2);
+                foreach($result as $row){
+                    $count = $row->{'count'};
+                    $goalStat = array(
+                        "goal" => $row->{'goalName'},
+                        "count" => $count,
+                        "proportion" => 0,
+                    );
+                    if($count > 0){
+                        $goalStat['proportion'] = round(($count / $nbGames) * 100, 2);
+                    }
+
+                    array_push($goalStats, $goalStat);
                 }
-
-                array_push($goalStats, $goalStat);
-            }
             
-            return($goalStats);
+                return($goalStats);
+            } catch(PDOExeception $e){
+                return null;
+            }
         }
 
         public static function getAwardStats($nbGames){
-            $sql = "SELECT IFNULL(subquery2.nb, 0) AS count, awardName FROM
-                (SELECT awardId, awardName FROM Awards) as subquery
-            LEFT JOIN
-                (SELECT COUNT(*) as nb, awardId FROM AwardFinanced GROUP BY awardId) as subquery2
-            ON subquery.awardId = subquery2.awardId ORDER BY count DESC";
-            $req = ConnectionModel::getPDO()->query($sql);
-            $req->setFetchMode(PDO::FETCH_OBJ);
-            $result = $req->fetchAll();
+            try{
+                $sql = "SELECT IFNULL(subquery2.nb, 0) AS count, awardName FROM
+                    (SELECT awardId, awardName FROM Awards) as subquery
+                LEFT JOIN
+                    (SELECT COUNT(*) as nb, awardId FROM AwardFinanced GROUP BY awardId) as subquery2
+                ON subquery.awardId = subquery2.awardId ORDER BY count DESC";
+                $req = ConnectionModel::getPDO()->query($sql);
+                $req->setFetchMode(PDO::FETCH_OBJ);
+                $result = $req->fetchAll();
 
-            $awardStats = array();
+                $awardStats = array();
 
-            foreach($result as $row){
-                $count = $row->{'count'};
-                $awardStat = array(
-                    "award" => $row->{'awardName'},
-                    "count" => $count,
-                    "proportion" => 0,
-                );
-                if($count > 0){
-                    $awardStat['proportion'] = round(($count / $nbGames) * 100, 2);
+                foreach($result as $row){
+                    $count = $row->{'count'};
+                    $awardStat = array(
+                        "award" => $row->{'awardName'},
+                        "count" => $count,
+                        "proportion" => 0,
+                    );
+                    if($count > 0){
+                        $awardStat['proportion'] = round(($count / $nbGames) * 100, 2);
+                    }
+
+                    array_push($awardStats, $awardStat);
                 }
-
-                array_push($awardStats, $awardStat);
-            }
             
             return($awardStats);
+            } catch(PDOExeception $e){
+                return null;
+            }
         }
 
     }
