@@ -227,7 +227,7 @@
 
             $goalStats = array();
 
-            for($result as $row){
+            foreach($result as $row){
                 $count = $row->{'count'};
                 $goalStat = array(
                     "goal" => $row->{'goalName'},
