@@ -46,6 +46,7 @@
             }
             echo('</table>');
         }
+        $nbPlayersRank++;
     }
 ?>
 <h3>Détail de la fréquence de choix des corporations</h3>
