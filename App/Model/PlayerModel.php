@@ -271,7 +271,7 @@
 			as subquery WHERE nb = :nb_player";
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array(
-				"player_id" => $this->playerId;
+				"player_id" => $this->playerId,
 				"nb_player" => $nbPlayers,
 			);
 			$req_prep->execute($values);
