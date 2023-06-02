@@ -820,10 +820,10 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 	
 				$details = array($trDetail, $boardDetail, $cardDetail, $goalDetail, $awardDetail);
 				return($details);
+			}catch(PDOException $e) {
+				return null;
 			}
-        } catch(PDOException $e) {
-			return null;
-		}
+        } 
 
     }
 
