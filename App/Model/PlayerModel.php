@@ -275,13 +275,13 @@
 			$result = $req_prep->fetchAll();
 			
 			$nbGames = sizeof($result);
-			$gameIds = "(";
+			$gameIds = $result[0]->{'gameId'} . "', ";
 			$nbGames = sizeof($result);
 			
 			for($i = 0; $i < $nbGames-1; $i++){
-				$gameIds = $gameIds . $result[$i]->{'gameId'} . ", ";
+				$gameIds = $gameIds . "'" . $result[$i]->{'gameId'} . "', ";
 			}
-			$gameIds = $gameIds . $result[$nbGames - 1]->{'gameId'} . ")";
+			$gameIds = $gameIds . "'" . $result[$nbGames - 1]->{'gameId'};
 
 
 			$detailByPosition = array();
