@@ -274,11 +274,15 @@
 			$req_prep->setFetchMode(PDO::FETCH_OBJ);
 			$result = $req_prep->fetchAll();
 			
-			$gameIds = array();
-			foreach($result as $gameId){
-				array_push($gameId->gameId);
+			$nbGames = sizeof($result);
+			$gameIds = "(";
+			$nbGames = sizeof($result);
+			
+			for($i = 0; $i < $nbGames-1; $i++){
+				$gameIds = $gameIds . $result[0]->gameId . ", ";
 			}
-			$nbGames = sizeof($gameIds);
+			$gameIds = $gameIds . $result[$nbGames - 1] . ")";
+
 
 			$detailByPosition = array();
 
@@ -288,7 +292,7 @@
 				$req_prep = ConnectionModel::getPDO()->prepare($sql);
 				$values = array(
 					"game_ids" => $gameIds,
-					"player_id" => $this->$playerId,
+					"player_id" => $this->playerId,
 					"position" => $i,
  				);
 				$req_prep->execute($values);
