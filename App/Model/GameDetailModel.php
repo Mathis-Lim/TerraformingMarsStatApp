@@ -775,7 +775,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$award = $result[0]->{'award'};
 	
 				$sql = "SELECT COUNT(*) as nb FROM GameDetails";
-				$req = ConnectionMode::getPDO()->query($sql);
+				$req = ConnectionModel::getPDO()->query($sql);
 				$req->setFetchMode(PDO::FETCH_OBJ);
 				$result = $req->fetchAll();
 				$nbEntries = $result[0]->{'nb'};
