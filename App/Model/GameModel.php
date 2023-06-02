@@ -211,7 +211,7 @@
 
         public static function getGoalStats(){
             $sql = "SELECT COUNT(*) as nb FROM GoalFinanced";
-            $req = ConnectionModel:::getPDO()->query($sql);
+            $req = ConnectionModel::getPDO()->query($sql);
             $req->setFetchMode(PDO::FETCH_OBJ);
             $result = $req->fetchAll();
             $nbGoalFinanced = $result[0]->{'nb'};
