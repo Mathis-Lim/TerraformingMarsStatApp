@@ -671,7 +671,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			);
 		}
 
-		public function getTotalPointDetails($totalPoints, $nbGames){
+		public function getTotalPointDetails($totalPoints){
             $sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
 			SUM(awardScore) as award FROM GameDetails";
 			$res = ConnectionModel::getPDO()->query($sql);
@@ -684,17 +684,23 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $goal = $result[0]->{'goal'};
             $award = $result[0]->{'award'};
 
+			$sql = "SELECT COUNT(*) as nb FROM GameDetails";
+			$req = ConnectionMode::getPDO()->query($sql);
+			$req->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req->fetchAll();
+			$nbEntries = $result[0]->{'nb'};
+
             $trDetail = array(
                 "description" => "NT",
                 "score" => $tr,
-                "avg" => round($tr / $nbGames, 2),
+                "avg" => round($tr / $nbEntries, 2),
                 "proportion" => $tr / $totalPoints,
             );
 
             $boardDetail = array(
                 "description" => "Plateau",
                 "score" => $board,
-                "avg" => round($board / $nbGames, 2),
+                "avg" => round($board / $nbEntries, 2),
                 "proportion" => $board / $totalPoints,
             );
 
@@ -702,7 +708,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $cardDetail = array(
                 "description" => "Cartes",
                 "score" => $card,
-                "avg" => round($card / $nbGames, 2),
+                "avg" => round($card / $nbEntries, 2),
                 "proportion" => $card / $totalPoints,
             );
 
@@ -710,7 +716,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $goalDetail = array(
                 "description" => "Objectifs",
                 "score" => $goal,
-                "avg" => round($goal / $nbGames, 2),
+                "avg" => round($goal / $nbEntries, 2),
                 "proportion" => $goal / $totalPoints,
             );
 
@@ -718,7 +724,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             $awardDetail = array(
                 "description" => "Récompenses",
                 "score" => $award,
-                "avg" => round($award / $nbGames, 2),
+                "avg" => round($award / $nbEntries, 2),
                 "proportion" => $award / $totalPoints,
             );
 

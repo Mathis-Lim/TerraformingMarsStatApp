@@ -47,7 +47,7 @@
                 exit;
             }
 
-            $pointDetails = GameDetailModel::getTotalPointDetails($nbPoints, $nbGames);
+            $pointDetails = GameDetailModel::getTotalPointDetails($nbPoints);
             if(!isset($pointDetails)){
                 ErrorController::getGameTotalPointDetail();
                 exit;
