@@ -291,7 +291,7 @@
 				WHERE gameId IN " . $gameIds . " AND playerId = " . $this->playerId . " AND rank = ". $i;
 				$req = ConnectionModel::getPDO()->query($sql);
 				$req->setFetchMode(PDO::FETCH_OBJ);
-				$result = $req_prep->fetchAll();
+				$result = $req->fetchAll();
 				$nb = $result[0]->{'nb'};
 
 				$positionDetail = array(
