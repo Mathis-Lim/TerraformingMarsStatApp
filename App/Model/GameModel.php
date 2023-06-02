@@ -209,4 +209,39 @@
             return $nb;
         }
 
+        public static function getGoalStats(){
+            $sql = "SELECT COUNT(*) as nb FROM GoalFinanced";
+            $req = ConnectionModel:::getPDO()->query($sql);
+            $req->setFetchMode(PDO::FETCH_OBJ);
+            $result = $req->fetchAll();
+            $nbGoalFinanced = $result[0]->{'nb'};
+
+            $sql = "SELECT IFNULL(subquery2.nb, 0) AS count, goalName FROM
+                (SELECT goalId, goalName FROM Goals) as subquery
+            LEFT JOIN
+                (SELECT COUNT(*) as nb, goalId FROM GoalFinanced GROUP BY goalId) as subquery2
+            ON subquery.goalId = subquery2.goalId";
+            $req = ConnectionModel::getPDO()->query($sql);
+            $req->setFetchMode(PDO::FETCH_OBJ);
+            $result = $req->fetchAll();
+
+            $goalStats = array();
+
+            for($result as $row){
+                $count = $row->{'count'};
+                $goalStat = array(
+                    "goal" => $row->{'goalName'},
+                    "count" => $count,
+                    "proportion" => 0,
+                );
+                if($count > 0){
+                    $goalStat['proportion'] = round(($count / $nbGoalFinanced) * 100, 2);
+                }
+
+                array_push($goalStats, $goalStat);
+            }
+            
+            return($goalStats);
+        }
+
     }

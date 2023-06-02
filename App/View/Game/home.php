@@ -81,6 +81,18 @@
         $recordPointsCorporation['number'] . ' points marqués</li>');  
     ?>
 </ul>
+<h2>Statistiques sur les objectifs: </h2>
+<ul>
+    <?php
+        echo('<table><tr><th>Objectif</th><th>Occurences</th><th>Proportion</th>');
+        foreach($goalStats as $goalStat){
+            echo('<tr><td>' . $goalStat['goal'] . '</td>');
+            echo('<td>' . $goalStat['count'] . '</td>');
+            echo('<td>' . $goalStat['proportion'] . '%</td></tr>');
+        }
+        echo('</table>');
+    ?>
+</ul>
 
 
 

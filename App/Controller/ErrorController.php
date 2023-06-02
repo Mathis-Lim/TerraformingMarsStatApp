@@ -222,6 +222,16 @@
             require File::build_path(array("View", "ErrorView.php"));
         }
 
-    
+        public static function getGoalStats(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du détail des objectifs";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        public static function getAwardStats(){
+            $errorMessage = "Une erreur est survenue lors de la récupération du détail des récompenses";
+            require File::build_path(array("View", "ErrorView.php"));
+        }
+
+        
 
     }

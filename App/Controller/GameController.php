@@ -109,6 +109,12 @@
                 exit;
             }
 
+            $goalStats = GameModel::getGoalStats();
+            if(!isset($goalStats)){
+                ErrorController::getGoalStats();
+                exit;
+            }
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
