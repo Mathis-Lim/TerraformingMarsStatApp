@@ -102,6 +102,7 @@
             echo('<td>' . $awardStat['proportion'] . '%</td></tr>');
         }
         echo('</table>');
+    ?>
 </ul>
 
 
