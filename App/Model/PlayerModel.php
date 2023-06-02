@@ -275,28 +275,22 @@
 			$result = $req_prep->fetchAll();
 			
 			$nbGames = sizeof($result);
-			$gameIds = $result[0]->{'gameId'} . "', ";
+			$gameIds = "(";
 			$nbGames = sizeof($result);
 			
 			for($i = 0; $i < $nbGames-1; $i++){
-				$gameIds = $gameIds . "'" . $result[$i]->{'gameId'} . "', ";
+				$gameIds = $gameIds . $result[$i]->{'gameId'} . ", ";
 			}
-			$gameIds = $gameIds . "'" . $result[$nbGames - 1]->{'gameId'};
+			$gameIds = $gameIds . $result[$nbGames - 1]->{'gameId'} . ")";
 
 
 			$detailByPosition = array();
 
 			for($i = 1; $i <= $nbPlayers; $i++){
 				$sql = "SELECT COUNT(*) as nb FROM GameDetails 
-				WHERE gameId IN :game_ids AND playerId = :player_id AND position = :position";
-				$req_prep = ConnectionModel::getPDO()->prepare($sql);
-				$values = array(
-					"game_ids" => $gameIds,
-					"player_id" => $this->playerId,
-					"position" => $i,
- 				);
-				$req_prep->execute($values);
-				$req_prep->setFetchMode(PDO::FETCH_OBJ);
+				WHERE gameId IN " . $gameIds . " AND playerId = " . $this->playerId . " AND position = ". $i;
+				$req = ConnectionModel::getPDO()->query($sql);
+				$req->setFetchMode(PDO::FETCH_OBJ);
 				$result = $req_prep->fetchAll();
 				$nb = $result[0]->{'nb'};
 
