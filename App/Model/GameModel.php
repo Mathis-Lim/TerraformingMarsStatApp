@@ -244,4 +244,39 @@
             return($goalStats);
         }
 
+        public static function getAwardStats(){
+            $sql = "SELECT COUNT(*) as nb FROM AwardFinanced";
+            $req = ConnectionModel::getPDO()->query($sql);
+            $req->setFetchMode(PDO::FETCH_OBJ);
+            $result = $req->fetchAll();
+            $nbAwardFinanced = $result[0]->{'nb'}; 
+
+            $sql = "SELECT IFNULL(subquery2.nb, 0) AS count, awardName FROM
+                (SELECT awardId, awardName FROM Awards) as subquery
+            LEFT JOIN
+                (SELECT COUNT(*) as nb, awardId FROM AwardFinanced GROUP BY awardId) as subquery2
+            ON subquery.awardId = subquery2.awardId";
+            $req = ConnectionModel::getPDO()->query($sql);
+            $req->setFetchMode(PDO::FETCH_OBJ);
+            $result = $req->fetchAll();
+
+            $awardStats = array();
+
+            foreach($result as $row){
+                $count = $row->{'count'};
+                $awardStat = array(
+                    "award" => $row->{'awardName'},
+                    "count" => $count,
+                    "proportion" => 0,
+                );
+                if($count > 0){
+                    $awardStat['proportion'] = round(($count / $nbAwardFinanced) * 100, 2);
+                }
+
+                array_push($awardStats, $awardStat);
+            }
+            
+            return($awardStats);
+        }
+
     }
