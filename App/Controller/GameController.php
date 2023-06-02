@@ -120,12 +120,11 @@
                 ErrorController::getAwardStats();
                 exit;
             }
-            exit;
 
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
-            require File::build_path(array('View', 'BaseView.php'));
+           // require File::build_path(array('View', 'BaseView.php'));
         }
 
         public static function create(){
