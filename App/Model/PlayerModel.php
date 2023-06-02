@@ -266,9 +266,11 @@
 		}
 
 		public function getPositionDetailAux($nbPlayers){
-			$sql = "SELECT gameId FROM
-				(SELECT gameId, COUNT(*) as nb FROM GameDetails WHERE playerId = :player_id GROUP BY gameId) 
-			as subquery WHERE nb = :nb_player";
+			$sql = "SELECT subquery2.gameId FROM 
+				(SELECT gameId FROM 
+					(SELECT gameId, COUNT(*) as nb FROM GameDetails GROUP BY gameId) as subquery 
+				WHERE nb = :nb_player) as subquery2 
+			JOIN GameDetails ON subquery2.gameId = GameDetails.gameId WHERE playerId = :player_id";
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array(
 				"player_id" => $this->playerId,
