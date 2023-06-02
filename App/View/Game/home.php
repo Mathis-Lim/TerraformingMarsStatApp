@@ -95,6 +95,7 @@
     ?>
 <h3>Récompenses</h3>
     <?php
+        var_dump($awardStats);
         echo('<table><tr><th>Récompense</th><th>Occurences</th><th>Proportion</th>');
         foreach($awardStats as $awardStat){
             echo('<tr><td>' . $awardStat['award'] . '</td>');
