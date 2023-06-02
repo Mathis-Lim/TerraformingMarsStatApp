@@ -279,7 +279,7 @@
 			$nbGames = sizeof($result);
 			
 			for($i = 0; $i < $nbGames-1; $i++){
-				$gameIds = $gameIds . $result[0]->gameId . ", ";
+				$gameIds = $gameIds . $result[$i]->{'gameId'} . ", ";
 			}
 			$gameIds = $gameIds . $result[$nbGames - 1] . ")";
 
