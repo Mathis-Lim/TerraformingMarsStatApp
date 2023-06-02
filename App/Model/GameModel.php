@@ -269,7 +269,7 @@
                     "count" => $count,
                     "proportion" => 0,
                 );
-                console.log(var_dump($awardStat));
+                var_dump($awardStat);
                 if($count > 0){
                     $awardStat['proportion'] = round(($count / $nbAwardFinanced) * 100, 2);
                 }

@@ -120,6 +120,7 @@
                 ErrorController::getAwardStats();
                 exit;
             }
+            exit;
 
             $controller = "Game";
             $view = "home";
