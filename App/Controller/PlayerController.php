@@ -118,7 +118,11 @@
             $leastChosenCorp = $corporationChoices['records']['least'];
             unset($corporationChoices['records']);
 
-           $player->getPositionDetailAux(3);
+            $positionDetails = $player->getPositionDetail();
+            if(!isset($positionDetails)){
+                ErrorController::getPositionDetailPlayer();
+                exit;
+            }
 
             $controller = "Player";
             $view = "detail";

@@ -275,6 +275,9 @@
 			$result = $req_prep->fetchAll();
 			
 			$nbGames = sizeof($result);
+			if($nbGames < 1){
+				return 0;
+			}
 			$gameIds = "(";
 			$nbGames = sizeof($result);
 			
@@ -307,14 +310,18 @@
 				array_push($detailByPosition, $positionDetail);
 
 			}
-			
-			$detail = array(
-				"nbPlayers" => $nbPlayers,
-				"stats" => $detailByPosition,
-			);
 
-			var_dump($detail);
+			return $detailByPosition;
 	
+		}
+
+		public function getPositionDetail(){
+			$details = array();
+			for($i = 2; $i < 6; $i++){
+				$detail = $this->getPositionDetailAux($i);
+				array_push($details, $detail);
+			}
+			return $details;
 		}
 
     }

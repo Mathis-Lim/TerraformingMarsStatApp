@@ -29,6 +29,25 @@
             echo('</table>');
         }
     ?>
+<h3>Détail du classement selon le type de partie</h3>
+<?php
+    $nbPlayersRank = 2;
+    foreach($positionDetails as $positionDetail){
+        echo('<h4>Parties à ' . $nbPlayersRank . ' joueurs</h4>');
+        if($positionDetail === 0){
+            echo('<i>Aucune partie jouée</i>');
+        }
+        else{
+            echo('<table><tr><th>Classement</th><th>Occurences</th><th>Proportion</th>');
+            foreach($positionDetail as $detail){
+                echo('<tr><td>' . $detail['position'] . '</td>');
+                echo('<td>' . $detail['total'] . '</td>');
+                echo('<td>' . $detail['proportion'] . '%</td></tr>');
+            }
+            echo('</table>');
+        }
+    }
+?>
 <h3>Détail de la fréquence de choix des corporations</h3>
 <table>
 <?php    
