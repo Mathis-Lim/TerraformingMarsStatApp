@@ -169,7 +169,7 @@
                 $playerName = $result[0]->{'playerName'};
 
                 $sql = "SELECT COUNT(*) as nbGames FROM GameDetails JOIN Players ON GameDetails.playerId = Players.playerId
-                WHERE Players.playerName = " . $playerName . " GROUP BY playerName";
+                WHERE playerName = '" . $playerName . "' GROUP BY playerName";
                 $res = ConnectionModel::getPDO()->query($sql);
                 $res->setFetchMode(PDO::FETCH_OBJ);
                 $result = $res->fetchAll();
