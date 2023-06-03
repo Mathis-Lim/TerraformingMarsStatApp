@@ -85,7 +85,7 @@
                 if(isset($_POST['goal_' . $i])){
                     $goalId = $_POST['goal_' . $i];
                     $playerId = $_POST['goal_player_' . $i];
-                    if(empty($goalId) || empty($playerId)){
+                    if($goalId === "" || $playerId === ""){
                         break;
                     }
                     else{
@@ -102,7 +102,7 @@
                 if(isset($_POST['award_' . $i])){
                     $awardId = $_POST['award_' . $i];
                     $playerId = $_POST['award_player_' . $i];
-                    if(empty($awardId) || empty($playerId)){
+                    if($awardId === "" || $playerId === ""){
                         break;
                     }
                     else{
