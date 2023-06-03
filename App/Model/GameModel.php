@@ -270,7 +270,7 @@
                 array_push($goalStats, array(
                     "goal" => "Aucun",
                     "count" => $nbNoGoalFinanced,
-                    "proportion" => round($nbNoGoalFinanced / $nbGames, 2),
+                    "proportion" => round(($nbNoGoalFinanced / $nbGames) * 100, 2),
                 ));
             
                 return($goalStats);
@@ -313,7 +313,7 @@
                 array_push($awardStats, array(
                     "award" => "Aucune",
                     "count" => $nbNoAwardFinanced,
-                    "proportion" => round($nbNoAwardFinanced / $nbGames, 2),
+                    "proportion" => round(($nbNoAwardFinanced / $nbGames) * 100, 2),
                 ));
             
             return($awardStats);
