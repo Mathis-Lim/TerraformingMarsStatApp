@@ -672,7 +672,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				array_push($debug, $debugArray);
 			}
 
-			var_dump($debug);
+			var_dump($debug, $least);
 
 			foreach($result as $line){
 					$nbChosen = $line->{'chosenCount'};
