@@ -249,6 +249,7 @@
                 $result = $req->fetchAll();
 
                 $goalStats = array();
+                $totalGoalsFinanced = 0;
 
                 foreach($result as $row){
                     $count = $row->{'count'};
@@ -259,10 +260,18 @@
                     );
                     if($count > 0){
                         $goalStat['proportion'] = round(($count / $nbGames) * 100, 2);
+                        $totalGoalsFinanced = $totalGoalsFinanced + $count;
                     }
-
                     array_push($goalStats, $goalStat);
                 }
+
+                $nbNoGoalFinanced = (3 * $nbGames) -s $totalGoalsFinanced;
+
+                array_push($goalStats, array(
+                    "goal" => "Aucun",
+                    "count" => $nbNoGoalFinanced,
+                    "proportion" => round($nbNoGoalFinanced / $nbGames, 2),
+                ));
             
                 return($goalStats);
             } catch(PDOExeception $e){
@@ -282,6 +291,7 @@
                 $result = $req->fetchAll();
 
                 $awardStats = array();
+                $nbAwardsFinanced = 0;
 
                 foreach($result as $row){
                     $count = $row->{'count'};
@@ -292,10 +302,19 @@
                     );
                     if($count > 0){
                         $awardStat['proportion'] = round(($count / $nbGames) * 100, 2);
+                        $nbAwardsFinanced = $nbAwardsFinanced + $count;
                     }
 
                     array_push($awardStats, $awardStat);
                 }
+
+                $nbNoAwardFinanced = (3 * $nbGames) - $nbAwardsFinanced;
+                
+                array_push($awardStats, array(
+                    "award" => "Aucune",
+                    "count" => $nbNoAwardFinanced,
+                    "proportion" => round($nbNoAwardFinanced / $nbGames, 2),
+                ));
             
             return($awardStats);
             } catch(PDOExeception $e){
