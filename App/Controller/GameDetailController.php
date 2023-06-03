@@ -96,7 +96,9 @@
                         }
                     }
                 }
+            }    
 
+            for($i = 1; $i < 4; $i++){
                 if(isset($_POST['award_' . $i])){
                     $awardId = $_POST['award_' . $i];
                     $playerId = $_POST['award_player_' . $i];
