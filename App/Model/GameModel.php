@@ -158,15 +158,18 @@
                 $result = $res->fetchAll();
                 $max = $result[0]->{'MAX(nb)'};
     
-                $sql = "SELECT playerName, COUNT(*) as nbGames FROM Players JOIN Games 
+                $sql = "SELECT playerName, FROM Players JOIN Games 
                 ON Players.playerId = Games.winner 
                 WHERE playerId IN 
                     (SELECT winner FROM (SELECT COUNT(gameId) as nb, winner FROM Games GROUP BY winner)
-                as subquery WHERE nb = " .$max .") GROUP BY playerName";
+                as subquery WHERE nb = " .$max .")";
                 $res = ConnectionModel::getPDO()->query($sql);
                 $res->setFetchMode(PDO::FETCH_OBJ);
                 $result = $res->fetchAll();
                 $playerName = $result[0]->{'playerName'};
+
+                $sql = "SELECT COUNT(*) as nbGames FROM GameDetails JOIN Players ON GameDetails.playerId = Players.playerId
+                WHERE playerName = " . $playerName . " GROUP BY playerName";
                 $nbGames = $result[0]->{'nbGames'};
     
                 return array(
