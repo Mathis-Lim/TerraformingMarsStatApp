@@ -658,7 +658,21 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				"total" => 0,
 			);
 
-			var_dump($result);
+			$debug = array();
+
+			foreach($result as $line){
+				$nbChosen = $line->{'chosenCount'};
+				$total = $nbChosen + $line->{'rejectedCount'};
+				$freqChosen = $nbChosen / $total;
+				$debugArray = array(
+					"name" => $line->{'corporationName'},
+					"frequency" => $freqChosen,
+					"total" => $total,
+				)
+				array_push($debug, $debugArray);
+			}
+
+			var_dump($debug);
 
 			foreach($result as $line){
 					$nbChosen = $line->{'chosenCount'};
