@@ -45,7 +45,7 @@
             $recordWinner['number'] . ' parties gagnées</li>');
         foreach($recordTotalPoints as $record){
             echo('<li>Joueur ayant marqué le plus de points ' . $record['description'] . ': ' . $record['player'] . ', ' . 
-            $record['number'] . ' points marqués</li>');
+            $record['number'] . ' points marqués (' . $record['nb_games'] . ' parties jouées)</li>');
         }
     ?>
     </ul>
