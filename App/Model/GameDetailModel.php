@@ -639,7 +639,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};   	
 	
-				$sql = "SELECT DISTINCT playerName, COUNT(*) FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT ROUND(AVG(awardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
