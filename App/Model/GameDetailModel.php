@@ -658,22 +658,6 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 					"total" => 0,
 				);
 
-				$debug = array();
-
-				foreach($result as $line){
-					$nbChosen = $line->{'chosenCount'};
-					$total = $nbChosen + $line->{'rejectedCount'};
-					$freqChosen = $nbChosen / $total;
-					$debugArray = array(
-						"name" => $line->{'corporationName'},
-						"frequency" => $freqChosen,
-						"total" => $total,
-					);
-					array_push($debug, $debugArray);
-				}	
-
-				var_dump($debug, $least);
-
 				foreach($result as $line){
 					$nbChosen = $line->{'chosenCount'};
 					$total = $nbChosen + $line->{'rejectedCount'};
@@ -709,12 +693,12 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 						);
 					}		
 	
-				$records = array(
-					"most" => $most,
-					"least" => $least,
-				);
-				return $records;
+					$records = array(
+						"most" => $most,
+						"least" => $least,
+					);
 				}
+				return $records;
 			} catch(PDOException $e) {
 				return null;
 			}
