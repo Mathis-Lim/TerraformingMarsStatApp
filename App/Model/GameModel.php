@@ -265,7 +265,7 @@
                     array_push($goalStats, $goalStat);
                 }
 
-                $nbNoGoalFinanced = (3 * $nbGames) -s $totalGoalsFinanced;
+                $nbNoGoalFinanced = (3 * $nbGames) -$totalGoalsFinanced;
 
                 array_push($goalStats, array(
                     "goal" => "Aucun",
