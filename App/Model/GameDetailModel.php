@@ -668,7 +668,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 					"name" => $line->{'corporationName'},
 					"frequency" => $freqChosen,
 					"total" => $total,
-				)
+				);
 				array_push($debug, $debugArray);
 			}
 
