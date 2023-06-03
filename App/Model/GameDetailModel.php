@@ -643,38 +643,38 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				FROM GameDetails GROUP BY rejectedCorporation) AS subquery 
 				JOIN Corporations ON subquery.corporationId = Corporations.corporationId 
 				GROUP BY Corporations.corporationId, corporationName";
-			$res = ConnectionModel::getPDO()->query($sql);
-            $res->setFetchMode(PDO::FETCH_OBJ);
-            $result = $res->fetchAll();
+				$res = ConnectionModel::getPDO()->query($sql);
+            	$res->setFetchMode(PDO::FETCH_OBJ);
+            	$result = $res->fetchAll();
 			
-			$most = array(
-				"name" => "placeholder",
-				"frequency" => 0,
-				"total" => 0,
-			);
-			$least = array(
-				"name" => "placeholder",
-				"frequency" => 1,
-				"total" => 0,
-			);
-
-			$debug = array();
-
-			foreach($result as $line){
-				$nbChosen = $line->{'chosenCount'};
-				$total = $nbChosen + $line->{'rejectedCount'};
-				$freqChosen = $nbChosen / $total;
-				$debugArray = array(
-					"name" => $line->{'corporationName'},
-					"frequency" => $freqChosen,
-					"total" => $total,
+				$most = array(
+					"name" => "placeholder",
+					"frequency" => 0,
+					"total" => 0,
 				);
-				array_push($debug, $debugArray);
-			}
+				$least = array(
+					"name" => "placeholder",
+					"frequency" => 1,
+					"total" => 0,
+				);
 
-			var_dump($debug, $least);
+				$debug = array();
 
-			foreach($result as $line){
+				foreach($result as $line){
+					$nbChosen = $line->{'chosenCount'};
+					$total = $nbChosen + $line->{'rejectedCount'};
+					$freqChosen = $nbChosen / $total;
+					$debugArray = array(
+						"name" => $line->{'corporationName'},
+						"frequency" => $freqChosen,
+						"total" => $total,
+					);
+					array_push($debug, $debugArray);
+				}	
+
+				var_dump($debug, $least);
+
+				foreach($result as $line){
 					$nbChosen = $line->{'chosenCount'};
 					$total = $nbChosen + $line->{'rejectedCount'};
 					$freqChosen = $nbChosen / $total;
