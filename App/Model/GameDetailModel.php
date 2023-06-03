@@ -662,6 +662,8 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 					$nbChosen = $line->{'chosenCount'};
 					$total = $nbChosen + $line->{'rejectedCount'};
 					$freqChosen = $nbChosen / $total;
+
+					var_dump($line->{'corporationNae'}, $nbChosen, $total, $freqChosen);
 	
 					if($most['frequency'] < $freqChosen){
 						$most = array(
