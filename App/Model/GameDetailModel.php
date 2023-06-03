@@ -157,15 +157,15 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public static function getRecordTotalPoints(){
 			try{
-				$sql = "SELECT MAX(nb), nbGames FROM 
-					(SELECT SUM(score) as nb, COUNT(*) as nbGames playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$sql = "SELECT MAX(nb) FROM 
+					(SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};
-				$nbGames = $result[0]->{'nbGames'};
+				
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -174,6 +174,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "en tout",
@@ -188,15 +189,14 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public static function getRecordTotalTrPoints(){
 			try{
-				$sql = "SELECT MAX(nb, nbGames
-					FROM (SELECT SUM(trScore) as nb, playerId, COUNT(*) as nbGames FROM GameDetails GROUP BY playerId) as subquery";
+				$sql = "SELECT MAX(nb)
+					FROM (SELECT SUM(trScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};
-				$nbGames = $result[0]->{'nbGames'};
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT SUM(trScore) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -205,6 +205,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "de NT",
@@ -219,15 +220,14 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public static function getRecordTotalBoardPoints(){
 			try{
-				$sql = "SELECT MAX(nb), nbGames FROM
-					(SELECT SUM(boardScore) as nb, COUNT(*) as nbGames playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$sql = "SELECT MAX(nb) FROM
+					(SELECT SUM(boardScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};
-				$nbGames = $result[0]->{'nbGames'};
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT SUM(boardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -236,6 +236,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "de plateau",
@@ -250,15 +251,15 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public static function getRecordTotalCardPoints(){
 			try{
-				$sql = "SELECT MAX(nb), nbGames FROM 
-					(SELECT SUM(cardScore) as nb, COUNT(*) as nbGames playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$sql = "SELECT MAX(nb) FROM 
+					(SELECT SUM(cardScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};
-				$nbGames = $result[0]->{'nbGames'};
+				
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT SUM(cardscore) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -267,6 +268,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "de cartes",
@@ -281,15 +283,14 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public static function getRecordTotalGoalPoints(){
 			try{
-				$sql = "SELECT MAX(nb), nbGames FROM 
-					(SELECT SUM(goalScore) as nb, COUNT(*) as nbGames, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$sql = "SELECT MAX(nb) FROM 
+					(SELECT SUM(goalScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};
-				$nbGames = $result[0]->{'nbGames'};
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT SUM(goalScore) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -298,6 +299,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "d'objectifs",
@@ -312,15 +314,14 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public static function getRecordTotalAwardPoints(){
 			try{
-				$sql = "SELECT MAX(nb), nbGames FROM 
-					(SELECT SUM(awardScore) as nb, COUNT(*) as nbGames, playerId FROM GameDetails GROUP BY playerId) as subquery";
+				$sql = "SELECT MAX(nb) FROM 
+					(SELECT SUM(awardScore) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};
-				$nbGames = $result[0]->{'nbGames'};
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, count(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT SUM(awardScore) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -329,6 +330,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "de récompenses",
