@@ -658,12 +658,12 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				"total" => 0,
 			);
 
+			var_dump($result);
+
 			foreach($result as $line){
 					$nbChosen = $line->{'chosenCount'};
 					$total = $nbChosen + $line->{'rejectedCount'};
 					$freqChosen = $nbChosen / $total;
-
-					var_dump($line->{'corporationName'}, $nbChosen, $total, $freqChosen);
 	
 					if($most['frequency'] < $freqChosen){
 						$most = array(
