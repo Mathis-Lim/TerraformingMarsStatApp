@@ -363,7 +363,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'max'};
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId
 				WHERE Players.playerId IN
 					(SELECT playerId FROM GameDetails WHERE score = " . $max .")";
@@ -371,11 +371,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "totaux",
 					"player" => $playerName,
 					"number" => $max,
+					"nb_games" => $nbGames,
 				);
 			} catch(PDOException $e) {
                 return null;
@@ -390,7 +392,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'max'};
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId
 				WHERE Players.playerId IN
 					(SELECT playerId FROM GameDetails WHERE trScore = " . $max .")";
@@ -398,11 +400,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "de NT",
 					"player" => $playerName,
 					"number" => $max,
+					"nb_games" => $nbGames,
 				);
 			} catch(PDOException $e) {
                 return null;
@@ -417,7 +421,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'max'};
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId
 				WHERE Players.playerId IN
 					(SELECT playerId FROM GameDetails WHERE boardScore = " . $max .")";
@@ -425,11 +429,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
-	
+				$nbGames = $result[0]->{'nbGames'};
+
 				return array(
 					"description" => "de plateau",
 					"player" => $playerName,
 					"number" => $max,
+					"nb_games" => $nbGames,
 				);
 			} catch(PDOException $e) {
                 return null;
@@ -444,7 +450,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'max'};
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId
 				WHERE Players.playerId IN
 					(SELECT playerId FROM GameDetails WHERE cardScore = " . $max .")";
@@ -452,11 +458,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "de cartes",
 					"player" => $playerName,
 					"number" => $max,
+					"nb_games" => $nbGames,
 				);
 			} catch(PDOException $e) {
                 return null;
@@ -481,7 +489,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};   	
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT ROUND(AVG(score),2) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -490,11 +498,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "totaux",
 					"player" => $playerName,
 					"number" => $max,
+					"nb_games" => $nbGames,
 				);
 			} catch(PDOException $e) {
                 return null;
@@ -509,7 +519,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};   	
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT ROUND(AVG(trScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -518,11 +528,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "de NT",
 					"player" => $playerName,
 					"number" => $max,
+					"nb_games" => $nbGames,
 				);
 			} catch(PDOException $e) {
                 return null;
@@ -537,7 +549,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};   	
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT ROUND(AVG(boardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -546,11 +558,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
-	
+				$nbGames = $result[0]->{'nbGames'};
+
 				return array(
 					"description" => "de plateau",
 					"player" => $playerName,
 					"number" => $max,
+					"nb_games" => $nbGames,
 				);
 			} catch(PDOException $e) {
                 return null;
@@ -565,7 +579,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};   	
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT ROUND(AVG(cardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -574,11 +588,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "de cartes",
 					"player" => $playerName,
 					"number" => $max,
+					"nb_games" => $nbGames,
 				);
 			} catch(PDOException $e) {
                 return null;
@@ -593,7 +609,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};   	
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT ROUND(AVG(goalScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -602,11 +618,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "d'objectifs",
 					"player" => $playerName,
 					"number" => $max,
+					"nb_games" =>$nbGames,
 				);
 			} catch(PDOException $e) {
                 return null;
@@ -621,7 +639,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};   	
 	
-				$sql = "SELECT DISTINCT playerName FROM Players JOIN GameDetails 
+				$sql = "SELECT DISTINCT playerName, COUNT(*) FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT ROUND(AVG(awardScore),2) as nb, playerId FROM GameDetails GROUP BY playerId)
@@ -630,11 +648,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
 					"description" => "de récompenses",
 					"player" => $playerName,
 					"number" => $max,
+					"nb_games" => $nbGames,
 				);
 			} catch(PDOException $e) {
                 return null;

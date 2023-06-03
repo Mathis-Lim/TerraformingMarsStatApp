@@ -54,7 +54,7 @@
         <?php
             foreach($recordPoints as $record){
                 echo('<li>Joueur ayant le record de points ' . $record['description'] . ': ' . $record['player'] . ', ' . 
-                $record['number'] . ' points marqués</li>');
+                $record['number'] . ' points marqués (' . $record['nb_games'] . ' parties jouées)</li>');
             }
         ?>
     </ul>
@@ -63,7 +63,7 @@
         <?php
             foreach($recordAvgPoints as $record){
                 echo('<li>Joueur marquant le plus de points de ' . $record['description'] . ' en moyenne: ' . $record['player']
-                 . ', ' . $record['number'] . ' points marqués par partie</li>');
+                 . ', ' . $record['number'] . ' points marqués par partie (' . $record['nb_games'] . ' parties jouées)</li>');
             }
         ?>
     </ul>
