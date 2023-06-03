@@ -654,7 +654,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			);
 			$least = array(
 				"name" => "placeholder",
-				"frequency" => 100,
+				"frequency" => 0,
 				"total" => 0,
 			);
 
