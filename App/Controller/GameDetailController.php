@@ -85,20 +85,30 @@
                 if(isset($_POST['goal_' . $i])){
                     $goalId = $_POST['goal_' . $i];
                     $playerId = $_POST['goal_player_' . $i];
-                    $success = $game->setGoal($goalId, $playerId);
-                    if($success == FALSE){
-                        ErrorController::setGoals();
-                        exit;
+                    if(empty($goalId) || empty($playerId)){
+                        break;
+                    }
+                    else{
+                        $success = $game->setGoal($goalId, $playerId);
+                        if($success == FALSE){
+                            ErrorController::setGoals();
+                            exit;
+                        }
                     }
                 }
 
                 if(isset($_POST['award_' . $i])){
                     $awardId = $_POST['award_' . $i];
                     $playerId = $_POST['award_player_' . $i];
-                    $success = $game->setAward($awardId, $playerId);
-                    if($success == FALSE){
-                        ErrorController::setAwards();
-                        exit;
+                    if(empty($awardId) || empty($playerId)){
+                        break;
+                    }
+                    else{
+                        $success = $game->setAward($awardId, $playerId);
+                        if($success == FALSE){
+                            ErrorController::setAwards();
+                            exit;
+                        }
                     }
                 }
             }
