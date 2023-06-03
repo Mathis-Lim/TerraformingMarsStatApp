@@ -158,7 +158,7 @@
                 $result = $res->fetchAll();
                 $max = $result[0]->{'MAX(nb)'};
     
-                $sql = "SELECT playerName, FROM Players JOIN Games 
+                $sql = "SELECT playerName FROM Players JOIN Games 
                 ON Players.playerId = Games.winner 
                 WHERE playerId IN 
                     (SELECT winner FROM (SELECT COUNT(gameId) as nb, winner FROM Games GROUP BY winner)
