@@ -384,7 +384,8 @@
 			for($i = 2; $i < 6; $i++){
 				$gameIds = $this->getGameIds($i);
 				if($gameIds === 0){
-					return 0;
+					array_push($details, 0);
+					break;
 				}
 				$detail = $this->getPositionDetailAux($gameIds);
 				array_push($details, $detail);
