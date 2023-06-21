@@ -122,21 +122,18 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		public static function getByIds($gameId, $playerId){
 			$sql = "SELECT * FROM GameDetails WHERE gameId = " . $gameId . " AND playerId = " . $playerId;
 			$req = ConnectionModel::getPDO()->query($sql);
-			$req->setFetchMode(PDO::FETCH_CLASS, 'GameDetailModel');
-			$req->bindColumn('gameId', $gameId);
-			$req->bindColumn('playerId', $playerId);
-			$req->bindColumn('chosenCorporation', $chosenCorporation);
-			$req->bindColumn('rejectedCorporation', $rejectedCorporation);
-			$req->bindColumn('rank', $rank);
-			$req->bindColumn('trScore', $trScore);
-			$req->bindColumn('boardScore', $boardScore);
-			$req->bindColumn('cardScore', $cardScore);
-			$req->bindColumn('goalScore', $goalScore);
-			$req->bindColumn('awardScore', $awardScore);
-			$res = $req->fetch(PDO::FETCH_BOUND);
+			$req->setFetchMode(PDO::FETCH_OBJ);
+			$res = $req->fetchAll();
 			var_dump($res);
-			return $res;
+			$res = $res[0];
+			var_dump($res);
+			$gameDetails = new GameDetailModel($res{'gameId'}, $res{'playerId'}, $res{'chosenCorporation'},
+				$res{'rejectedCorporation'}, $res{'rank'}, $res{'trScore'}, $res{'boardScore'}, $res{'cardScore'}, $res{'goalScore'},
+				$res{'awardScore'}, $res{'score'});
 
+			var_dump($gameDetails);
+			return $gameDetails;
+			
 		}
 
 		public static function getTotalPoints(){
