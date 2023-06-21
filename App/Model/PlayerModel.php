@@ -89,39 +89,40 @@
 		}
 
         public function getNbGamesPlayed(){
-			try{
-				$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId = :player_id";
-				$req_prep = ConnectionModel::getPDO()->prepare($sql);
-				$values = array("player_id" => $this->playerId,);
-				$req_prep->execute($values);
-				$req_prep->setFetchMode(PDO::FETCH_OBJ);
-				$result = $req_prep->fetchAll();
-				$nb = $result[0]->{'nb'};
-				return $nb;
-			} catch(PDOExeception $e){
-                return null;
-            }
+			$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId = :player_id";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+			$values = array("player_id" => $this->playerId,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			$nb = $result[0]->{'nb'};
+			return $nb;
 		}
 
-        public function getAvgGameTime(){
-			try{
-				$sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games JOIN GameDetails ON Games.gameId = GameDetails.gameId
+        public function getAvgGameTime($gameIds){
+			$sql = null;
+			if(is_null($gameIds){
+				$sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games JOIN 
+					GameDetails ON Games.gameId = GameDetails.gameId
 				WHERE playerId=:player_id";
-				$req_prep = ConnectionModel::getPDO()->prepare($sql);
-				$values = array("player_id" => $this->playerId,);
-				$req_prep->execute($values);
-				$req_prep->setFetchMode(PDO::FETCH_OBJ);
-				$result = $req_prep->fetchAll();
-				$nb = $result[0]->{'avg'};
-				if(isset($nb)){
-					return $nb;
-				}
-				else{
-					return 0;
-				}
-			} catch(PDOExeception $e){
-                return null;
-            }
+			}
+			else{
+				$sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games JOIN 
+					GameDetails ON Games.gameId = GameDetails.gameId
+				WHERE playerId=:player_id AND gameId IN " .$gameIds ;
+			}
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+			$values = array("player_id" => $this->playerId,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			$nb = $result[0]->{'avg'};
+			if(isset($nb)){
+				return $nb;
+			}
+			else{
+				return 0;
+			}
 		}
 
         public function getNbPosition($rank){
@@ -150,9 +151,15 @@
 			return $freq;
 		}
 
-        public function getTotalPoints(){
+        public function getTotalPoints($gameIds){
 			try{
-				$sql = "SELECT SUM(score) as nb FROM GameDetails WHERE playerId=:player_id";
+				$sql = null;
+				if(is_null($gameIds){
+					$sql = "SELECT SUM(score) as nb FROM GameDetails WHERE playerId=:player_id";
+				}
+				else{
+					$sql = "SELECT SUM(score) as nb FROM GameDetails WHERE playerId=:player_id AND gameId IN " . $gameIds;
+				}
 				$req_prep = ConnectionModel::getPDO()->prepare($sql);
 				$values = array("player_id" => $this->playerId,);
 				$req_prep->execute($values);
@@ -273,17 +280,8 @@
 				SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id";
 			}
 			else{
-				$sql = "SELECT SUM(score) as total FROM GameDetails WHERE playerId=:player_id AND gameId IN " . $gameIds;
-				$req_prep = ConnectionModel::getPDO()->prepare($sql);
-				$values = array("player_id" => $this->playerId,);
-				$req_prep->execute($values);
-				$req_prep->setFetchMode(PDO::FETCH_OBJ);
-				$result = $req_prep->fetchAll();
-				$total = $result[0]->{'total'};
-
 				$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
 				SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id AND gameId IN " . $gameIds;
-				$nbGames = substr_count($gameIds, ',') + 1;
 			}
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
 			$values = array("player_id" => $this->playerId,);
@@ -340,7 +338,6 @@
 			try{
 
 				$detailByPosition = array();
-				$nbGames = substr_count($gameIds, ',') + 1;
 
 				for($i = 1; $i <= $nbPlayers; $i++){
 					$sql = "SELECT COUNT(*) as nb FROM GameDetails 
@@ -391,11 +388,17 @@
 					array_push($details, 0);
 					continue;
 				}
-				$rankDetail = $this->getPositionDetailAux($gameIds, $i);
-				$scoreDetail = $this->getPointsDetail(0, 0, $gameIds);
+				$nbGames = $nbGames = substr_count($gameIds, ',') + 1;
+				$avgGameTime = $this->getAvgGameTime($gameIds);
+				$totalPoints = $this->getTotalPoints($gameIds);
+				$rankDetail = $this->getPositionDetailAux($gameIds, $i, $nbGames);
+				$scoreDetail = $this->getPointsDetail($totalPoints, $nbGames, $gameIds);
 
 				$detail = array(
 					"nb_players" => $i,
+					"nb_games" => $nbGames,
+					"avg_game_time" => $avgGameTime,
+					"total_score" => $totalPoints,
 					"rank" => $rankDetail,
 					"score" => $scoreDetail,
 				);

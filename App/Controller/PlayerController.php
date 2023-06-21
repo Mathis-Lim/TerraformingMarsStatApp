@@ -70,7 +70,7 @@
                 exit;
             }
 
-            $avgGen = $player->getAvgGameTime();
+            $avgGen = $player->getAvgGameTime(null);
             if(!isset($avgGen)){
                 ErrorController::getAverageGenerationNumber();
                 exit;
@@ -88,7 +88,7 @@
                 exit;
             }
 
-            $totalPoints = $player->getTotalPoints();
+            $totalPoints = $player->getTotalPoints(null);
             if(!isset($totalPoints)){
                 ErrorController::getTotalPointsPlayer();
                 exit;
