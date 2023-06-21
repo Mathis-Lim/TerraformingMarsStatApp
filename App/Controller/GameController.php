@@ -17,6 +17,7 @@
             $lastGameId = GameModel::getLastCreatedId();
             $lastGame = GameModel::getById($lastGameId);
             $lastGameWinnerDetails = GameDetailModel::getByIds($lastGameId, $lastGame->getWinner());
+            var_dump($lastGameWinnerDetails)
 
             $winner = PlayerModel::getNameById($lastGame->getWinner());
             $winnerScore = $lastGameWinnerDetails->getScore();
