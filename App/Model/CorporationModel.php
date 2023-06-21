@@ -42,19 +42,12 @@
             return GenericModel::readAll('Corporation');
         }
 
+        public static function getNameById($id){
+            return GenericModel::getNameById('Corporation', $id);
+        }
+
         public static function getCorporationById($id){
-            try{
-                $sql = "SELECT * FROM Corporations WHERE corporationId = :corporation_id";
-                $req = ConnectionModel::getPDO()->prepare($sql);
-                $values = array("corporation_id" => $id,);
-                $req->execute($values);
-                $req->setFetchMode(PDO::FETCH_CLASS, 'CorporationModel');
-                $res = $req->fetchAll();
-                $corporation = $res[0];
-                return $corporation;
-            } catch(PDOExeception $e){
-                return null;
-            }
+            return GenericModel::getById('Corporation', $id);
         }
 
         public function getNbGamesPlayed(){

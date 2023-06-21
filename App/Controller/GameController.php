@@ -3,6 +3,7 @@
     require_once File::build_path(array('Model', 'ExtensionModel.php'));
     require_once File::build_path(array('Model', 'MapModel.php'));
     require_once File::build_path(array('Model', 'PlayerModel.php'));
+    require_once File::build_path(array('Model', 'CorporationModel.php'));
     require_once File::build_path(array('Controller', 'ErrorController.php'));
     require_once File::build_path(array('Controller', 'GameDetailController.php'));
 
@@ -13,13 +14,16 @@
                 $creation = true;
             }
 
-            $lastGame = GameModel::getById(GameModel::getLastCreatedId());
+            $lastGameId = GameModel::getLastCreatedId()
+            $lastGame = GameModel::getById($lastGameId);
+            $lastGameWinnerDetails = GameDetailModel::getByIds($lastGameId, $lastGame->getWinner());
+
             $winner = PlayerModel::getNameById($lastGame->getWinner());
+            $winnerScore = $lastGameWinnerDetails->getScore();
+            $winnerCorp = CorporationModel::getNameById($lastGameWinnerDetails->getChosenCorporation());
             $nbPlayers = $lastGame->getNumberOfPlayers();
             $nbGen = $lastGame->getNumberOfGenerations();
             $mapUsed = MapModel::getNameById($lastGame->getMapId());
-
-            var_dump($lastGame, $winner, $nbPlayers, $nbGen, $mapUsed);
 
             $controller = "Game";
             $view = "home";

@@ -10,7 +10,9 @@
 <h2>Dernière partie: </h2>
 <ul>
 <?php
-    echo('<li>Gagnant: ' . $winner . '</li>');
+    echo('<li>Gagnant(e): ' . $winner . '</li>');
+    echo('<li>Score: ' . $winnerScore . ' points</li>');
+    echo('<li>Corporation utilisée: ' . $winnerCorp . '</li>');
     echo('<li>Nombre de joueurs: ' . $nbPlayers .'</li>');
     echo('<li>Nombre de générations: ' . $nbGen . '</li>');
     echo('<li>Carte utilisée: ' . $mapUsed . '</li>');

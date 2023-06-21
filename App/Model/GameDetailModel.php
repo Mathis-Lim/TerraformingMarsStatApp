@@ -72,6 +72,10 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return $this->awardScore;
 		}
 
+		public function getScore(){
+			return $this->score;
+		}
+
 		public function save() {
             $sql = "INSERT INTO GameDetails (gameId, playerId, chosenCorporation, rejectedCorporation, rank, 
                 trScore, boardScore, cardScore, goalScore, awardScore, score) 
@@ -101,18 +105,21 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             }
         }
 
+		public static function getByIds($gameId, $playerId){
+			$sql = "SELECT * FROM GameDetails WHERE gameId = " . $gameId . " AND playerId = " . $playerId;
+			req = ConnectionModel::getPDO()->query($sql);
+			$req->setFetchMode(PDO::FETCH_CLASS, "GameDetailModel");
+            $res = $req->fetchAll();
+            return $res[0];
+		}
+
 		public static function getTotalPoints(){
-			try{
-				$sql = "SELECT SUM(score) FROM GameDetails";
-            	$res = ConnectionModel::getPDO()->query($sql);
-            	$res->setFetchMode(PDO::FETCH_OBJ);
-            	$result = $res->fetchAll();
-            	$nb = $result[0]->{'SUM(score)'};
-				return $nb;
-			} catch(PDOException $e) {
-                return null;
-            }
-            
+			$sql = "SELECT SUM(score) FROM GameDetails";
+			$res = ConnectionModel::getPDO()->query($sql);
+			$res->setFetchMode(PDO::FETCH_OBJ);
+			$result = $res->fetchAll();
+			$nb = $result[0]->{'SUM(score)'};
+			return $nb;
 		}
 
 		public static function getAveragePoints(){
