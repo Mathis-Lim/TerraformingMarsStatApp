@@ -2,7 +2,7 @@
 
 	require_once File::build_path(array('Model','ConnectionModel.php'));
 
-    class  GameModel{
+    class GameModel{
 
         private $gameId;
         private $numberOfPlayers;
