@@ -107,7 +107,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public static function getByIds($gameId, $playerId){
 			$sql = "SELECT * FROM GameDetails WHERE gameId = " . $gameId . " AND playerId = " . $playerId;
-			req = ConnectionModel::getPDO()->query($sql);
+			$req = ConnectionModel::getPDO()->query($sql);
 			$req->setFetchMode(PDO::FETCH_CLASS, "GameDetailModel");
             $res = $req->fetchAll();
             return $res[0];
