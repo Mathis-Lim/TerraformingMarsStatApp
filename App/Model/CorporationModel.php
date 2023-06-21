@@ -1,5 +1,6 @@
 <?php
 	require_once File::build_path(array('Model','ConnectionModel.php'));
+    require_once File::build_path(array('Model','GenericModel.php'));
 
 	class CorporationModel{
 
@@ -38,14 +39,7 @@
         }
 
         public static function readAll(){
-            try{
-                $req = ConnectionModel::getPDO()->query("SELECT * FROM Corporations");
-                $req->setFetchMode(PDO::FETCH_CLASS, 'CorporationModel');
-                $res = $req->fetchAll();
-                return $res;
-            } catch(PDOExeception $e){
-                return null;
-            }
+            return GenericModel::readAll();
         }
 
         public static function getCorporationById($id){
