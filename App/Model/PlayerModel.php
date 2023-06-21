@@ -340,7 +340,7 @@
 				$board['record'] = $recordBoard;
 				$cards['record'] = $recordCard;
 				$goals['record'] = "/";
-				awards['record'] = "/";
+				$awards['record'] = "/";
 			}
 
 			$details = array($tr, $board, $cards, $goals, $awards,);
