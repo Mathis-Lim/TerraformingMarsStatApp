@@ -115,6 +115,10 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			var_dump($sql);
 			$req = ConnectionModel::getPDO()->query($sql);
 			var_dump($req);
+			$req->setFetchMode(PDO::FETCH_OBJ);
+			$debug = $req->fetchAll();
+			var_dump($debug);
+
 			$req->setFetchMode(PDO::FETCH_CLASS, "GameDetailModel");
             $res = $req->fetchAll();
             return $res[0];
