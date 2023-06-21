@@ -41,8 +41,9 @@
         }
         else{
             echo('<ul><li>' . $nbPlayerDetail['nb_games'] . ' parties jouées</li>');
-            echo('<li>' . $nbPlayerDetail['avg_game_time'] . ' générations par parties</li>');
-            echo('<li>' . $nbPlayerDetail['total_score'] . ' points marqués</li></ul>');
+            echo('<li>' . $nbPlayerDetail['total_score'] . ' points marqués</li>');
+            echo('<li>' . $nbPlayerDetail['avg_score'] . 'points marqués par partie </li>');
+            echo('<li>' . $nbPlayerDetail['avg_game_time'] . ' générations par parties</li></ul>');
             echo('<h4>Classement</h4>');
             echo('<p><table><tr><th>Classement</th><th>Occurences</th><th>Proportion</th>');
             foreach($nbPlayerDetail['rank'] as $rankDetail){
