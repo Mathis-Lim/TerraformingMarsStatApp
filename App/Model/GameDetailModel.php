@@ -17,7 +17,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		private $score;
 
 		public function __construct($gameId, $playerId, $chosenCorporation, $rejectedCorporation, $rank,
-			$trScore, $boardScore, $cardScore, $goalScore, $awardScore) {
+			$trScore, $boardScore, $cardScore, $goalScore, $awardScore, $score = NULL) {
 
 			$this->gameId = $gameId;
 			$this->playerId = $playerId;
@@ -29,7 +29,12 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$this->cardScore = $cardScore;
 			$this->goalScore = $goalScore;
 			$this->awardScore = $awardScore;
-			$this->score = $trScore + $boardScore + $cardScore +$goalScore + $awardScore;
+			if(is_null($score)){
+				$this->score = $trScore + $boardScore + $cardScore +$goalScore + $awardScore;
+			}
+			else{
+				$this->score = $score;
+			}
 		}
 
 		public function getGameId() {
