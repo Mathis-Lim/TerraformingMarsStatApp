@@ -109,7 +109,7 @@
 			else{
 				$sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games JOIN 
 					GameDetails ON Games.gameId = GameDetails.gameId
-				WHERE playerId=:player_id AND gameId IN " .$gameIds ;
+				WHERE playerId=:player_id AND Games.gameId IN " .$gameIds ;
 			}
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
 			$values = array("player_id" => $this->playerId,);
