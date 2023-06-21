@@ -39,7 +39,7 @@
         }
 
         public static function readAll(){
-            return GenericModel::readAll();
+            return GenericModel::readAll('Corporation');
         }
 
         public static function getCorporationById($id){
