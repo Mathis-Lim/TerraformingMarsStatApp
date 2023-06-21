@@ -43,14 +43,14 @@
                 $this->gameId = $id;
                 $this->numberOfPlayers = $nbPlayer;
                 $this->numberOfGenerations = $nbGen;
-                $this->$winner = $winner;
-                $this->$mapId = $mapId;
+                $this->winner = $winner;
+                $this->mapId = $mapId;
                 
             }
             elseif(!is_null($nbPlayer) && !is_null($nbGen) && !is_null($mapId)){
                 $this->numberOfPlayers = $nbPlayer;
                 $this->numberOfGenerations = $nbGen;
-                $this->$mapId = $mapId;
+                $this->mapId = $mapId;
             }
             elseif(!is_null($id)){
                 $this->gameId = $id;
