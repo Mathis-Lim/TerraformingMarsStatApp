@@ -88,6 +88,10 @@
             } 
         }
 
+        public static function getById($id){
+            return GenericModel::getById("Game", $id);
+        }
+
         public function linkToExtension($extensionId){
             $sql = "INSERT INTO ExtensionUsed(gameId, extensionId) VALUES (:game_id, :extension_id)";
             $req_prep = ConnectionModel::getPDO()->prepare($sql);

@@ -31,4 +31,8 @@
             return GenericModel::readAll('Map');
         }
 
+        public static function getNameById($id){
+            return GenericModel::getNameById("Map", $id);
+        }
+
     }

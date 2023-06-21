@@ -1,6 +1,7 @@
 <?php
 
 	require_once File::build_path(array('Model','ConnectionModel.php'));
+    require_once File::build_path(array('Model','GenericModel.php'));
 
     class ExtensionModel{
 
@@ -39,10 +40,7 @@
         }
 
         public static function readAll(){
-            $req = ConnectionModel::getPDO()->query("SELECT * FROM Extensions");
-            $req->setFetchMode(PDO::FETCH_CLASS, 'ExtensionModel');
-            $res = $req->fetchAll();
-            return $res;
+            return GenericModel::readAll("Extension");
         }
 
         public static function getExtensionId($name){
@@ -60,5 +58,9 @@
             catch(PDOException $e){
                 return -1;
             }
+        }
+
+        public static function getNameById($id){
+            return GenericModel::getNameById("Extension", $id);
         }
     }

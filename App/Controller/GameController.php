@@ -2,6 +2,7 @@
 	require_once File::build_path(array('Model', 'GameModel.php'));
     require_once File::build_path(array('Model', 'ExtensionModel.php'));
     require_once File::build_path(array('Model', 'MapModel.php'));
+    require_once File::build_path(array('Model', 'PlayerModel.php'));
     require_once File::build_path(array('Controller', 'ErrorController.php'));
     require_once File::build_path(array('Controller', 'GameDetailController.php'));
 
@@ -11,6 +12,12 @@
             if(isset($_GET['creation'])){
                 $creation = true;
             }
+
+            $lastGame = GameModel::getById(GameModel::getLastCreatedId());
+            $winner = PlayerModel::getNameById($lastGame->getWinner());
+            $nbPlayers = $lastGame->getNumberOfPlayers();
+            $nbGen = $lastGame->getNumberOfGenerations();
+            $mapUsed = MapModel::getNameById($lastGame->getMapId());
 
             $controller = "Game";
             $view = "home";

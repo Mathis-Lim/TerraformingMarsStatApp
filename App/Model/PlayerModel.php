@@ -44,19 +44,20 @@
         }
 
         public static function getPlayerById($id){
-			try{
-				$sql = "SELECT * FROM Players WHERE playerId=:player_id";
-				$req_prep = ConnectionModel::getPDO()->prepare($sql);
-				$values = array("player_id" => $id,);
-				$req_prep->execute($values);
-				$req_prep->setFetchMode(PDO::FETCH_CLASS, 'PlayerModel');
-				$res = $req_prep->fetchAll();
-				$player = $res[0];
-				return $player;
-			} catch(PDOExeception $e){
-                return null;
-            }
+			/*$sql = "SELECT * FROM Players WHERE playerId=:player_id";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+			$values = array("player_id" => $id,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_CLASS, 'PlayerModel');
+			$res = $req_prep->fetchAll();
+			$player = $res[0];
+			return $player;*/
+			return GenericModel::getById('Player', $id);
         }
+
+		public static function getNameById($id){
+			return GenericModel::getNameById('Player', $id);
+		}
 
 		private function getGameIds($nbPlayers){
 			$sql = "SELECT subquery2.gameId FROM 
