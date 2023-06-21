@@ -382,7 +382,7 @@
 		public function getPositionDetail(){
 			$details = array();
 			for($i = 2; $i < 6; $i++){
-				$gameIds = $this->getGameIds($i)
+				$gameIds = $this->getGameIds($i);
 				if($gameIds === 0){
 					return 0;
 				}
