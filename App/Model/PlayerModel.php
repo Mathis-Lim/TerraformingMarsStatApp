@@ -348,9 +348,8 @@
 				}
 				$gameIds = $gameIds . $result[$nbGames - 1]->{'gameId'} . ")";*/
 
-
 				$detailByPosition = array();
-				$nbGames = sizeof($gameIds);
+				$nbGames = substr_count($gameIds, ',') + 1;
 
 				for($i = 1; $i <= $nbPlayers; $i++){
 					$sql = "SELECT COUNT(*) as nb FROM GameDetails 
