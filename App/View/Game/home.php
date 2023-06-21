@@ -12,7 +12,7 @@
 <?php
     echo('<li>Gagnant: ' . $winner . '</li>');
     echo('<li>Nombre de joueurs: ' . $nbPlayers .'</li>');
-    echo('<li>Nombre de générations:' . $nbGen . '</li>');
+    echo('<li>Nombre de générations: ' . $nbGen . '</li>');
     echo('<li>Carte utilisée: ' . $mapUsed . '</li>');
 ?>
 </ul>

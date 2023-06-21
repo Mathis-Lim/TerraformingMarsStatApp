@@ -42,7 +42,7 @@
             $req->setFetchMode(PDO::FETCH_OBJ);
             $res = $req->fetchAll();
 
-            return $res[0];
+            return $res[0]->{$nameAttribute};
         }
 
     }
