@@ -12,116 +12,6 @@
                 $creation = true;
             }
 
-            $nbGames = GameModel::getNumberOfGamesPlayed();
-            if(!isset($nbGames)){
-                ErrorController::getNumberOfGamesPlayed();
-                exit; 
-            }
-
-            $nbGenerations = GameModel::getNumberOfGenerationsPlayed();
-            if(!isset($nbGenerations)){
-                ErrorController::getNumberOfGenerationsPlayed();
-                exit;
-            }
-
-            $maxGen = GameModel::getMostGenerations();
-            if(!isset ($maxGen)){
-                ErrorController::getMostGenerations();
-                exit;
-            }
-
-            $minGen = GameModel::getLeastGenerations();
-            if(!isset($minGen)){
-                ErrorController::getLeastGenerations();
-                exit;
-            }
-
-            $nbPoints = GameDetailModel::getTotalPoints();
-            if(!isset($nbPoints)){
-                ErrorController::getTotalPoints();
-                exit;
-            }
-
-            $avgPoints = GameDetailModel::getAveragePoints();
-            if(!isset($avgPoints)){
-                ErrorController::getAveragePoints();
-                exit;
-            }
-
-            $pointDetails = GameDetailModel::getTotalPointDetails($nbPoints);
-            if(!isset($pointDetails)){
-                ErrorController::getGameTotalPointDetail();
-                exit;
-            }
-
-            $avgGen = GameModel::getAverageGenerationNumber();
-            if(!isset($avgGen)){
-                ErrorController::getAverageGenerationNumber();
-                exit;
-            }
-
-            $mostPlayed = GameDetailModel::getMostPlayed();
-            if(!isset($mostPlayed)){
-                ErrorController:getMostPlayed();
-                exit;
-            }
-
-            $recordWinner = GameModel::getRecordWinner();
-            if(!isset($recordWinner)){
-                ErrorController::getRecordWinner();
-                exit;
-            }
-
-            $recordTotalPoints = GameDetailModel::getTotalPointsRecordsDetails();
-            if(!isset($recordTotalPoints)){
-                ErrorController::getRecordPoints();
-                exit;
-            }
-
-            $recordPoints = GameDetailModel::getPointsRecordDetails();
-            if(!isset($recordPoints)){
-                ErrorController::getRecordPoints();
-                exit;
-            }
-
-            $recordAvgPoints = GameDetailModel::getRecordAvgPointsDetail();
-                if(!isset($recordAvgPoints)){
-                    ErrorController::getRecordPoints();
-                    exit;
-            }
-
-            $corporationFrequencyRecords = GameDetailModel::getRecordChosenCorporation();
-            if(!isset($corporationFrequencyRecords)){
-                ErrorController::getRecordChosenCorporation();
-                exit;
-            }
-            $mostChosenCorp = $corporationFrequencyRecords['most'];
-            $leastChosenCorp = $corporationFrequencyRecords['least'];
-
-            $recordWinnerCorporation = GameDetailModel::getRecordWinsCorporation();
-            if(!isset($recordWinnerCorporation)){
-                ErrorController::getRecordWinsCorporation();
-                exit;
-            }
-
-            $recordPointsCorporation = GameDetailModel::getRecordPointsCorporation();
-            if(!isset($recordPointsCorporation)){
-                ErrorController::getRecordPointsCorporation();
-                exit;
-            }
-
-            $goalStats = GameModel::getGoalStats($nbGames);
-            if(!isset($goalStats)){
-                ErrorController::getGoalStats();
-                exit;
-            }
-
-            $awardStats = GameModel::getAwardStats($nbGames);
-            if(!isset($awardStats)){
-                ErrorController::getAwardStats();
-                exit;
-            }
-
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
@@ -174,6 +64,54 @@
                 ErrorController::createGame();
                 exit;
             }
+        }
+
+        public static function playerStats(){
+
+            $mostPlayed = GameDetailModel::getMostPlayed();
+            $recordWinner = GameModel::getRecordWinner();
+            $recordTotalPoints = GameDetailModel::getTotalPointsRecordsDetails();
+            $recordPoints = GameDetailModel::getPointsRecordDetails();
+            $recordAvgPoints = GameDetailModel::getRecordAvgPointsDetail();
+
+            $controller = "Game";
+            $view = "playerStats";
+            $pageTitle = "Statistiques";
+            require File::build_path(array('View', 'BaseView.php'));
+        }
+
+        public static function corporationStats(){
+
+            $corporationFrequencyRecords = GameDetailModel::getRecordChosenCorporation();
+            $mostChosenCorp = $corporationFrequencyRecords['most'];
+            $leastChosenCorp = $corporationFrequencyRecords['least'];
+            $recordWinnerCorporation = GameDetailModel::getRecordWinsCorporation();
+            $recordPointsCorporation = GameDetailModel::getRecordPointsCorporation();
+
+            $controller = "Game";
+            $view = "corporationStats";
+            $pageTitle = "Statistiques";
+            require File::build_path(array('View', 'BaseView.php'));
+        }
+
+        public static function otherStats(){
+
+            $nbGames = GameModel::getNumberOfGamesPlayed();
+            $nbGenerations = GameModel::getNumberOfGenerationsPlayed();
+            $maxGen = GameModel::getMostGenerations();
+            $minGen = GameModel::getLeastGenerations();
+            $nbPoints = GameDetailModel::getTotalPoints();
+            $avgPoints = GameDetailModel::getAveragePoints();
+            $pointDetails = GameDetailModel::getTotalPointDetails($nbPoints);
+            $avgGen = GameModel::getAverageGenerationNumber();
+
+            $goalStats = GameModel::getGoalStats($nbGames);
+            $awardStats = GameModel::getAwardStats($nbGames);
+
+            $controller = "Game";
+            $view = "otherStats";
+            $pageTitle = "Statistiques";
+            require File::build_path(array('View', 'BaseView.php'));
         }
         
     }
