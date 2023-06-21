@@ -5,8 +5,8 @@
 
     class MapModel{
 
-        $private mapId;
-        $private $mapName;
+        private mapId;
+        private $mapName;
 
         public function getId(){
             return $this->mapId;
