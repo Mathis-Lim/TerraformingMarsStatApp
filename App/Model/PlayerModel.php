@@ -320,7 +320,7 @@
 			return $details;
 		}
 
-		public function getPositionDetailAux($gameIds){
+		public function getPositionDetailAux($gameIds, $nbPlayers){
 			try{
 				/*$sql = "SELECT subquery2.gameId FROM 
 					(SELECT gameId FROM 
@@ -372,7 +372,6 @@
 					array_push($detailByPosition, $positionDetail);
 
 				}
-				var_dump($detailByPosition);
 				return $detailByPosition;
 			} catch(PDOExeception $e){
                 return null;
@@ -383,12 +382,11 @@
 			$details = array();
 			for($i = 2; $i < 6; $i++){
 				$gameIds = $this->getGameIds($i);
-				var_dump($gameIds);
 				if($gameIds === 0){
 					array_push($details, 0);
 					continue;
 				}
-				$detail = $this->getPositionDetailAux($gameIds);
+				$detail = $this->getPositionDetailAux($gameIds, $i);
 				array_push($details, $detail);
 			}
 			return $details;
