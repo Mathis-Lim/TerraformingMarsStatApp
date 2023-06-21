@@ -1,6 +1,7 @@
 <?php
 
 	require_once File::build_path(array('Model','ConnectionModel.php'));
+	require_once File::build_path(array('Model','GenericModel.php'));
 
     class PlayerModel{
 
@@ -39,14 +40,7 @@
         }
 
         public static function readAll(){
-			try{
-				$req = ConnectionModel::getPDO()->query("SELECT * FROM Players");
-				$req->setFetchMode(PDO::FETCH_CLASS, 'PlayerModel');
-				$res = $req->fetchAll();
-				return $res;
-			} catch(PDOExeception $e){
-                return null;
-            }
+			return GenericModel::readAll('Player');
         }
 
         public static function getPlayerById($id){
