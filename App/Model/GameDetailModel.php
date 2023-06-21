@@ -113,15 +113,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		public static function getByIds($gameId, $playerId){
 			$sql = "SELECT * FROM GameDetails WHERE gameId = " . $gameId . " AND playerId = " . $playerId;
 			$req = ConnectionModel::getPDO()->query($sql);
-			var_dump($req);
 			$req->setFetchMode(PDO::FETCH_OBJ);
 			$debug = $req->fetchAll();
-			var_dump($debug);
 
-			$req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "GameDetailModel");
-            $res = $req->fetchAll();
+			$req->setFetchMode(PDO::FETCH_CLASS, "GameDetailModel");
+            $res = $req->fetch();
 			var_dump($res);
-            return $res[0];
+            return $res;
 		}
 
 		public static function getTotalPoints(){
