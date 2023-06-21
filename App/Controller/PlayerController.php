@@ -118,11 +118,11 @@
             $leastChosenCorp = $corporationChoices['records']['least'];
             unset($corporationChoices['records']);
 
-            $positionDetails = $player->getPositionDetail();
+            /*$positionDetails = $player->getPositionDetail();
             if(!isset($positionDetails)){
                 ErrorController::getPositionDetailPlayer();
                 exit;
-            }
+            }*/
 
             $nbPlayerDetails = $player->getStatsByNbPlayers();
 
