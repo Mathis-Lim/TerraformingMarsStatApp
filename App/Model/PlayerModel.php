@@ -361,7 +361,7 @@
 			return $detailByPosition;
 		}
 
-		public function getPositionDetail(){
+		/*public function getPositionDetail(){
 			$details = array();
 			for($i = 2; $i < 6; $i++){
 				$gameIds = $this->getGameIds($i);
@@ -373,7 +373,7 @@
 				array_push($details, $detail);
 			}
 			return $details;
-		}
+		}*/
 
 		public function getStatsByNbPlayers(){
 			$details = array();
