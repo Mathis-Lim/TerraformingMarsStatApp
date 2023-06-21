@@ -127,15 +127,15 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$res = $res[0];
 			var_dump($res);
 
-			$chosenCorp = $res{'chosenCorporation'};
-			$rejectedCorp = $res{'rejectedCorporation'};
-			$rank = $res{'rank'};
-			$tr = $res{'trScore'};
-			$board = $res{'boardScore'};
-			$card = $res{'cardScore'};
-			$goal = $res{'goalScore'};
-			$award = $res{'awardScore'};
-			$score = $res{'score'};
+			$chosenCorp = $res->chosenCorporation;
+			$rejectedCorp = $res->rejectedCorporation;
+			$rank = $res->rank;
+			$tr = $res->trScore;
+			$board = $res->boardScore;
+			$card = $res->cardScore;
+			$goal = $res->goalScore;
+			$award = $res->awardScore;
+			$score = $res->score;
 
 			var_dump($gameId, $playerId, $chosenCorp, $rejectedCorp, $rank, $tr, $board, $card, $goal,
 			$award, $score);
