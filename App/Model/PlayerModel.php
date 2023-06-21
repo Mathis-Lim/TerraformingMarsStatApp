@@ -334,7 +334,7 @@
 			return $details;
 		}
 
-		public function getPositionDetailAux($gameIds, $nbPlayers){
+		public function getPositionDetailAux($gameIds, $nbPlayers, $,nbGames){
 			try{
 
 				$detailByPosition = array();
