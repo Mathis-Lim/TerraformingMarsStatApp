@@ -305,7 +305,6 @@
 				"score" => $trScore,
 				"avg" => round($trScore / $nbGames, 2),
 				"proportion" => $trScore/$total,
-				"record" => $recordTr,
 			);
 
 			$board = array(
@@ -313,7 +312,6 @@
 				"score" => $boardScore,
 				"avg" => round($boardScore / $nbGames, 2),
 				"proportion" => $boardScore/$total,
-				"record" => $recordBoard,
 			);
 
 			$cards = array(
@@ -321,7 +319,6 @@
 				"score" => $cardScore,
 				"avg" => round($cardScore / $nbGames, 2),
 				"proportion" => $cardScore/$total,
-				"record" => $recordCard,
 			);
 
 			$goals = array(
@@ -329,7 +326,6 @@
 				"score" => $goalScore,
 				"avg" => round($goalScore / $nbGames, 2),
 				"proportion" => $goalScore/$total,
-				"record" => "/",
 			);
 
 			$awards = array(
@@ -337,17 +333,27 @@
 				"score" => $awardScore,
 				"avg" => round($awardScore / $nbGames, 2),
 				"proportion" => $awardScore/$total,
-				"record" => "/",
 			);
+
+			if(!is_null($gameIds)){
+				$tr['record'] = $recordTr;
+				$board['record'] = $recordBoard;
+				$cards['record'] = $recordCard;
+				$goals['record'] = "/";
+				awards['record'] = "/";
+			}
 
 			$details = array($tr, $board, $cards, $goals, $awards,);
 
-			$result = array(
-				"record" => $record,
-				"details" => $details,
-			);
-
-			return $result;
+			if(!is_null($gameIds)){
+				$result = array(
+					"record" => $record,
+					"details" => $details,
+				);
+				return $result;
+			}
+			
+			return $details;
 		}
 
 		public function getPositionDetailAux($gameIds, $nbPlayers, $nbGames){
