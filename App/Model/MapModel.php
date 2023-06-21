@@ -28,7 +28,7 @@
         }
 
         public static function readAll(){
-
+            return GenericModel::readAll('Map');
         }
 
     }

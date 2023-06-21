@@ -8,6 +8,7 @@
         private $numberOfPlayers;
         private $numberOfGenerations;
         private $winner;
+        private $mapId;
 
         public function getId(){
             return $this->gameId;
@@ -25,6 +26,10 @@
             return $this->winner;
         }
 
+        public function getMapId(){
+            return $this->mapId;
+        }
+
         public function setId($id){
             $this->gameId = $id;
         }
@@ -33,12 +38,13 @@
             $this->winner = $winner;
         }
 
-        public function __construct($id = NULL, $nbPlayer = NULL, $nbGen = NULL, $winner = NULL){
-            if(!is_null($id) && !is_null($nbPlayer) && !is_null($nbGen) && !is_null($winner)){
+        public function __construct($id = NULL, $nbPlayer = NULL, $nbGen = NULL, $winner = NULL, $mapId = NULL){
+            if(!is_null($id) && !is_null($nbPlayer) && !is_null($nbGen) && !is_null($winner) && !is_null($mapId)){
                 $this->gameId = $id;
                 $this->numberOfPlayers = $nbPlayer;
                 $this->numberOfGenerations = $nbGen;
                 $this->$winner = $winner;
+                $this->$mapId = $mapId;
                 
             }
             elseif(!is_null($nbPlayer) && !is_null($nbGen)){
@@ -51,11 +57,13 @@
         }
 
         public function save(){
-            $sql = "INSERT INTO Games(numberOfPlayers, numberOfGenerations) VALUES (:number_player, :number_generation)";
+            $sql = 
+                "INSERT INTO Games(numberOfPlayers, numberOfGenerations, mapId) VALUES (:number_player, :number_generation, :map_id)";
             $req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array(
                 "number_player" => $this->numberOfPlayers,
                 "number_generation" => $this->numberOfGenerations,
+                "map_id" => $this->mapId,
             );
 
             try{

@@ -24,6 +24,14 @@
           }
         ?>
       </select>
+      <label for="map_id">Carte utilisée: </label>
+      <select name="map_id" id="map_id" required>
+        <?php
+          foreach($mapArray as $map){
+            echo('<option value="' . $map->getId() . '">' . $map->getName() . '</option>');
+          }
+        ?>
+      </select>  
     </p>      
     <p>
       <input type="submit" value="Suivant"/>
