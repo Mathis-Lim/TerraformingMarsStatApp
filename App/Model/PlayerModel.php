@@ -385,7 +385,7 @@
 				$gameIds = $this->getGameIds($i);
 				if($gameIds === 0){
 					array_push($details, 0);
-					break;
+					continue;
 				}
 				$detail = $this->getPositionDetailAux($gameIds);
 				array_push($details, $detail);
