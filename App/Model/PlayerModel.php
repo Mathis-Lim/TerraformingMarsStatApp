@@ -334,36 +334,31 @@
 			return $details;
 		}
 
-		public function getPositionDetailAux($gameIds, $nbPlayers, $,nbGames){
-			try{
+		public function getPositionDetailAux($gameIds, $nbPlayers, $nbGames){
+			$detailByPosition = array();
 
-				$detailByPosition = array();
+			for($i = 1; $i <= $nbPlayers; $i++){
+				$sql = "SELECT COUNT(*) as nb FROM GameDetails 
+				WHERE gameId IN " . $gameIds . " AND playerId = " . $this->playerId . " AND rank = ". $i;
+				$req = ConnectionModel::getPDO()->query($sql);
+				$req->setFetchMode(PDO::FETCH_OBJ);
+				$result = $req->fetchAll();
+				$nb = $result[0]->{'nb'};
 
-				for($i = 1; $i <= $nbPlayers; $i++){
-					$sql = "SELECT COUNT(*) as nb FROM GameDetails 
-					WHERE gameId IN " . $gameIds . " AND playerId = " . $this->playerId . " AND rank = ". $i;
-					$req = ConnectionModel::getPDO()->query($sql);
-					$req->setFetchMode(PDO::FETCH_OBJ);
-					$result = $req->fetchAll();
-					$nb = $result[0]->{'nb'};
+				$positionDetail = array(
+					"position" => $i,
+					"total" => $nb,
+					"proportion" => 0,
+				);
 
-					$positionDetail = array(
-						"position" => $i,
-						"total" => $nb,
-						"proportion" => 0,
-					);
-
-					if($nb > 0){
-						$positionDetail['proportion'] = round(($nb / $nbGames) * 100, 2);
-					}
-
-					array_push($detailByPosition, $positionDetail);
-
+				if($nb > 0){
+					$positionDetail['proportion'] = round(($nb / $nbGames) * 100, 2);
 				}
-				return $detailByPosition;
-			} catch(PDOExeception $e){
-                return null;
-            }
+
+				array_push($detailByPosition, $positionDetail);
+
+			}
+			return $detailByPosition;
 		}
 
 		public function getPositionDetail(){
