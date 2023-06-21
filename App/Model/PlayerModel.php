@@ -277,12 +277,15 @@
 			$sql = null;
 			if(is_null($gameIds)){
 				$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
-				SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id";
+				SUM(awardScore) as award, MAX(score) as rec, MAX(trScore) as recTr, MAX(boardScore) as recBoard, MAX(cardScore)
+				 as recCard FROM GameDetails WHERE playerId=:player_id";
 			}
 			else{
 				$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
-				SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id AND gameId IN " . $gameIds;
+				SUM(awardScore) as award , MAX(score) as rec, MAX(trScore) as recTr, MAX(boardScore) as recBoard, MAX(cardScore)
+				 as recCard FROM GameDetails WHERE playerId=:player_id AND gameId IN " . $gameIds;
 			}
+
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
 			$values = array("player_id" => $this->playerId,);
 			$req_prep->execute($values);
@@ -293,12 +296,17 @@
 			$cardScore = $result[0]->{'card'};
 			$goalScore = $result[0]->{'goal'};
 			$awardScore = $result[0]->{'award'};
+			$record = $result[0]->{'rec'};
+			$recordTr = $result[0]->{'recTr'};
+			$recordBoard = $result[0]->{'recBoard'};
+			$recordCard = $result[0]->{'recCard'};
 
 			$tr = array(
 				"description" => "NT",
 				"score" => $trScore,
 				"avg" => round($trScore / $nbGames, 2),
 				"proportion" => $trScore/$total,
+				"record" => $recordTr,
 			);
 
 			$board = array(
@@ -306,6 +314,7 @@
 				"score" => $boardScore,
 				"avg" => round($boardScore / $nbGames, 2),
 				"proportion" => $boardScore/$total,
+				"record" => $recordBoard,
 			);
 
 			$cards = array(
@@ -313,6 +322,7 @@
 				"score" => $cardScore,
 				"avg" => round($cardScore / $nbGames, 2),
 				"proportion" => $cardScore/$total,
+				"record" => $recordCard,
 			);
 
 			$goals = array(
@@ -320,6 +330,7 @@
 				"score" => $goalScore,
 				"avg" => round($goalScore / $nbGames, 2),
 				"proportion" => $goalScore/$total,
+				"record" => "/",
 			);
 
 			$awards = array(
@@ -327,9 +338,15 @@
 				"score" => $awardScore,
 				"avg" => round($awardScore / $nbGames, 2),
 				"proportion" => $awardScore/$total,
+				"record" => "/",
 			);
 
 			$details = array($tr, $board, $cards, $goals, $awards,);
+
+			$result = array(
+				"record" => $record,
+				"details" => $details,
+			)
 
 			return $details;
 		}

@@ -53,12 +53,13 @@
             }
             echo('</table></p>');
             echo('<h4>Détail des points</h4>');
-            echo('<p><table><tr><th>Catégorie</th><th>Total</th><th>Moyenne</th><th>Pourcentage</th></tr>');
-            foreach($nbPlayerDetail['score'] as $scoreDetail){
+            echo('<p><table><tr><th>Catégorie</th><th>Total</th><th>Moyenne</th><th>Pourcentage</th><th>Record</th></tr>');
+            foreach($nbPlayerDetail['score']['details'] as $scoreDetail){
                 echo('<tr><td>' . $scoreDetail['description'] . '</td>');
                 echo('<td>' . $scoreDetail['score'] . '</td>');
                 echo('<td>' . $scoreDetail['avg'] . '</td>');
-                echo('<td>' . round($scoreDetail['proportion'] * 100, 2) . '%</td></tr>');
+                echo('<td>' . round($scoreDetail['proportion'] * 100, 2) . '%</td>');
+                echo('<td>' . $scoreDetail['record'] . '</td></tr>');
             }
             echo('</table></p>');
         }
