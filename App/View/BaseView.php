@@ -13,7 +13,7 @@
         ?>    
     </head>
     <header>
-        <h1>Menu</h1>
+        <b><u>Menu</u></b>
         <menu>
             <li><a href = "index.php?controller=Game&action=home">Accueil</a></li>
             <li><a href = "index.php?controller=Corporation&action=readAll">Corporations</a></li>

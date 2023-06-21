@@ -1,4 +1,5 @@
-<?php echo('<h2>' . $player->getName() . '</h2>'); ?>
+<?php echo('<h1>' . $player->getName() . '</h1>'); ?>
+<h2>Global</h2>
 <ul>
     <?php
         echo('<li>' .$nbGames . ' parties jouées </li>');
@@ -29,7 +30,8 @@
             echo('</table>');
         }
     ?>
-<h3>Détail selon le type de partie</h3>
+
+<h2>Détail selon le type de partie</h2>
 <?php
     $nbPlayers = 2;
     foreach($nbPlayerDetails as $nbPlayerDetail){
@@ -38,7 +40,7 @@
             echo('<i>Aucune partie jouée</i>');
         }
         else{
-            echo('<h5>Classement</h5>');
+            echo('<h4>Classement</h4>');
             echo('<p><table><tr><th>Classement</th><th>Occurences</th><th>Proportion</th>');
             foreach($nbPlayerDetail['rank'] as $rankDetail){
                 echo('<tr><td>' . $rankDetail['position'] . '</td>');
@@ -46,7 +48,7 @@
                 echo('<td>' . $rankDetail['proportion'] . '%</td></tr>');
             }
             echo('</table></p>');
-            echo('<h5>Détail des points</h5>');
+            echo('<h4>Détail des points</h4>');
             echo('<p><table><tr><th>Catégorie</th><th>Total</th><th>Moyenne</th><th>Pourcentage</th></tr>');
             foreach($nbPlayerDetail['score'] as $scoreDetail){
                 echo('<tr><td>' . $scoreDetail['description'] . '</td>');
@@ -59,7 +61,7 @@
     }
 ?>
 
-<h3>Détail de la fréquence de choix des corporations</h3>
+<h2>Détail de la fréquence de choix des corporations</h2>
 <table>
 <?php    
     echo('<tr><th>Nom</th>');
