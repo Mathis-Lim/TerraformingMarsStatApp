@@ -14,7 +14,7 @@
                 $creation = true;
             }
 
-            $lastGameId = GameModel::getLastCreatedId()
+            $lastGameId = GameModel::getLastCreatedId();
             $lastGame = GameModel::getById($lastGameId);
             $lastGameWinnerDetails = GameDetailModel::getByIds($lastGameId, $lastGame->getWinner());
 
