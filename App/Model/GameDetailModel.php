@@ -110,13 +110,33 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             }
         }
 
-		public static function getByIds($gameId, $playerId){
+		/*public static function getByIds($gameId, $playerId){
 			$sql = "SELECT * FROM GameDetails WHERE gameId = " . $gameId . " AND playerId = " . $playerId;
 			$req = ConnectionModel::getPDO()->query($sql);
 			$req->setFetchMode(PDO::FETCH_CLASS, "GameDetailModel");
             $res = $req->fetch();
 			var_dump($res);
             return $res;
+		}*/
+
+		public static function getByIds($gameId, $playerId){
+			$sql = "SELECT * FROM GameDetails WHERE gameId = " . $gameId . " AND playerId = " . $playerId;
+			$req = ConnectionModel::getPDO()->query($sql);
+			$req->setFetchMode(PDO::FETCH_CLASS, 'GameDetailModel');
+			$req->bindColumn('gameId', $gameId);
+			$req->bindColumn('playerId', $playerId);
+			$req->bindColumn('chosenCorporation', $chosenCorporation);
+			$req->bindColumn('rejectedCorporation', $rejectedCorporation);
+			$req->bindColumn('rank', $rank);
+			$req->bindColumn('trScore', $trScore);
+			$req->bindColumn('boardScore', $boardScore);
+			$req->bindColumn('cardScore', $cardScore);
+			$req->bindColumn('goalScore', $goalScore);
+			$req->bindColumn('awardScore', $awardScore);
+			$res = $req->fetch(PDO::FETCH_BOUND);
+			var_dump($res);
+			return $res;
+
 		}
 
 		public static function getTotalPoints(){
