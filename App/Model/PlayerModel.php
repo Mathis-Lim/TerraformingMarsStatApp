@@ -350,6 +350,7 @@
 
 
 				$detailByPosition = array();
+				$nbGames = sizeof($gameIds);
 
 				for($i = 1; $i <= $nbPlayers; $i++){
 					$sql = "SELECT COUNT(*) as nb FROM GameDetails 
