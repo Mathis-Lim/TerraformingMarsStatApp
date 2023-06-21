@@ -35,14 +35,14 @@
 <?php
     $nbPlayers = 2;
     foreach($nbPlayerDetails as $nbPlayerDetail){
-        echo('<h3>Parties à ' . $nbPlayers . ' joueurs</h3>');
-        echo('<ul><li>' . $nbPlayerDetail['nb_games'] . ' parties jouées</li>');
-        echo('<li>' . $nbPlayerDetail['avg_game_time'] . ' générations par parties</li>');
-        echo('<li>' . $nbPlayerDetail['total_score'] . ' points marqués</li></ul>');
         if($nbPlayerDetail === 0){
             echo('<i>Aucune partie jouée</i>');
         }
         else{
+            echo('<h3>Parties à ' . $nbPlayers . ' joueurs</h3>');
+            echo('<ul><li>' . $nbPlayerDetail['nb_games'] . ' parties jouées</li>');
+            echo('<li>' . $nbPlayerDetail['avg_game_time'] . ' générations par parties</li>');
+            echo('<li>' . $nbPlayerDetail['total_score'] . ' points marqués</li></ul>');
             echo('<h4>Classement</h4>');
             echo('<p><table><tr><th>Classement</th><th>Occurences</th><th>Proportion</th>');
             foreach($nbPlayerDetail['rank'] as $rankDetail){
