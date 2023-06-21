@@ -6,12 +6,13 @@
         public static function readAll($object){
             $model = $object . 'Model';
 
-            $sql = "SELECT * FROM :table";
-            $req = ConnectionModel::getPDO()->prepare($sql);
+            $sql = "SELECT * FROM" . $object . "s";
+            $req = ConnectionModel::getPDO()->query($sql);
             $values = array("table" => $object . "s",);
             $req->execute($values);
             $req->setFetchMode(PDO::FETCH_CLASS, $model);
             $res = $req->fetchAll();
+            
             return $res;
         }
 
