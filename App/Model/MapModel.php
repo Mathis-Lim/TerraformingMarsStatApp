@@ -5,7 +5,7 @@
 
     class MapModel{
 
-        private mapId;
+        private $mapId;
         private $mapName;
 
         public function getId(){
