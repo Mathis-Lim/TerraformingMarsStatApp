@@ -19,6 +19,8 @@
             $nbGen = $lastGame->getNumberOfGenerations();
             $mapUsed = MapModel::getNameById($lastGame->getMapId());
 
+            var_dump($lastGame, $winner, $nbPlayers, $nbGen, $mapUsed);
+
             $controller = "Game";
             $view = "home";
             $pageTitle = "Accueil";
