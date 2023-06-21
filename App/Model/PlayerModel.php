@@ -277,8 +277,7 @@
 			$sql = null;
 			if(is_null($gameIds)){
 				$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
-				SUM(awardScore) as award, MAX(score) as rec, MAX(trScore) as recTr, MAX(boardScore) as recBoard, MAX(cardScore)
-				 as recCard FROM GameDetails WHERE playerId=:player_id";
+				SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id";
 			}
 			else{
 				$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
