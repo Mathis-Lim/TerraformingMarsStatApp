@@ -124,12 +124,24 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$req = ConnectionModel::getPDO()->query($sql);
 			$req->setFetchMode(PDO::FETCH_OBJ);
 			$res = $req->fetchAll();
-			var_dump($res);
 			$res = $res[0];
 			var_dump($res);
-			$gameDetails = new GameDetailModel($res{'gameId'}, $res{'playerId'}, $res{'chosenCorporation'},
-				$res{'rejectedCorporation'}, $res{'rank'}, $res{'trScore'}, $res{'boardScore'}, $res{'cardScore'}, $res{'goalScore'},
-				$res{'awardScore'}, $res{'score'});
+
+			$chosenCorp = $res{'chosenCorporation'};
+			$rejectedCorp = $res{'rejectedCorporation'};
+			$rank = $res{'rank'};
+			$tr = $res{'trScore'};
+			$board = $res{'boardScore'};
+			$card = $res{'cardScore'};
+			$goal = $res{'goalScore'};
+			$award = $res{'awardScore'}
+			$score = $res{'score'};
+
+			var_dump($gameId, $playerId, $chosenCorp, $rejectedCorp, $rank, $tr, $board, $card, $goal,
+			$award, $score);
+
+			$gameDetails = new GameDetailModel($gameId, $playerId, $chosenCorp, $rejectedCorp, $rank, $tr, $board, $card, $goal,
+				$award, $score);
 
 			var_dump($gameDetails);
 			return $gameDetails;
