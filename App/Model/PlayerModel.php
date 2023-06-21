@@ -101,7 +101,7 @@
 
         public function getAvgGameTime($gameIds){
 			$sql = null;
-			if(is_null($gameIds){
+			if(is_null($gameIds)){
 				$sql = "SELECT ROUND(AVG(numberOfGenerations), 2) as avg FROM Games JOIN 
 					GameDetails ON Games.gameId = GameDetails.gameId
 				WHERE playerId=:player_id";
