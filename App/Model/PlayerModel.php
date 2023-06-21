@@ -266,9 +266,25 @@
             }
 		}
 
-		public function getPointsDetail($total, $nbGames){
-			$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
-			SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id";
+		public function getPointsDetail($total, $nbGames, $gameIds){
+			$sql = null;
+			if(is_null($gameIds)){
+				$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
+				SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id";
+			}
+			else{
+				$sql = "SELECT SUM(score) as total FROM GameDetails WHERE playerId=:player_id AND gameId IN " . $gameIds;
+				$req_prep = ConnectionModel::getPDO()->prepare($sql);
+				$values = array("player_id" => $this->playerId,);
+				$req_prep->execute($values);
+				$req_prep->setFetchMode(PDO::FETCH_OBJ);
+				$result = $req_prep->fetchAll();
+				$total = $result[0]->{'total'};
+
+				$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
+				SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id AND gameId IN " . $gameIds;
+				$nbGames = substr_count($gameIds, ',') + 1;
+			}
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
 			$values = array("player_id" => $this->playerId,);
 			$req_prep->execute($values);
@@ -322,31 +338,6 @@
 
 		public function getPositionDetailAux($gameIds, $nbPlayers){
 			try{
-				/*$sql = "SELECT subquery2.gameId FROM 
-					(SELECT gameId FROM 
-						(SELECT gameId, COUNT(*) as nb FROM GameDetails GROUP BY gameId) as subquery 
-					WHERE nb = :nb_player) as subquery2 
-				JOIN GameDetails ON subquery2.gameId = GameDetails.gameId WHERE playerId = :player_id";
-				$req_prep = ConnectionModel::getPDO()->prepare($sql);
-            	$values = array(
-					"player_id" => $this->playerId,
-					"nb_player" => $nbPlayers,
-				);
-				$req_prep->execute($values);
-				$req_prep->setFetchMode(PDO::FETCH_OBJ);
-				$result = $req_prep->fetchAll();
-			
-				$nbGames = sizeof($result);
-				if($nbGames < 1){
-					return 0;
-				}
-				$gameIds = "(";
-				$nbGames = sizeof($result);
-			
-				for($i = 0; $i < $nbGames-1; $i++){
-					$gameIds = $gameIds . $result[$i]->{'gameId'} . ", ";
-				}
-				$gameIds = $gameIds . $result[$nbGames - 1]->{'gameId'} . ")";*/
 
 				$detailByPosition = array();
 				$nbGames = substr_count($gameIds, ',') + 1;
@@ -387,6 +378,27 @@
 					continue;
 				}
 				$detail = $this->getPositionDetailAux($gameIds, $i);
+				array_push($details, $detail);
+			}
+			return $details;
+		}
+
+		public function getStatsByNbPlayers(){
+			$details = array();
+			for($i = 2; $i < 6; $i++){
+				$gameIds = $this->getGameIds($i);
+				if($gameIds === 0){
+					array_push($details, 0);
+					continue;
+				}
+				$rankDetail = $this->getPositionDetailAux($gameIds, $i);
+				$scoreDetail = $this->getPointsDetail(0, 0, $gameIds);
+
+				$detail = array(
+					"nb_players" => $i,
+					"rank" => $rankDetail,
+					"score" => $scoreDetail,
+				);
 				array_push($details, $detail);
 			}
 			return $details;

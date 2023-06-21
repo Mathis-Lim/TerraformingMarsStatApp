@@ -29,36 +29,26 @@
             echo('</table>');
         }
     ?>
-<h3>Détail selon le type de partie</h3>
+<h3>Détail du classement selon le type de partie</h3>
 <?php
-    $nbPlayers = 2;
-    foreach($nbPlayerDetails as $nbPlayerDetail){
-        echo('<h4>Parties à ' . $nbPlayers . ' joueurs</h4>');
-        if($nbPlayerDetail === 0){
+    $nbPlayersRank = 2;
+    foreach($positionDetails as $positionDetail){
+        echo('<h4>Parties à ' . $nbPlayersRank . ' joueurs</h4>');
+        if($positionDetail === 0){
             echo('<i>Aucune partie jouée</i>');
         }
         else{
-            echo('<h5>Classement</h5>');
-            echo('<p><table><tr><th>Classement</th><th>Occurences</th><th>Proportion</th>');
-            foreach($nbPlayerDetail['rank'] as $rankDetail){
-                echo('<tr><td>' . $rankDetail['position'] . '</td>');
-                echo('<td>' . $rankDetail['total'] . '</td>');
-                echo('<td>' . $rankDetail['proportion'] . '%</td></tr>');
+            echo('<table><tr><th>Classement</th><th>Occurences</th><th>Proportion</th>');
+            foreach($positionDetail as $detail){
+                echo('<tr><td>' . $detail['position'] . '</td>');
+                echo('<td>' . $detail['total'] . '</td>');
+                echo('<td>' . $detail['proportion'] . '%</td></tr>');
             }
-            echo('</table></p>');
-            echo('<h5>Détail des points</h5>');
-            echo('<p><table><tr><th>Catégorie</th><th>Total</th><th>Moyenne</th><th>Pourcentage</th></tr>');
-            foreach($nbPlayerDetail['score'] as $scoreDetail){
-                echo('<tr><td>' . $scoreDetail['description'] . '</td>');
-                echo('<td>' . $scoreDetail['score'] . '</td>');
-                echo('<td>' . $scoreDetail['avg'] . '</td>');
-                echo('<td>' . round($scoreDetail['proportion'] * 100, 2) . '%</td></tr>');
-            }
-            echo('</table></p>');
+            echo('</table>');
         }
+        $nbPlayersRank++;
     }
 ?>
-
 <h3>Détail de la fréquence de choix des corporations</h3>
 <table>
 <?php    
