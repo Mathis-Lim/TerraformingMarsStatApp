@@ -118,7 +118,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$debug = $req->fetchAll();
 			var_dump($debug);
 
-			$req->setFetchMode(PDO::FETCH_CLASS, "GameDetailModel");
+			$req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "GameDetailModel");
             $res = $req->fetchAll();
 			var_dump($res);
             return $res[0];
