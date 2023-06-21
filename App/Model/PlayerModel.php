@@ -386,7 +386,7 @@
 				$nbGames = $nbGames = substr_count($gameIds, ',') + 1;
 				$avgGameTime = $this->getAvgGameTime($gameIds);
 				$totalPoints = $this->getTotalPoints($gameIds);
-				$avgPoints = round(($totalPoints / $nbGames));
+				$avgPoints = round(($totalPoints / $nbGames), 2);
 				$rankDetail = $this->getPositionDetailAux($gameIds, $i, $nbGames);
 				$scoreDetail = $this->getPointsDetail($totalPoints, $nbGames, $gameIds);
 
