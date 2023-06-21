@@ -58,6 +58,7 @@
             }
             echo('</table></p>');
         }
+        $nbPlayers++;
     }
 ?>
 
