@@ -134,7 +134,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$board = $res{'boardScore'};
 			$card = $res{'cardScore'};
 			$goal = $res{'goalScore'};
-			$award = $res{'awardScore'}
+			$award = $res{'awardScore'};
 			$score = $res{'score'};
 
 			var_dump($gameId, $playerId, $chosenCorp, $rejectedCorp, $rank, $tr, $board, $card, $goal,
