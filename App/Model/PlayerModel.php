@@ -346,9 +346,9 @@
 			$result = array(
 				"record" => $record,
 				"details" => $details,
-			)
+			);
 
-			return $details;
+			return $result;
 		}
 
 		public function getPositionDetailAux($gameIds, $nbPlayers, $nbGames){
