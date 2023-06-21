@@ -110,22 +110,12 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             }
         }
 
-		/*public static function getByIds($gameId, $playerId){
-			$sql = "SELECT * FROM GameDetails WHERE gameId = " . $gameId . " AND playerId = " . $playerId;
-			$req = ConnectionModel::getPDO()->query($sql);
-			$req->setFetchMode(PDO::FETCH_CLASS, "GameDetailModel");
-            $res = $req->fetch();
-			var_dump($res);
-            return $res;
-		}*/
-
 		public static function getByIds($gameId, $playerId){
 			$sql = "SELECT * FROM GameDetails WHERE gameId = " . $gameId . " AND playerId = " . $playerId;
 			$req = ConnectionModel::getPDO()->query($sql);
 			$req->setFetchMode(PDO::FETCH_OBJ);
 			$res = $req->fetchAll();
 			$res = $res[0];
-			var_dump($res);
 
 			$chosenCorp = $res->chosenCorporation;
 			$rejectedCorp = $res->rejectedCorporation;
@@ -137,13 +127,8 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$award = $res->awardScore;
 			$score = $res->score;
 
-			var_dump($gameId, $playerId, $chosenCorp, $rejectedCorp, $rank, $tr, $board, $card, $goal,
-			$award, $score);
-
 			$gameDetails = new GameDetailModel($gameId, $playerId, $chosenCorp, $rejectedCorp, $rank, $tr, $board, $card, $goal,
 				$award, $score);
-
-			var_dump($gameDetails);
 			return $gameDetails;
 			
 		}
