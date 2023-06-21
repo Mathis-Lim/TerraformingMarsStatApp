@@ -35,7 +35,7 @@
 <?php
     $nbPlayers = 2;
     foreach($nbPlayerDetails as $nbPlayerDetail){
-        echo('<h4>Parties à ' . $nbPlayers . ' joueurs</h4>');
+        echo('<h3>Parties à ' . $nbPlayers . ' joueurs</h3>');
         if($nbPlayerDetail === 0){
             echo('<i>Aucune partie jouée</i>');
         }
