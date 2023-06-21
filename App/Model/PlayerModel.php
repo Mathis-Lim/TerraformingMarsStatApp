@@ -154,7 +154,7 @@
         public function getTotalPoints($gameIds){
 			try{
 				$sql = null;
-				if(is_null($gameIds){
+				if(is_null($gameIds)){
 					$sql = "SELECT SUM(score) as nb FROM GameDetails WHERE playerId=:player_id";
 				}
 				else{
