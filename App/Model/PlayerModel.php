@@ -58,6 +58,36 @@
             }
         }
 
+		private function getGameIds($nbPlayers){
+			$sql = "SELECT subquery2.gameId FROM 
+				(SELECT gameId FROM 
+					(SELECT gameId, COUNT(*) as nb FROM GameDetails GROUP BY gameId) as subquery 
+				WHERE nb = :nb_player) as subquery2 
+			JOIN GameDetails ON subquery2.gameId = GameDetails.gameId WHERE playerId = :player_id";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array(
+				"player_id" => $this->playerId,
+				"nb_player" => $nbPlayers,
+			);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			
+			$nbGames = sizeof($result);
+			if($nbGames < 1){
+				return 0;
+			}
+			$gameIds = "(";
+			$nbGames = sizeof($result);
+			
+			for($i = 0; $i < $nbGames-1; $i++){
+				$gameIds = $gameIds . $result[$i]->{'gameId'} . ", ";
+			}
+			$gameIds = $gameIds . $result[$nbGames - 1]->{'gameId'} . ")";
+
+			return $gameIds;
+		}
+
         public function getNbGamesPlayed(){
 			try{
 				$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId = :player_id";
@@ -237,66 +267,62 @@
 		}
 
 		public function getPointsDetail($total, $nbGames){
-			try{
-				$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
-				SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id";
-				$req_prep = ConnectionModel::getPDO()->prepare($sql);
-				$values = array("player_id" => $this->playerId,);
-				$req_prep->execute($values);
-				$req_prep->setFetchMode(PDO::FETCH_OBJ);
-				$result = $req_prep->fetchAll();
-				$trScore = $result[0]->{'tr'};
-				$boardScore = $result[0]->{'board'};
-				$cardScore = $result[0]->{'card'};
-				$goalScore = $result[0]->{'goal'};
-				$awardScore = $result[0]->{'award'};
-	
-				$tr = array(
-					"description" => "NT",
-					"score" => $trScore,
-					"avg" => round($trScore / $nbGames, 2),
-					"proportion" => $trScore/$total,
-				);
-	
-				$board = array(
-					"description" => "Plateau",
-					"score" => $boardScore,
-					"avg" => round($boardScore / $nbGames, 2),
-					"proportion" => $boardScore/$total,
-				);
-	
-				$cards = array(
-					"description" => "Cartes",
-					"score" => $cardScore,
-					"avg" => round($cardScore / $nbGames, 2),
-					"proportion" => $cardScore/$total,
-				);
-	
-				$goals = array(
-					"description" => "Objectifs",
-					"score" => $goalScore,
-					"avg" => round($goalScore / $nbGames, 2),
-					"proportion" => $goalScore/$total,
-				);
-	
-				$awards = array(
-					"description" => "Récompenses",
-					"score" => $awardScore,
-					"avg" => round($awardScore / $nbGames, 2),
-					"proportion" => $awardScore/$total,
-				);
-	
-				$details = array($tr, $board, $cards, $goals, $awards,);
-	
-				return $details;
-			} catch(PDOExeception $e){
-                return null;
-            }
+			$sql = "SELECT SUM(trScore) as tr, SUM(boardScore) as board, SUM(cardScore) as card, SUM(goalScore) as goal,
+			SUM(awardScore) as award FROM GameDetails WHERE playerId=:player_id";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+			$values = array("player_id" => $this->playerId,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			$trScore = $result[0]->{'tr'};
+			$boardScore = $result[0]->{'board'};
+			$cardScore = $result[0]->{'card'};
+			$goalScore = $result[0]->{'goal'};
+			$awardScore = $result[0]->{'award'};
+
+			$tr = array(
+				"description" => "NT",
+				"score" => $trScore,
+				"avg" => round($trScore / $nbGames, 2),
+				"proportion" => $trScore/$total,
+			);
+
+			$board = array(
+				"description" => "Plateau",
+				"score" => $boardScore,
+				"avg" => round($boardScore / $nbGames, 2),
+				"proportion" => $boardScore/$total,
+			);
+
+			$cards = array(
+				"description" => "Cartes",
+				"score" => $cardScore,
+				"avg" => round($cardScore / $nbGames, 2),
+				"proportion" => $cardScore/$total,
+			);
+
+			$goals = array(
+				"description" => "Objectifs",
+				"score" => $goalScore,
+				"avg" => round($goalScore / $nbGames, 2),
+				"proportion" => $goalScore/$total,
+			);
+
+			$awards = array(
+				"description" => "Récompenses",
+				"score" => $awardScore,
+				"avg" => round($awardScore / $nbGames, 2),
+				"proportion" => $awardScore/$total,
+			);
+
+			$details = array($tr, $board, $cards, $goals, $awards,);
+
+			return $details;
 		}
 
-		public function getPositionDetailAux($nbPlayers){
+		public function getPositionDetailAux($gameIds){
 			try{
-				$sql = "SELECT subquery2.gameId FROM 
+				/*$sql = "SELECT subquery2.gameId FROM 
 					(SELECT gameId FROM 
 						(SELECT gameId, COUNT(*) as nb FROM GameDetails GROUP BY gameId) as subquery 
 					WHERE nb = :nb_player) as subquery2 
@@ -320,7 +346,7 @@
 				for($i = 0; $i < $nbGames-1; $i++){
 					$gameIds = $gameIds . $result[$i]->{'gameId'} . ", ";
 				}
-				$gameIds = $gameIds . $result[$nbGames - 1]->{'gameId'} . ")";
+				$gameIds = $gameIds . $result[$nbGames - 1]->{'gameId'} . ")";*/
 
 
 				$detailByPosition = array();
@@ -356,7 +382,11 @@
 		public function getPositionDetail(){
 			$details = array();
 			for($i = 2; $i < 6; $i++){
-				$detail = $this->getPositionDetailAux($i);
+				$gameIds = $this->getGameIds($i)
+				if($gameIds === 0){
+					return 0;
+				}
+				$detail = $this->getPositionDetailAux($gameIds);
 				array_push($details, $detail);
 			}
 			return $details;
