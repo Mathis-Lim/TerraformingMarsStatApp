@@ -47,9 +47,10 @@
                 $this->$mapId = $mapId;
                 
             }
-            elseif(!is_null($nbPlayer) && !is_null($nbGen)){
+            elseif(!is_null($nbPlayer) && !is_null($nbGen) && !is_null($mapId)){
                 $this->numberOfPlayers = $nbPlayer;
                 $this->numberOfGenerations = $nbGen;
+                $this->$mapId = $mapId;
             }
             elseif(!is_null($id)){
                 $this->gameId = $id;
