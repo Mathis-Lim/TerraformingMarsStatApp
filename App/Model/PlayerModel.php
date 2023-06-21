@@ -372,7 +372,7 @@
 					array_push($detailByPosition, $positionDetail);
 
 				}
-
+				var_dump($detailByPosition);
 				return $detailByPosition;
 			} catch(PDOExeception $e){
                 return null;
@@ -383,6 +383,7 @@
 			$details = array();
 			for($i = 2; $i < 6; $i++){
 				$gameIds = $this->getGameIds($i);
+				var_dump($gameIds);
 				if($gameIds === 0){
 					array_push($details, 0);
 					continue;
