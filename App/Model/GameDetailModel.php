@@ -271,6 +271,8 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
 				$nbGames = $result[0]->{'nbGames'};
+
+				var_dump($playerName, $nbGames, $gameIds, $max);
 	
 				return array(
 					"description" => $description,
