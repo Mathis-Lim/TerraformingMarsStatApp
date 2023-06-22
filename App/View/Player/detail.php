@@ -40,7 +40,6 @@
             echo('<i>Aucune partie jouée</i>');
         }
         else{
-            var_dump($nbPlayerDetail['rank']);
             echo('<ul><li>' . $nbPlayerDetail['nb_games'] . ' parties jouées</li>');
             echo('<li>' . $nbPlayerDetail['total_score'] . ' points marqués</li>');
             echo('<li>' . $nbPlayerDetail['avg_score'] . ' points marqués par partie </li>');
@@ -50,6 +49,7 @@
             echo('Classement moyen: ' . $nbPlayerDetail['rank']['avg']);
             echo('<p><table><tr><th>Classement</th><th>Occurences</th><th>Proportion</th>');
             foreach($nbPlayerDetail['rank']['detail'] as $rankDetail){
+                var_dump($rankDetail)
                 echo('<tr><td>' . $rankDetail['position'] . '</td>');
                 echo('<td>' . $rankDetail['total'] . '</td>');
                 echo('<td>' . $rankDetail['proportion'] . '%</td></tr>');
