@@ -16,6 +16,10 @@
     </head>
     <header>
         <b><u>Menu</u></b>
+        <?php
+        $var = File::build_path(array('View', 'Styles', 'general.css'));
+        var_dump($var);
+        ?>
         <menu>
             <li><a href = "index.php?controller=Game&action=home">Accueil</a></li>
             <li><a href = "index.php?controller=Corporation&action=readAll">Corporations</a></li>
