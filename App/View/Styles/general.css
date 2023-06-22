@@ -1,3 +1,8 @@
+th{
+    text-align: center;
+    border: 1px solid black;
+}
+
 td {
     text-align: center;
     border: 1px solid black;
@@ -5,7 +10,6 @@ td {
 
 body{
     background-color: antiquewhite;
-    text-align: center;
 }
 
 tr:nth-child(even){
