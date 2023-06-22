@@ -33,7 +33,7 @@
                 echo('<h4>En moyenne</h4>');
                 echo('<ul>');
                 foreach($detail["avg_point_records"] as $record){
-                    echo('<li>Joueur marquant le plus de points de ' . $record['description'] . ' en moyenne: ' . $record['player']
+                    echo('<li>Joueur marquant le plus de points ' . $record['description'] . ' en moyenne: ' . $record['player']
                     . ', ' . $record['number'] . ' points marqués par partie (' . $record['nb_games'] . ' parties jouées)</li>');
                 }
                 echo('</ul>');
