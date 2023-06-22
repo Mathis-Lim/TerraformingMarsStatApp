@@ -397,6 +397,7 @@
 				$nbVictory = $scoreDetail['detail'][0]['total'];
 
 				var_dump($rankDetail['detail'][0]);
+				var_dump($nbVictory);
 
 				$detail = array(
 					"nb_players" => $i,
