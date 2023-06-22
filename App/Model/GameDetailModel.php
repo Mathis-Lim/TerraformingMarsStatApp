@@ -182,7 +182,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             }
 		}
 
-		public static function getRecordTotalPoints($gameIds, $pointAttribute, $description){
+		public static function getRecordTotalPoints($pointAttribute, $description){
 			try{
 				$sql = "SELECT MAX(nb) FROM 
 					(SELECT SUM(" . $pointAttribute . ") as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
@@ -215,20 +215,47 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getTotalPointsRecordsDetails(){
-			$total = GameDetailModel::getRecordTotalPoints(null, "score", "en tout");
-			$tr = GameDetailModel::getRecordTotalPoints(null, "trScore", "de NT");
-			$board = GameDetailModel::getRecordTotalPoints(null, "boardScore", "de plateau");
-			$card = GameDetailModel::getRecordTotalPoints(null, "cardScore", "de cartes");
-			$goal =GameDetailModel::getRecordTotalPoints(null, "goalScore", "d'objectif");
-			$award = GameDetailModel::getRecordTotalPoints(null, "awardScore", "de récompense");
+			$total = GameDetailModel::getRecordTotalPoints("score", "en tout");
+			$tr = GameDetailModel::getRecordTotalPoints("trScore", "de NT");
+			$board = GameDetailModel::getRecordTotalPoints("boardScore", "de plateau");
+			$card = GameDetailModel::getRecordTotalPoints("cardScore", "de cartes");
+			$goal =GameDetailModel::getRecordTotalPoints("goalScore", "d'objectif");
+			$award = GameDetailModel::getRecordTotalPoints("awardScore", "de récompense");
 
 			$details = array($total, $tr, $board, $card, $goal, $award);
 			return($details);
 		}
 
-		public static function getRecordPoints(){
+		private static function getGameIds($nbPlayers){
+			$sql = "SELECT subquery2.gameId FROM 
+				(SELECT gameId FROM 
+					(SELECT gameId, COUNT(*) as nb FROM GameDetails GROUP BY gameId) as subquery 
+				WHERE nb = :nb_player) as subquery2 
+			JOIN GameDetails ON subquery2.gameId = GameDetails.gameId";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("nb_player" => $nbPlayers,);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			
+			$nbGames = sizeof($result);
+			if($nbGames < 1){
+				return 0;
+			}
+			$gameIds = "(";
+			$nbGames = sizeof($result);
+			
+			for($i = 0; $i < $nbGames-1; $i++){
+				$gameIds = $gameIds . $result[$i]->{'gameId'} . ", ";
+			}
+			$gameIds = $gameIds . $result[$nbGames - 1]->{'gameId'} . ")";
+
+			return $gameIds;
+		}
+
+		public static function getRecordPoints($pointAttribute, $description, $gameIds){
 			try{
-				$sql = "SELECT MAX(score) as max FROM GameDetails";
+				$sql = "SELECT MAX(" . $pointAttribute .") as max FROM GameDetails WHERE gameId IN " . $gameIds;
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
@@ -237,7 +264,8 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId
 				WHERE Players.playerId IN
-					(SELECT playerId FROM GameDetails WHERE score = " . $max .")";
+					(SELECT playerId FROM GameDetails WHERE score = " . $max .")
+				AND gameId IN " . $gameIds;
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
@@ -245,7 +273,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
-					"description" => "totaux",
+					"description" => $description,
 					"player" => $playerName,
 					"number" => $max,
 					"nb_games" => $nbGames,
@@ -342,14 +370,32 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             }
 		}
 
-		public static function getPointsRecordDetails(){
-			$total = GameDetailModel::getRecordPoints();
-			$tr = GameDetailModel::getRecordTrPoints();
-			$board = GameDetailModel::getRecordBoardPoints();
-			$card = GameDetailModel::getRecordCardPoints();
+		public static function getPointsRecordDetails($gameIds){
+			$total = GameDetailModel::getRecordPoints("score", "en tout", $gameIds);
+			$tr = GameDetailModel::getRecordPoints("trScore", "de NT", $gameIds);
+			$board = GameDetailModel::getRecordPoints("boardScore", "de plateau", $gameIds);
+			$card = GameDetailModel::getRecordPoints("cardScore", "de carte", $gameIds);
 
 			$detail = array($total, $tr, $board, $card);
 			return ($detail);
+		}
+
+		public static function getStatsByNbPlayers(){
+			$details = array();
+			for($i = 2; $i < 6; $i++){
+				$gameIds = GameDetailModel::getGameIds($i);
+				if($gameIds === 0){
+					array_push($details, 0);
+					continue;
+				}
+				$pointRecords = GameDetailModel::getPointsRecordDetails($gameIds);
+
+				$detail = array(
+					"point_records" => $pointRecords;
+				);
+				array_push($details, $detail);
+			}
+			return $details;
 		}
 
 		public static function getRecordAvgPoints(){

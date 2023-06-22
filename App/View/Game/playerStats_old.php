@@ -13,6 +13,15 @@
         }
     ?>
     </ul>
+    <h3>Sur une partie</h3>
+    <ul>
+        <?php
+            foreach($recordPoints as $record){
+                echo('<li>Joueur ayant le record de points ' . $record['description'] . ': ' . $record['player'] . ', ' . 
+                $record['number'] . ' points marqués (' . $record['nb_games'] . ' parties jouées)</li>');
+            }
+        ?>
+    </ul>
     <h3>En moyenne</h3>
     <ul>
         <?php
@@ -22,27 +31,4 @@
             }
         ?>
     </ul>
-    <h2>Détail selon le nombre de joueur</h2>
-    <?php
-        $nbPlayers = 2;
-        foreach($nbPlayerDetails as $detail){
-            echo('<h3>Parties de ' . $nbPlayers . ' joueurs</h3>');
-            if($detail === 0){
-                echo('<i>Aucune partie jouée</i>');
-            }
-            else{
-                echo('<h4>Sur une partie</h4>');
-                echo('<ul>');
-                foreach($detail["point_records"] as $record){
-                    echo('<li>Joueur ayant le record de points ' . $record['description'] . ': ' . $record['player'] . ', ' . 
-                    $record['number'] . ' points marqués (' . $record['nb_games'] . ' parties jouées)</li>');
-                }
-                echo('</ul>')
-            }
-
-
-            $nbPlayers++;
-        }
-
-        
-    ?>
+</ul>

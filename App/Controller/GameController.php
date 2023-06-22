@@ -83,9 +83,10 @@
 
             $mostPlayed = GameDetailModel::getMostPlayed();
             $recordWinner = GameModel::getRecordWinner();
-            $recordTotalPoints = GameDetailModel::getTotalPointsRecordsDetails();
+            //$recordTotalPoints = GameDetailModel::getTotalPointsRecordsDetails();
             $recordPoints = GameDetailModel::getPointsRecordDetails();
             $recordAvgPoints = GameDetailModel::getRecordAvgPointsDetail();
+            $nbPlayerDetails = GameDetailModel::getStatsByNbPlayer();
 
             $controller = "Game";
             $view = "playerStats";
