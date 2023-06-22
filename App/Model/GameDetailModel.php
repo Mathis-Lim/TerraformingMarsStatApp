@@ -332,6 +332,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 					GameDetails WHERE gameId IN " . $gameIds . " GROUP BY playerId)
 				as subquery WHERE nb = " .$max .")
 				AND gameId IN " . $gameIds;
+				var_dump($sql);
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
