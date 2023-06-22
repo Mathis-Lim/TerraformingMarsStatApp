@@ -227,7 +227,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		private static function getGameIds($nbPlayers){
-			$sql = "SELECT subquery2.gameId FROM 
+			$sql = "SELECT  DISTINCT subquery2.gameId FROM 
 				(SELECT gameId FROM 
 					(SELECT gameId, COUNT(*) as nb FROM GameDetails GROUP BY gameId) as subquery 
 				WHERE nb = :nb_player) as subquery2 
@@ -600,7 +600,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				)";
 			}
 			var_dump($sql);
-			
+
 			$res = ConnectionModel::getPDO()->query($sql);
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			$result = $res->fetchAll();
