@@ -37,7 +37,7 @@
                     echo('<li>Joueur ayant le record de points ' . $record['description'] . ': ' . $record['player'] . ', ' . 
                     $record['number'] . ' points marqués (' . $record['nb_games'] . ' parties jouées)</li>');
                 }
-                echo('</ul>')
+                echo('</ul>');
             }
 
 
