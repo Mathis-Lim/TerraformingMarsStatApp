@@ -41,6 +41,7 @@
         }
         else{
             echo('<ul><li>' . $nbPlayerDetail['nb_games'] . ' parties jouées</li>');
+            echo('<li> . ' $nbPlayerDetail['nb_victories'] . ' parties gagnées</li>');
             echo('<li>' . $nbPlayerDetail['total_score'] . ' points marqués</li>');
             echo('<li>' . $nbPlayerDetail['avg_score'] . ' points marqués par partie </li>');
             echo('<li>Record: ' . $nbPlayerDetail['score']['record'] . ' points en une partie</li>');

@@ -118,31 +118,27 @@
 			}
 		}
 
-        public function getNbPosition($rank){
-			try{
-				$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId=:player_id AND rank=:rank";
-				$req_prep = ConnectionModel::getPDO()->prepare($sql);
-				$values = array(
-					"player_id" => $this->playerId,
-					"rank" => $rank,
-				);
-				$req_prep->execute($values);
-				$req_prep->setFetchMode(PDO::FETCH_OBJ);
-				$result = $req_prep->fetchAll();
-				$nb = $result[0]->{'nb'};
-				return $nb;
-			} catch(PDOExeception $e){
-                return null;
-            }
+        public function getNbPosition($rank, $gameIds){
+			$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId=:player_id AND rank=:rank";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+			$values = array(
+				"player_id" => $this->playerId,
+				"rank" => $rank,
+			);
+			$req_prep->execute($values);
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
+			$nb = $result[0]->{'nb'};
+			return $nb;
 		}
 
-        /*public function getFreqPosition($nbPosition, $nbGames){
+        public function getFreqPosition($nbPosition, $nbGames){
 			if($nbGames <= 0){
 				return 0;
 			}
 			$freq = $nbPosition / $nbGames;
 			return $freq;
-		}*/
+		}
 
         public function getTotalPoints($gameIds){
 			try{
@@ -384,10 +380,6 @@
 			return $detailByPosition;
 		}
 
-		public function getWinrate($gameIds){
-
-		}
-
 		public function getStatsByNbPlayers(){
 			$details = array();
 			for($i = 2; $i < 6; $i++){
@@ -402,9 +394,11 @@
 				$avgPoints = round(($totalPoints / $nbGames), 2);
 				$rankDetail = $this->getPositionDetailAux($gameIds, $i, $nbGames);
 				$scoreDetail = $this->getPointsDetail($totalPoints, $nbGames, $gameIds);
+				$nbVictory = $scoreDetail['detail']['position'];
 
 				$detail = array(
 					"nb_players" => $i,
+					"nb_victories" => $nbVictory,
 					"nb_games" => $nbGames,
 					"avg_game_time" => $avgGameTime,
 					"total_score" => $totalPoints,
