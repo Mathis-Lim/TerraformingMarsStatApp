@@ -391,7 +391,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$pointRecords = GameDetailModel::getPointsRecordDetails($gameIds);
 
 				$detail = array(
-					"point_records" => $pointRecords;
+					"point_records" => $pointRecords,
 				);
 				array_push($details, $detail);
 			}
