@@ -380,7 +380,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return ($detail);
 		}
 
-		public static function getStatsByNbPlayers(){
+		public static function getStatsByNbPlayer(){
 			$details = array();
 			for($i = 2; $i < 6; $i++){
 				$gameIds = GameDetailModel::getGameIds($i);
