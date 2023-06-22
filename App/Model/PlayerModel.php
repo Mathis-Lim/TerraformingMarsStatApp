@@ -136,13 +136,13 @@
             }
 		}
 
-        public function getFreqPosition($nbPosition, $nbGames){
+        /*public function getFreqPosition($nbPosition, $nbGames){
 			if($nbGames <= 0){
 				return 0;
 			}
 			$freq = $nbPosition / $nbGames;
 			return $freq;
-		}
+		}*/
 
         public function getTotalPoints($gameIds){
 			try{
@@ -382,6 +382,10 @@
 			);
 
 			return $detailByPosition;
+		}
+
+		public function getWinrate($gameIds){
+
 		}
 
 		public function getStatsByNbPlayers(){
