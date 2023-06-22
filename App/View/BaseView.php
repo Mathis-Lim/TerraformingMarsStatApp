@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title><?php echo $pageTitle; ?></title>
-        <link type="text/css" rel="systelsheet" href="../Styles/general.css">
         <?php 
+            echo('<link type = "text/css" ref="stylesheet" href=' . File::build_path(array('View', 'Styles', 'general.css')));
             if(isset($script)){
                 echo(
                     '<script src=' . $script . '.js></script>'
