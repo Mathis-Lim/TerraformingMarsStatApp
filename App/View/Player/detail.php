@@ -5,6 +5,7 @@
         echo('<li>' .$nbGames . ' parties jouées </li>');
         echo('<li>' . $avgGen . ' générations par parties en moyenne </li>');
         echo('<li>' .$nbVictories . ' parties gagnées </li>');
+        echo('<li>' . $winrate . '% de victoire</li>');
         echo('<li>' . round($freqVictory * 100, 2) . '% de parties gagnées </li>');
         echo('<li>' .$totalPoints . ' points marqués </li>');
         echo('<li>' . $avgPoints . ' points par parties en moyenne </li>');
@@ -42,6 +43,7 @@
         else{
             echo('<ul><li>' . $nbPlayerDetail['nb_games'] . ' parties jouées</li>');
             echo('<li> ' . $nbPlayerDetail['nb_victories'] . ' parties gagnées</li>');
+            echo('<li>' . $nbPlayerDetail['winrate'] . '% de victoires </li>');
             echo('<li>' . $nbPlayerDetail['total_score'] . ' points marqués</li>');
             echo('<li>' . $nbPlayerDetail['avg_score'] . ' points marqués par partie </li>');
             echo('<li>Record: ' . $nbPlayerDetail['score']['record'] . ' points en une partie</li>');
