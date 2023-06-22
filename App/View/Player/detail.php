@@ -46,8 +46,9 @@
             echo('<li>Record: ' . $nbPlayerDetail['score']['record'] . ' points en une partie</li>');
             echo('<li>' . $nbPlayerDetail['avg_game_time'] . ' générations par parties</li></ul>');
             echo('<h4>Classement</h4>');
+            echo('Classement moyen: ' . $nbPlayerDetail['rank']['avg']);
             echo('<p><table><tr><th>Classement</th><th>Occurences</th><th>Proportion</th>');
-            foreach($nbPlayerDetail['rank'] as $rankDetail){
+            foreach($nbPlayerDetail['rank']['detail'] as $rankDetail){
                 echo('<tr><td>' . $rankDetail['position'] . '</td>');
                 echo('<td>' . $rankDetail['total'] . '</td>');
                 echo('<td>' . $rankDetail['proportion'] . '%</td></tr>');

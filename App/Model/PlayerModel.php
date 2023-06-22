@@ -350,7 +350,9 @@
 		}
 
 		public function getPositionDetailAux($gameIds, $nbPlayers, $nbGames){
-			$detailByPosition = array();
+			$detail = array();
+
+			$temp = 0;
 
 			for($i = 1; $i <= $nbPlayers; $i++){
 				$sql = "SELECT COUNT(*) as nb FROM GameDetails 
@@ -360,19 +362,25 @@
 				$result = $req->fetchAll();
 				$nb = $result[0]->{'nb'};
 
-				$positionDetail = array(
+				$temp = $temp + $i * $nb;
+
+				$detail = array(
 					"position" => $i,
 					"total" => $nb,
 					"proportion" => 0,
 				);
 
 				if($nb > 0){
-					$positionDetail['proportion'] = round(($nb / $nbGames) * 100, 2);
+					$detail['proportion'] = round(($nb / $nbGames) * 100, 2);
 				}
-
-				array_push($detailByPosition, $positionDetail);
-
+				array_push($detail, $positionDetail);
 			}
+
+			$detailByPosition = array(
+				"detail" => $detail,
+				"avg" => round($temp/$nbGames, 2),
+			);
+			
 			return $detailByPosition;
 		}
 
