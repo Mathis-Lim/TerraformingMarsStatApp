@@ -371,7 +371,7 @@
 				);
 
 				if($nb > 0){
-					$detail['proportion'] = round(($nb / $nbGames) * 100, 2);
+					$positionDetail['proportion'] = round(($nb / $nbGames) * 100, 2);
 				}
 				array_push($detail, $positionDetail);
 			}

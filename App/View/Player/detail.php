@@ -49,7 +49,6 @@
             echo('Classement moyen: ' . $nbPlayerDetail['rank']['avg']);
             echo('<p><table><tr><th>Classement</th><th>Occurences</th><th>Proportion</th>');
             foreach($nbPlayerDetail['rank']['detail'] as $rankDetail){
-                var_dump($rankDetail);
                 echo('<tr><td>' . $rankDetail['position'] . '</td>');
                 echo('<td>' . $rankDetail['total'] . '</td>');
                 echo('<td>' . $rankDetail['proportion'] . '%</td></tr>');
