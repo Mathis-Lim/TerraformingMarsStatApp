@@ -394,8 +394,8 @@
 				$avgPoints = round(($totalPoints / $nbGames), 2);
 				$rankDetail = $this->getPositionDetailAux($gameIds, $i, $nbGames);
 				$scoreDetail = $this->getPointsDetail($totalPoints, $nbGames, $gameIds);
-				$nbVictory = $rank['detail'][0]['total'];
-				
+				$nbVictory = $rankDetail['detail'][0]['total'];
+
 				$detail = array(
 					"nb_players" => $i,
 					"nb_victories" => $nbVictory,
