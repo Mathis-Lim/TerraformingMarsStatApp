@@ -9,7 +9,7 @@ td {
 }
 
 body{
-    background-color: antiquewhite;
+    background-color: white;
 }
 
 tr:nth-child(even){
@@ -17,7 +17,7 @@ tr:nth-child(even){
 }
 
 tr:nth-child(odd){
-    background-color: white;
+    background-color: antiquewhite;
 }
 
 table{
