@@ -364,7 +364,7 @@
 
 				$temp = $temp + $i * $nb;
 
-				$detail = array(
+				$positionDetail = array(
 					"position" => $i,
 					"total" => $nb,
 					"proportion" => 0,
@@ -380,7 +380,7 @@
 				"detail" => $detail,
 				"avg" => round($temp/$nbGames, 2),
 			);
-			
+
 			return $detailByPosition;
 		}
 
