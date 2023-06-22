@@ -303,10 +303,12 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				}
 				$pointRecords = GameDetailModel::getPointsRecordDetails($gameIds);
 				$avgPointRecords = GameDetailModel::getRecordAvgPointsDetail($gameIds);
+				$winrateRecord = GameDetailModel::getRecordWinrate($gameIds);
 
 				$detail = array(
 					"point_records" => $pointRecords,
 					"avg_point_records" => $avgPointRecords,
+					"winrate_record" => $winrateRecord,
 				);
 				array_push($details, $detail);
 			}
@@ -605,7 +607,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$rec = $result[0]->max;
 			$player = $result[0]->playerName;
 			$nbGames = $result[0]->nbGames;
-			
+
 			return array(
 				"record" => round($rec * 100,2),
 				"player" => $player,
