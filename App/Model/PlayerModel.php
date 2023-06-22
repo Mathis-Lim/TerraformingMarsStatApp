@@ -44,14 +44,6 @@
         }
 
         public static function getPlayerById($id){
-			/*$sql = "SELECT * FROM Players WHERE playerId=:player_id";
-			$req_prep = ConnectionModel::getPDO()->prepare($sql);
-			$values = array("player_id" => $id,);
-			$req_prep->execute($values);
-			$req_prep->setFetchMode(PDO::FETCH_CLASS, 'PlayerModel');
-			$res = $req_prep->fetchAll();
-			$player = $res[0];
-			return $player;*/
 			return GenericModel::getById('Player', $id);
         }
 
