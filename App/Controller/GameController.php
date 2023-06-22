@@ -85,7 +85,7 @@
             $recordWinner = GameModel::getRecordWinner();
             $recordTotalPoints = GameDetailModel::getTotalPointsRecordsDetails();
             //$recordPoints = GameDetailModel::getPointsRecordDetails();
-            $recordAvgPoints = GameDetailModel::getRecordAvgPointsDetail();
+           // $recordAvgPoints = GameDetailModel::getRecordAvgPointsDetail();
             $nbPlayerDetails = GameDetailModel::getStatsByNbPlayer();
 
             $controller = "Game";

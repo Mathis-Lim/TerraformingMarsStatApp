@@ -13,15 +13,6 @@
         }
     ?>
     </ul>
-    <h3>En moyenne</h3>
-    <ul>
-        <?php
-            foreach($recordAvgPoints as $record){
-                echo('<li>Joueur marquant le plus de points de ' . $record['description'] . ' en moyenne: ' . $record['player']
-                 . ', ' . $record['number'] . ' points marqués par partie (' . $record['nb_games'] . ' parties jouées)</li>');
-            }
-        ?>
-    </ul>
     <h2>Détail selon le nombre de joueur</h2>
     <?php
         $nbPlayers = 2;
@@ -38,11 +29,15 @@
                     $record['number'] . ' points marqués (' . $record['nb_games'] . ' parties jouées)</li>');
                 }
                 echo('</ul>');
+                
+                echo('<h4>En moyenne</h4>');
+                echo('<ul>');
+                foreach($detail["avg_point_records"] as $record){
+                    echo('<li>Joueur marquant le plus de points de ' . $record['description'] . ' en moyenne: ' . $record['player']
+                    . ', ' . $record['number'] . ' points marqués par partie (' . $record['nb_games'] . ' parties jouées)</li>');
+                }
+                echo('</ul>');
             }
-
-
             $nbPlayers++;
-        }
-
-        
+        }  
     ?>
