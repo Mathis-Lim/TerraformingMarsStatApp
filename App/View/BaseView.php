@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title><?php echo $pageTitle; ?></title>
-        <link type="text/css" rel="systelsheet" href="/App/View/Styles/general.css">
+        <link type="text/css" rel="systelsheet" href="../Styles/general.css">
         <?php 
             if(isset($script)){
                 echo(
