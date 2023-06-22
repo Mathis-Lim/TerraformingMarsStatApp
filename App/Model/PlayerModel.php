@@ -396,6 +396,8 @@
 				$scoreDetail = $this->getPointsDetail($totalPoints, $nbGames, $gameIds);
 				$nbVictory = $scoreDetail['detail'][0]['position'];
 
+				var_dump($rankDetail['detail']);
+
 				$detail = array(
 					"nb_players" => $i,
 					"nb_victories" => $nbVictory,
