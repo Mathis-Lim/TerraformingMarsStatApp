@@ -122,10 +122,10 @@
 
             $mostPlayed = GameDetailModel::getMostPlayed();
             $recordWinner = GameModel::getRecordWinner();
-            $recordTotalPoints = GameDetailModel::getTotalPointsRecordsDetails();
+            $recordWinrate = GameDetailModel::getRecordWinrate(null);
             $nbPlayerDetails = GameDetailModel::getStatsByNbPlayer();
 
-            $controller = "Game";
+            $controller = "GameDetail";
             $view = "playerStats";
             $pageTitle = "Statistiques";
             require File::build_path(array('View', 'BaseView.php'));

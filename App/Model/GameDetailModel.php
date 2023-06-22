@@ -551,6 +551,69 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			}
         } 
 
+		public static function getRecordWinrate($gameIds){
+			$sql = null;
+			if(is_null($gameIds)){
+				$sql = "SELECT winrate as max, nbGames, playerName 
+				FROM(
+					SELECT nbWins/nbGames as winrate, nbGames, wins.playerId 
+						FROM
+							(SELECT COUNT(*) as nbWins, playerId FROM GameDetails WHERE rank = 1 GROUP BY playerId) as wins
+						JOIN
+							(SELECT COUNT(*) as nbGames, playerId FROM GameDetails GROUP BY playerId) as games
+						ON wins.playerId = games.playerId
+						) as winrates
+				JOIN Players ON winrates.playerId = Players.playerId	
+				WHERE winrate = (
+					SELECT MAX(winrate) FROM(
+						SELECT nbWins/nbGames as winrate
+						FROM
+							(SELECT COUNT(*) as nbWins, playerId FROM GameDetails WHERE rank = 1 GROUP BY playerId) as wins
+						JOIN
+							(SELECT COUNT(*) as nbGames, playerId FROM GameDetails GROUP BY playerId) as games
+						ON wins.playerId = games.playerId
+						) as winrates
+				)";
+			}
+			else{
+				$sql = "SELECT winrate as max, nbGames, playerName 
+				FROM(
+					SELECT nbWins/nbGames as winrate, nbGames, wins.playerId 
+						FROM
+							(SELECT COUNT(*) as nbWins, playerId FROM GameDetails WHERE rank = 1 AND gameId IN " . $gameIds . " GROUP BY playerId) as wins
+						JOIN
+							(SELECT COUNT(*) as nbGames, playerId FROM GameDetails WHERE gameId IN " . $gameIds . " GROUP BY playerId) as games
+						ON wins.playerId = games.playerId
+						) as winrates
+				JOIN Players ON winrates.playerId = Players.playerId	
+				WHERE winrate = (
+					SELECT MAX(winrate) FROM(
+						SELECT nbWins/nbGames as winrate
+						FROM
+							(SELECT COUNT(*) as nbWins, playerId FROM GameDetails WHERE rank = 1 AND gameId IN " . $gameIds . " GROUP BY playerId) as wins
+						JOIN
+							(SELECT COUNT(*) as nbGames, playerId FROM GameDetails WHERE gameId IN " . $gameIds . " GROUP BY playerId) as games
+						ON wins.playerId = games.playerId
+						) as winrates
+				)";
+			}
+
+			$res = ConnectionModel::getPDO()->query($sql);
+			$res->setFetchMode(PDO::FETCH_OBJ);
+			$result = $res->fetchAll();
+
+			$rec = $result[0]->max;
+			$player = $result[0]->playerName;
+			$nbGames = $result[0]->$nbGames;
+
+			return array(
+				"record" => round($rec * 100,2),
+				"player" => $player,
+				"nb_games" => $nbGames,
+			);
+
+		}
+
     }
 
 
