@@ -599,7 +599,6 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 						) as winrates
 				)";
 			}
-			var_dump($sql);
 
 			$res = ConnectionModel::getPDO()->query($sql);
 			$res->setFetchMode(PDO::FETCH_OBJ);
