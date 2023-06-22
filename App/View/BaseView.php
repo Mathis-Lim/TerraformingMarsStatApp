@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title><?php echo $pageTitle; ?></title>
-        <link type = "text/css" ref="stylesheet" href="/var/www/sites/terraforming-mars/TerraformingMarsStatApp/App/View/Styles/general.css">
+        <link type = "text/css" ref="stylesheet" href="View/Styles/general.css">
         
         <?php 
             if(isset($script)){
