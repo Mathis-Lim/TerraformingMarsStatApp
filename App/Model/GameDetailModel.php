@@ -264,15 +264,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId
 				WHERE Players.playerId IN
-					(SELECT playerId FROM GameDetails WHERE score = " . $max .")
+					(SELECT playerId FROM GameDetails WHERE " . $pointAttribute . " = " . $max .")
 				AND gameId IN " . $gameIds;
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
 				$nbGames = $result[0]->{'nbGames'};
-
-				var_dump($sql, $max, $result);
 	
 				return array(
 					"description" => $description,
