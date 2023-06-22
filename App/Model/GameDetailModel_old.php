@@ -182,10 +182,10 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             }
 		}
 
-		public static function getRecordTotalPoints($gameIds, $pointAttribute){
+		public static function getRecordTotalPoints(){
 			try{
 				$sql = "SELECT MAX(nb) FROM 
-					(SELECT SUM(" . $pointAttribute . ") as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
+					(SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId) as subquery";
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
@@ -195,7 +195,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
-					(SELECT playerId FROM (SELECT SUM(" . $pointAttribute . ") as nb, playerId FROM GameDetails GROUP BY playerId)
+					(SELECT playerId FROM (SELECT SUM(score) as nb, playerId FROM GameDetails GROUP BY playerId)
 				as subquery WHERE nb = " .$max .")";
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
@@ -371,12 +371,12 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		public static function getTotalPointsRecordsDetails(){
-			$total = GameDetailModel::getRecordTotalPoints(null, "score");
-			$tr = GameDetailModel::getRecordTotalPoints(null, "trScore");
-			$board = GameDetailModel::getRecordTotalPoints(null, "boardScore");
-			$card = GameDetailModel::getRecordTotalPoints(null, "cardScore");
-			$goal =GameDetailModel::getRecordTotalPoints(null, "goalScore");
-			$award = GameDetailModel::getRecordTotalPoints(null, "awardScore");
+			$total = GameDetailModel::getRecordTotalPoints();
+			$tr = GameDetailModel::getRecordTotalTrPoints();
+			$board = GameDetailModel::getRecordTotalBoardPoints();
+			$card = GameDetailModel::getRecordTotalCardPoints();
+			$goal = GameDetailModel::getRecordTotalGoalPoints();
+			$award = GameDetailModel::getRecordTotalAwardPoints();
 
 			$details = array($total, $tr, $board, $card, $goal, $award);
 			return($details);
