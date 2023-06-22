@@ -77,7 +77,7 @@
     echo('<th>Nombre de choix</th></tr>');
     foreach($corporationChoices as $corporation){
         echo('<tr><td>' . $corporation['name'] . '</td>');
-        echo('<td>' . round($corporation['frequency'] * 100, 2) . '%</td');
+        echo('<td>' . round($corporation['frequency'] * 100, 2) . '%</td>');
         echo('<td>' .$corporation['total'] . '</td></tr>');
     }
 ?>
