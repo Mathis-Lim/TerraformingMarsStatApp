@@ -3,10 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title><?php echo $pageTitle; ?></title>
+        <link type = "text/css" ref="stylesheet" href="/var/www/sites/terraforming-mars/TerraformingMarsStatApp/App/View/Styles/general.css">
+        
         <?php 
-            $var = File::build_path(array('View', 'Styles', 'general.css'));
-            var_dump($var);
-            echo('<link type = "text/css" ref="stylesheet" href=' . $var);
             if(isset($script)){
                 echo(
                     '<script src=' . $script . '.js></script>'
@@ -16,10 +15,6 @@
     </head>
     <header>
         <b><u>Menu</u></b>
-        <?php
-        $var = File::build_path(array('View', 'Styles', 'general.css'));
-        var_dump($var);
-        ?>
         <menu>
             <li><a href = "index.php?controller=Game&action=home">Accueil</a></li>
             <li><a href = "index.php?controller=Corporation&action=readAll">Corporations</a></li>
