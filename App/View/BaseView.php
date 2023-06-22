@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <title><?php echo $pageTitle; ?></title>
         <?php 
-            echo('<link type = "text/css" ref="stylesheet" href=' . File::build_path(array('View', 'Styles', 'general.css')));
+            $var = File::build_path(array('View', 'Styles', 'general.css'));
+            var_dump($var);
+            echo('<link type = "text/css" ref="stylesheet" href=' . $var);
             if(isset($script)){
                 echo(
                     '<script src=' . $script . '.js></script>'
