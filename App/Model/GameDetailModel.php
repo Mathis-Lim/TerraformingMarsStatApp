@@ -327,7 +327,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT ROUND(AVG(" . $pointAttribute . "),2) as nb, playerId FROM 
-					GameDetails GROUP BY playerId)
+					GameDetails WHERE gameId IN " . $gameIds . " GROUP BY playerId)
 				as subquery WHERE nb = " .$max .")
 				AND gameId IN " . $gameIds;
 				$res = ConnectionModel::getPDO()->query($sql);
@@ -335,8 +335,6 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
 				$nbGames = $result[0]->{'nbGames'};
-
-				var_dump($sql);
 	
 				return array(
 					"description" => $description,
