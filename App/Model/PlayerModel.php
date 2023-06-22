@@ -376,20 +376,6 @@
 			return $detailByPosition;
 		}
 
-		/*public function getPositionDetail(){
-			$details = array();
-			for($i = 2; $i < 6; $i++){
-				$gameIds = $this->getGameIds($i);
-				if($gameIds === 0){
-					array_push($details, 0);
-					continue;
-				}
-				$detail = $this->getPositionDetailAux($gameIds, $i);
-				array_push($details, $detail);
-			}
-			return $details;
-		}*/
-
 		public function getStatsByNbPlayers(){
 			$details = array();
 			for($i = 2; $i < 6; $i++){
