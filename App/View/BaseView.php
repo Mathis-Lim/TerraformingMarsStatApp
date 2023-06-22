@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title><?php echo $pageTitle; ?></title>
-        <link type = "text/css" ref="stylesheet" href=<?php echo File::build_path(array('View', 'Styles', 'general.css')); ?>>
+        <link type = "text/css" ref="stylesheet" href="Styles/general.css">
         
         <?php 
             if(isset($script)){
