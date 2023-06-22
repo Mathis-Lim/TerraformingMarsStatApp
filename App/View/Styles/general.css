@@ -13,7 +13,7 @@ body{
 }
 
 tr:nth-child(even){
-    background-color: lightsalmon;
+    background-color: #FF8952;
 }
 
 tr:nth-child(odd){
