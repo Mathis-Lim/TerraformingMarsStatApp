@@ -327,8 +327,9 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				ON Players.playerId = GameDetails.playerId  
 				WHERE Players.playerId IN 
 					(SELECT playerId FROM (SELECT ROUND(AVG(" . $pointAttribute . "),2) as nb, playerId FROM 
-					GameDetails WHERE gameId IN " . $gameIds . " GROUP BY playerId)
-				as subquery WHERE nb = " .$max .")";
+					GameDetails GROUP BY playerId)
+				as subquery WHERE nb = " .$max .")
+				AND gameId IN " . $gameIds;
 				$res = ConnectionModel::getPDO()->query($sql);
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
