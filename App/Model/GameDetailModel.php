@@ -606,6 +606,9 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$player = $result[0]->playerName;
 			$nbGames = $result[0]->$nbGames;
 
+			var_dump($nbGames);
+			var_dump($result);
+
 			return array(
 				"record" => round($rec * 100,2),
 				"player" => $player,
