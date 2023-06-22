@@ -79,21 +79,6 @@
             }
         }
 
-        public static function playerStats(){
-
-            $mostPlayed = GameDetailModel::getMostPlayed();
-            $recordWinner = GameModel::getRecordWinner();
-            $recordTotalPoints = GameDetailModel::getTotalPointsRecordsDetails();
-            //$recordPoints = GameDetailModel::getPointsRecordDetails();
-           // $recordAvgPoints = GameDetailModel::getRecordAvgPointsDetail();
-            $nbPlayerDetails = GameDetailModel::getStatsByNbPlayer();
-
-            $controller = "Game";
-            $view = "playerStats";
-            $pageTitle = "Statistiques";
-            require File::build_path(array('View', 'BaseView.php'));
-        }
-
         public static function corporationStats(){
 
             $corporationFrequencyRecords = GameDetailModel::getRecordChosenCorporation();
