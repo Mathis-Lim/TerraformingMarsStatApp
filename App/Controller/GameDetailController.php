@@ -118,5 +118,19 @@
             header('Location: index.php?controller=game&action=home&creation=true');
         }
 
+        public static function playerStats(){
+
+            $mostPlayed = GameDetailModel::getMostPlayed();
+            $recordWinner = GameModel::getRecordWinner();
+            $recordTotalPoints = GameDetailModel::getTotalPointsRecordsDetails();
+            $nbPlayerDetails = GameDetailModel::getStatsByNbPlayer();
+
+            $controller = "Game";
+            $view = "playerStats";
+            $pageTitle = "Statistiques";
+            require File::build_path(array('View', 'BaseView.php'));
+        }
+
+
     }    
 
