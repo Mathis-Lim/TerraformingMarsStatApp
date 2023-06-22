@@ -118,7 +118,7 @@
 			}
 		}
 
-        public function getNbPosition($rank, $gameIds){
+        public function getNbPosition($rank){
 			$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE playerId=:player_id AND rank=:rank";
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
 			$values = array(
