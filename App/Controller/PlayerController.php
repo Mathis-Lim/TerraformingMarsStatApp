@@ -82,8 +82,6 @@
                 exit;
             }
 
-            $winrate = round(($nbVictories/$nbGames) * 100, 2);
-
             $freqVictory = $player->getFreqPosition($nbVictories, $nbGames);
             if(!isset($freqVictory)){
                 ErrorController::getFreqVictoryPlayer();

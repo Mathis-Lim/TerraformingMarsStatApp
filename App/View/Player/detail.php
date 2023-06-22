@@ -5,7 +5,6 @@
         echo('<li>' .$nbGames . ' parties jouées </li>');
         echo('<li>' . $avgGen . ' générations par parties en moyenne </li>');
         echo('<li>' .$nbVictories . ' parties gagnées </li>');
-        echo('<li>' . $winrate . '% de victoire</li>');
         echo('<li>' . round($freqVictory * 100, 2) . '% de parties gagnées </li>');
         echo('<li>' .$totalPoints . ' points marqués </li>');
         echo('<li>' . $avgPoints . ' points par parties en moyenne </li>');
