@@ -22,8 +22,6 @@
             else{
                 echo('<h4>Sur une partie</h4>');
                 echo('<ul>');
-                echo('<li>$Joueur ayant le meilleur ratio de victoire: ' . $detail['player'] . ', ' . $recordWinrate['record'] . 
-                    '% de victoire (' . $recordWinrate['nb_games'] . ' parties jouées)</li>');
                 foreach($detail["point_records"] as $record){
                     echo('<li>Joueur ayant le record de points ' . $record['description'] . ': ' . $record['player'] . ', ' . 
                     $record['number'] . ' points marqués (' . $record['nb_games'] . ' parties jouées)</li>');
@@ -32,6 +30,9 @@
                 
                 echo('<h4>En moyenne</h4>');
                 echo('<ul>');
+                var_dump($recordWinrate);
+                echo('<li>Joueur ayant le meilleur ratio de victoire: ' . $detail['player'] . ', ' . $recordWinrate['record'] . 
+                    '% de victoire (' . $recordWinrate['nb_games'] . ' parties jouées)</li>');
                 foreach($detail["avg_point_records"] as $record){
                     echo('<li>Joueur marquant le plus de points ' . $record['description'] . ' en moyenne: ' . $record['player']
                     . ', ' . $record['number'] . ' points marqués par partie (' . $record['nb_games'] . ' parties jouées)</li>');
