@@ -604,11 +604,8 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 			$rec = $result[0]->max;
 			$player = $result[0]->playerName;
-			$nbGames = $result[0]->$nbGames;
-
-			var_dump($nbGames);
-			var_dump($result);
-
+			$nbGames = $result[0]->nbGames;
+			
 			return array(
 				"record" => round($rec * 100,2),
 				"player" => $player,
