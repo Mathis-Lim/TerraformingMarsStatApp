@@ -74,7 +74,7 @@
 <?php    
     echo('<tr><th>Nom</th>');
     echo('<th>Fréquence de choix</th>');
-    echo('<th>Distribuée(s)</th></tr>');
+    echo('<th>Distribuée</th></tr>');
     foreach($corporationChoices as $corporation){
         echo('<tr><td>' . $corporation['name'] . '</td>');
         echo('<td>' . round($corporation['frequency'] * 100, 2) . '%</td>');
