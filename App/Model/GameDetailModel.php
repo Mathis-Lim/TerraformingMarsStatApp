@@ -637,31 +637,31 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$trDetail = array(
 				"description" => "NT",
 				"score" => $tr,
-				"proportion" = > round(($tr/$score) * 100, 2),
+				"proportion" => round(($tr/$score) * 100, 2),
 			);
 
 			$boardDetail = array(
 				"description" => "Plateau",
 				"score" => $board,
-				"proportion" = > round(($board/$score) * 100, 2),
+				"proportion" => round(($board/$score) * 100, 2),
 			);
 
 			$cardDetail = array(
 				"description" => "Cartes",
 				"score" => $card,
-				"proportion" = > round(($card/$score) * 100, 2),
+				"proportion" => round(($card/$score) * 100, 2),
 			);
 
 			$goalDetail = array(
 				"description" => "Objectifs",
 				"score" => $goal,
-				"proportion" = > round(($goal/$score) * 100, 2),
+				"proportion" => round(($goal/$score) * 100, 2),
 			);
 
 			$awardDetail = array(
 				"description" => "Récompenses",
 				"score" => $award,
-				"proportion" = > round(($award/$score) * 100, 2),
+				"proportion" => round(($award/$score) * 100, 2),
 			);
 
 			return array($scoreDetail, $trDetail, $boardDetail, $cardDetail, $goalDetail, $awardDetail);
