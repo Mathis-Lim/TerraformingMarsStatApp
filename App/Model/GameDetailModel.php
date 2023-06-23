@@ -227,11 +227,6 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		}
 
 		private static function getGameIds($nbPlayers){
-			/*$sql = "SELECT  DISTINCT subquery2.gameId FROM 
-				(SELECT gameId FROM 
-					(SELECT gameId, COUNT(*) as nb FROM GameDetails GROUP BY gameId) as subquery 
-				WHERE nb = :nb_player) as subquery2 
-			JOIN GameDetails ON subquery2.gameId = GameDetails.gameId";*/
 			$sql = "SELECT gameId FROM Games WHERE numberOfPlayers = :nb_player";
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array("nb_player" => $nbPlayers,);
