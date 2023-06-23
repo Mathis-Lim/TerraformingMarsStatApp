@@ -298,7 +298,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 					continue;
 				}
 				$pointRecords = GameDetailModel::getPointsRecordDetails($gameIds);
-				$avgPointRecords = GameDetailModel::getRecordAvgPointsDetail($gameIds);
+				$avgPointRecords = GameDetailModel::getRecordAvgPointsDetail($gameIds, "player");
 				$winrateRecord = GameDetailModel::getRecordWinrate($gameIds, "player");
 				$winnerStats = GameDetailModel::getWinnerStats($gameIds);
 
@@ -388,13 +388,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
             }
 		}
 
-		public static function getRecordAvgPointsDetail($gameIds){
-			$total = GameDetailModel::getRecordAvgPoints("score", "totaux", $gameIds);
-			$tr = GameDetailModel::getRecordAvgPoints("trScore", "de NT", $gameIds);
-			$board = GameDetailModel::getRecordAvgPoints("boardScore", "de plateau", $gameIds);
-			$card = GameDetailModel::getRecordAvgPoints("cardScore", "de cartes", $gameIds);
-			$goal = GameDetailModel::getRecordAvgPoints("goalScore", "d'objectif", $gameIds);
-			$award = GameDetailModel::getRecordAvgPoints("awardScore", "de récompense", $gameIds);
+		public static function getRecordAvgPointsDetail($gameIds, $type){
+			$total = GameDetailModel::getRecordAvgPoints("score", "totaux", $gameIds, $type);
+			$tr = GameDetailModel::getRecordAvgPoints("trScore", "de NT", $gameIds, $type);
+			$board = GameDetailModel::getRecordAvgPoints("boardScore", "de plateau", $gameIds, $type);
+			$card = GameDetailModel::getRecordAvgPoints("cardScore", "de cartes", $gameIds, $type);
+			$goal = GameDetailModel::getRecordAvgPoints("goalScore", "d'objectif", $gameIds, $type);
+			$award = GameDetailModel::getRecordAvgPoints("awardScore", "de récompense", $gameId, $types);
 
 			$details = array($total, $tr, $board, $card, $goal, $award,);
 			return($details);
