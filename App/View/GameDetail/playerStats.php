@@ -29,6 +29,13 @@
                 echo('</ul>');
                 
                 echo('<h4>En moyenne</h4>');
+                echo('<h5>Score moyen des vainqueurs</h5>');
+                echo('<table><tr><th>Type points</th><th>Score</th><th>Pourcentage</th></tr>');
+                foreach($detail['winner_stats'] as $winnerScore){
+                    echo('<tr><td>' . $winnerScore['description'] . '</td><td>' . $winnerScore['score'] . '</td><td>' . 
+                        $winnerScore['proportion'] . '%</td></tr>');
+                }
+                echo('</table>');
                 echo('<ul>');
                 echo('<li>Joueur ayant le meilleur ratio de victoire: ' . $detail['winrate_record']['player'] . ', ' . 
                     $detail['winrate_record']['record'] . '% de victoire (' . $detail['winrate_record']['nb_games'] .

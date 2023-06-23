@@ -300,11 +300,13 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$pointRecords = GameDetailModel::getPointsRecordDetails($gameIds);
 				$avgPointRecords = GameDetailModel::getRecordAvgPointsDetail($gameIds);
 				$winrateRecord = GameDetailModel::getRecordWinrate($gameIds);
+				$winnerStats = GameDetailModel::getWinnerStats($gameIds);
 
 				$detail = array(
 					"point_records" => $pointRecords,
 					"avg_point_records" => $avgPointRecords,
 					"winrate_record" => $winrateRecord,
+					"winner_stats" => $winnerStats,
 				);
 				array_push($details, $detail);
 			}
@@ -609,7 +611,60 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				"player" => $player,
 				"nb_games" => $nbGames,
 			);
+		}
 
+		public static function getWinnerStats($gameIds){
+			$sql = "SELECT ROUND(AVG(score),2) as score, ROUND(AVG(trScore),2) as tr, ROUND(AVG(boardScore), 2) as board,
+				ROUND(AVG(cardScore),2) as card, ROUND(AVG(goalScore),2) as goal, ROUND(AVG(awardScore),2) as award, 
+				WHERE rank = 1 AND gameId IN " . $gameIds;
+			$res = ConnectionModel::getPDO()->query($sql);
+			$res->setFetchMode(PDO::FETCH_OBJ);
+			$result = $res->fetchAll();
+
+			$score = $result[0]->score;
+			$tr = $result[0]->tr;
+			$board = $result[0]->board;
+			$card = $result[0]->card;
+			$goal = $result[0]->goal;
+			$award = $result[0]->award;
+
+			$scoreDetail = array(
+				"description" => "Total",
+				"score" => $score,
+				"proportion" => "/",
+			);
+
+			$trDetail = array(
+				"description" => "NT",
+				"score" => $tr,
+				"proportion" = > round(($tr/$score) * 100, 2),
+			);
+
+			$boardDetail = array(
+				"description" => "Plateau",
+				"score" => $board,
+				"proportion" = > round(($board/$score) * 100, 2),
+			);
+
+			$cardDetail = array(
+				"description" => "Cartes",
+				"score" => $card,
+				"proportion" = > round(($card/$score) * 100, 2),
+			);
+
+			$goalDetail = array(
+				"description" => "Objectifs",
+				"score" => $goal,
+				"proportion" = > round(($goal/$score) * 100, 2),
+			);
+
+			$awardDetail = array(
+				"description" => "Récompenses",
+				"score" => $award,
+				"proportion" = > round(($award/$score) * 100, 2),
+			);
+
+			return array($scoreDetail, $trDetail, $boardDetail, $cardDetail, $goalDetail, $awardDetail);
 		}
 
     }
