@@ -632,7 +632,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$scoreDetail = array(
 				"description" => "Total",
 				"score" => $score,
-				"proportion" => "/",
+				"proportion" => "100",
 			);
 
 			$trDetail = array(
