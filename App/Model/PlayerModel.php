@@ -52,11 +52,13 @@
 		}
 
 		private function getGameIds($nbPlayers){
-			$sql = "SELECT subquery2.gameId FROM 
+			/*$sql = "SELECT subquery2.gameId FROM 
 				(SELECT gameId FROM 
 					(SELECT gameId, COUNT(*) as nb FROM GameDetails GROUP BY gameId) as subquery 
 				WHERE nb = :nb_player) as subquery2 
-			JOIN GameDetails ON subquery2.gameId = GameDetails.gameId WHERE playerId = :player_id";
+			JOIN GameDetails ON subquery2.gameId = GameDetails.gameId WHERE playerId = :player_id";*/
+			$sql = "SELECT DISTINCT gameId FROM Games JOIN GameDetails ON Games.gameId = GameDetails.gameId
+				WHERE playerId = :player_id and numberOfPlayers = :nb_player";
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array(
 				"player_id" => $this->playerId,
