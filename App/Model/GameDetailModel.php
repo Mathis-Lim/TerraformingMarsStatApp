@@ -313,7 +313,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return $details;
 		}
 
-		public static function getRecordAvgPoints($pointAttribute, $description, $gameIds){
+		/*public static function getRecordAvgPoints($pointAttribute, $description, $gameIds){
 			try{
 				$sql = "SELECT MAX(nb) FROM 
 					(SELECT ROUND(AVG(" . $pointAttribute . "), 2) as nb, playerId FROM
@@ -334,6 +334,47 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$res->setFetchMode(PDO::FETCH_OBJ);
 				$result = $res->fetchAll();
 				$playerName = $result[0]->{'playerName'};
+				$nbGames = $result[0]->{'nbGames'};
+	
+				return array(
+					"description" => $description,
+					"player" => $playerName,
+					"number" => $max,
+					"nb_games" => $nbGames,
+				);
+			} catch(PDOException $e) {
+                return null;
+            }
+		}*/
+
+		public static function getRecordAvgPoints($pointAttribute, $description, $gameIds, $type){
+			$idAttribute = $type . "Id";
+			$idAttributeGD = $idAttribute;
+			$nameAttribute = $type . "name";
+			$table = ucfirst($type) . "s";
+			if($type === "corporation"){
+				$idAttributeGD = "chosenCorporation";
+			}
+			try{
+				$sql = "SELECT MAX(nb) FROM 
+					(SELECT ROUND(AVG(" . $pointAttribute . "), 2) as nb, " . $idAttributeGD . " FROM
+					 GameDetails WHERE gameId IN " . $gameIds . " GROUP BY " . $idAttributeGD . ") as subquery";
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$max = $result[0]->{'MAX(nb)'};   	
+	
+				$sql = "SELECT DISTINCT " . $nameAttribute . ", COUNT(*) as nbGames FROM " . $ table . " JOIN GameDetails 
+				ON " . $table . "." . $idAttribute . " = GameDetails." . $idAttributeGD . "  
+				WHERE " . $table . "." . $idAttribute . " IN 
+					(SELECT " . $idAttributeGD . " FROM (SELECT ROUND(AVG(" . $pointAttribute . "),2) as nb, " . $idAttributeGD . "
+					 FROM GameDetails WHERE gameId IN " . $gameIds . " GROUP BY " . $idAttributeGD  .")
+				as subquery WHERE nb = " .$max .")
+				AND gameId IN " . $gameIds;
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$result = $res->fetchAll();
+				$playerName = $result[0]->{$nameAttribute};
 				$nbGames = $result[0]->{'nbGames'};
 	
 				return array(
@@ -620,7 +661,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$result = $res->fetchAll();
 
 			$rec = $result[0]->max;
-			$player = $result[0]->playerName;
+			$player = $result[0]->{$nameAttribute};
 			$nbGames = $result[0]->nbGames;
 
 			return array(
