@@ -57,7 +57,7 @@
 					(SELECT gameId, COUNT(*) as nb FROM GameDetails GROUP BY gameId) as subquery 
 				WHERE nb = :nb_player) as subquery2 
 			JOIN GameDetails ON subquery2.gameId = GameDetails.gameId WHERE playerId = :player_id";*/
-			$sql = "SELECT DISTINCT gameId FROM Games JOIN GameDetails ON Games.gameId = GameDetails.gameId
+			$sql = "SELECT DISTINCT Games.gameId FROM Games JOIN GameDetails ON Games.gameId = GameDetails.gameId
 				WHERE playerId = :player_id and numberOfPlayers = :nb_player";
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array(
