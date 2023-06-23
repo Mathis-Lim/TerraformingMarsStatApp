@@ -394,7 +394,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$board = GameDetailModel::getRecordAvgPoints("boardScore", "de plateau", $gameIds, $type);
 			$card = GameDetailModel::getRecordAvgPoints("cardScore", "de cartes", $gameIds, $type);
 			$goal = GameDetailModel::getRecordAvgPoints("goalScore", "d'objectif", $gameIds, $type);
-			$award = GameDetailModel::getRecordAvgPoints("awardScore", "de récompense", $gameId, $types);
+			$award = GameDetailModel::getRecordAvgPoints("awardScore", "de récompense", $gameIds, $type);
 
 			$details = array($total, $tr, $board, $card, $goal, $award,);
 			return($details);
