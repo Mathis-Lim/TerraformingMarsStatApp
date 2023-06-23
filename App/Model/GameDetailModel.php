@@ -299,7 +299,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				}
 				$pointRecords = GameDetailModel::getPointsRecordDetails($gameIds);
 				$avgPointRecords = GameDetailModel::getRecordAvgPointsDetail($gameIds);
-				$winrateRecord = GameDetailModel::getRecordWinrate($gameIds);
+				$winrateRecord = GameDetailModel::getRecordWinrate($gameIds, "player");
 				$winnerStats = GameDetailModel::getWinnerStats($gameIds);
 
 				$detail = array(
@@ -551,7 +551,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			}
         } 
 
-		public static function getRecordWinrate($gameIds){
+		/*public static function getRecordWinrate($gameIds){
 			$sql = null;
 			if(is_null($gameIds)){
 				$sql = "SELECT winrate as max, nbGames, playerName 
@@ -594,6 +594,85 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 						JOIN
 							(SELECT COUNT(*) as nbGames, playerId FROM GameDetails WHERE gameId IN " . $gameIds . " GROUP BY playerId) as games
 						ON wins.playerId = games.playerId
+						) as winrates
+				)";
+			}
+
+			$res = ConnectionModel::getPDO()->query($sql);
+			$res->setFetchMode(PDO::FETCH_OBJ);
+			$result = $res->fetchAll();
+
+			$rec = $result[0]->max;
+			$player = $result[0]->playerName;
+			$nbGames = $result[0]->nbGames;
+
+			return array(
+				"record" => round($rec * 100,2),
+				"player" => $player,
+				"nb_games" => $nbGames,
+			);
+		}*/
+
+		public static function getRecordWinrate($gameIds, $type){
+			$idAttributeGD = $type . 'Id';
+			$idAttribute = idAttributeGD;
+			$nameAttribute = $type . 'Name';
+			$table = ucfirst($type) . 's';
+			if($type === 'corporation'){
+				$idAttributeGD = 'chosenCorporation';
+			}
+			$sql = null;
+			if(is_null($gameIds)){
+				$sql = "SELECT winrate as max, nbGames, " . $nameAttribute . " 
+				FROM(
+					SELECT nbWins/nbGames as winrate, nbGames, wins." . $idAttributeGD . "
+						FROM
+							(SELECT COUNT(*) as nbWins, " . $idAttributeGD . " 
+								FROM GameDetails WHERE rank = 1 GROUP BY " . $idAttributeGD ") as wins
+						JOIN
+							(SELECT COUNT(*) as nbGames, " . $idAttributeGD . " 
+								FROM GameDetails GROUP BY " . $idAttributeGD . ") as games
+						ON wins." . $idAttributeGD . " = games." . $idAttributeGD . "
+						) as winrates
+				JOIN " . $table . " ON winrates." . $idAttributeGD . " = " . $table . "." . $idAttribute . "	
+				WHERE winrate = (
+					SELECT MAX(winrate) FROM(
+						SELECT nbWins/nbGames as winrate
+						FROM
+							(SELECT COUNT(*) as nbWins, " . $idAttributeGD . " 
+								FROM GameDetails WHERE rank = 1 GROUP BY " . $idAttributeGD . " ) as wins
+						JOIN
+							(SELECT COUNT(*) as nbGames, " . $idAttributeGD . " 
+								FROM GameDetails GROUP BY " . $idAttributeGD . " ) as games
+						ON wins. " . $idAttributeGD . " = games. " . $idAttributeGD . "
+						) as winrates
+				)";
+			}
+			else{
+				$sql = "SELECT winrate as max, nbGames, " . $nameAttribute . " 
+				FROM(
+					SELECT nbWins/nbGames as winrate, nbGames, wins." . $idAttributeGD . "
+						FROM
+							(SELECT COUNT(*) as nbWins, " . $idAttributeGD . " 
+								FROM GameDetails 
+								WHERE rank = 1 AND gameId IN " . $gameIds . " GROUP BY " . $idAttributeGD ") as wins
+						JOIN
+							(SELECT COUNT(*) as nbGames, " . $idAttributeGD . " 
+								FROM GameDetails WHERE gameId IN " . $gameIds . " GROUP BY " . $idAttributeGD . ") as games
+						ON wins." . $idAttributeGD . " = games." . $idAttributeGD . "
+						) as winrates
+				JOIN " . $table . " ON winrates." . $idAttributeGD . " = " . $table . "." . $idAttribute . "	
+				WHERE winrate = (
+					SELECT MAX(winrate) FROM(
+						SELECT nbWins/nbGames as winrate
+						FROM
+							(SELECT COUNT(*) as nbWins, " . $idAttributeGD . " 
+								FROM GameDetails
+								WHERE rank = 1 AND gameId IN " . $gameIds . " GROUP BY " . $idAttributeGD . " ) as wins
+						JOIN
+							(SELECT COUNT(*) as nbGames, " . $idAttributeGD . " 
+								FROM GameDetails WHERE gameId IN " . $gameIds . " GROUP BY " . $idAttributeGD . " ) as games
+						ON wins. " . $idAttributeGD . " = games. " . $idAttributeGD . "
 						) as winrates
 				)";
 			}
