@@ -615,9 +615,9 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public static function getWinnerStats($gameIds){
 			$sql = "SELECT ROUND(AVG(score),2) as score, ROUND(AVG(trScore),2) as tr, ROUND(AVG(boardScore), 2) as board,
-				ROUND(AVG(cardScore),2) as card, ROUND(AVG(goalScore),2) as goal, ROUND(AVG(awardScore),2) as award, 
-				WHERE rank = 1 AND gameId IN " . $gameIds;
-			var_dump($sql);
+				ROUND(AVG(cardScore),2) as card, ROUND(AVG(goalScore),2) as goal, ROUND(AVG(awardScore),2) as award 
+				FROM GameDetails WHERE rank = 1 AND gameId IN " . $gameIds;
+
 			$res = ConnectionModel::getPDO()->query($sql);
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			$result = $res->fetchAll();
