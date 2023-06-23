@@ -615,7 +615,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 		public static function getRecordWinrate($gameIds, $type){
 			$idAttributeGD = $type . 'Id';
-			$idAttribute = idAttributeGD;
+			$idAttribute = $idAttributeGD;
 			$nameAttribute = $type . 'Name';
 			$table = ucfirst($type) . 's';
 			if($type === 'corporation'){
