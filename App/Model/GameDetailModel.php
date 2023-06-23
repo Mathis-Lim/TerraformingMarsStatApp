@@ -628,7 +628,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 					SELECT nbWins/nbGames as winrate, nbGames, wins." . $idAttributeGD . "
 						FROM
 							(SELECT COUNT(*) as nbWins, " . $idAttributeGD . " 
-								FROM GameDetails WHERE rank = 1 GROUP BY " . $idAttributeGD ") as wins
+								FROM GameDetails WHERE rank = 1 GROUP BY " . $idAttributeGD . ") as wins
 						JOIN
 							(SELECT COUNT(*) as nbGames, " . $idAttributeGD . " 
 								FROM GameDetails GROUP BY " . $idAttributeGD . ") as games
