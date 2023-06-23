@@ -655,7 +655,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 						FROM
 							(SELECT COUNT(*) as nbWins, " . $idAttributeGD . " 
 								FROM GameDetails 
-								WHERE rank = 1 AND gameId IN " . $gameIds . " GROUP BY " . $idAttributeGD ") as wins
+								WHERE rank = 1 AND gameId IN " . $gameIds . " GROUP BY " . $idAttributeGD . ") as wins
 						JOIN
 							(SELECT COUNT(*) as nbGames, " . $idAttributeGD . " 
 								FROM GameDetails WHERE gameId IN " . $gameIds . " GROUP BY " . $idAttributeGD . ") as games
