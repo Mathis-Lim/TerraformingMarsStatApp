@@ -364,7 +364,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$result = $res->fetchAll();
 				$max = $result[0]->{'MAX(nb)'};   	
 	
-				$sql = "SELECT DISTINCT " . $nameAttribute . ", COUNT(*) as nbGames FROM " . $ table . " JOIN GameDetails 
+				$sql = "SELECT DISTINCT " . $nameAttribute . ", COUNT(*) as nbGames FROM " . $table . " JOIN GameDetails 
 				ON " . $table . "." . $idAttribute . " = GameDetails." . $idAttributeGD . "  
 				WHERE " . $table . "." . $idAttribute . " IN 
 					(SELECT " . $idAttributeGD . " FROM (SELECT ROUND(AVG(" . $pointAttribute . "),2) as nb, " . $idAttributeGD . "
