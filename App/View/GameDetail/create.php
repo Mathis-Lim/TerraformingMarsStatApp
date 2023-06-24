@@ -3,6 +3,7 @@
     <legend>Enregistrer une partie:</legend>
     <input type='hidden' name='game_id' value='<?php echo($gameId); ?>'>
     <input type='hidden' name='player_number' value='<?php echo($nbPlayer); ?>'>
+    <input type='hidden' name='map_id' value='<?php echo($mapId); ?>'>
     <?php
         for ($i = 1; $i <= $nbPlayer; $i++) {
             echo('<h2>Joueur ' . $i . '</h2><p>');

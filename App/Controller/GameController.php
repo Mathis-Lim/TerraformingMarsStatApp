@@ -71,7 +71,7 @@
             }    
 
             if($gameSuccess == true){
-                GameDetailController::setGameDetails($id, $nbPlayer);
+                GameDetailController::setGameDetails($id, $nbPlayer, $mapId);
             }
             else{
                 ErrorController::createGame();

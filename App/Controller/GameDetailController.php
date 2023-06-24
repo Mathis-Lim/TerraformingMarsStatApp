@@ -10,7 +10,7 @@
 
     class GameDetailController{
 
-        public static function setGameDetails($gameId, $nbPlayer){
+        public static function setGameDetails($gameId, $nbPlayer, $mapId){
             $playerArray = PlayerModel::readAll();
             $corporationArray = CorporationModel::readAll();
             $controller = "GameDetail";
@@ -22,7 +22,8 @@
         public static function gameDetailsSet(){
             $nbPlayer = $_POST['player_number'];
             $gameId = $_POST['game_id'];
-            $game = new GameModel($gameId, NULL, NULL, NULL);
+            $mapId = $_POST['map_id'];
+            $game = new GameModel($gameId, NULL, NULL, NULL, $mapId);
 
             $playersId = array();
 
@@ -54,7 +55,7 @@
 
             $success = $game->saveWinner();
             if($success == TRUE){
-                GameDetailController::setGoalsAwards($gameId, $playersId);
+                GameDetailController::setGoalsAwards($gameId, $playersId, $mapId);
             }
             else{
                 ErrorController::setGameDetails();
@@ -62,14 +63,14 @@
             }
         }
 
-        public static function setGoalsAwards($gameId, $playersId){
+        public static function setGoalsAwards($gameId, $playersId, $mapId){
             $playerArray = array();
             foreach($playersId as $playerId){
                 $player = PlayerModel::getPlayerById($playerId);
                 array_push($playerArray, $player);
             }
-            $goalArray = GoalModel::readAll();
-            $awardArray = AwardModel::readAll();
+            $goalArray = GoalModel::getByMapId($mapId);
+            $awardArray = AwardModel::getByMapId($mapId);
 
             $controller = "GameDetail";
             $view = "setGoalsAwards";

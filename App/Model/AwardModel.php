@@ -45,4 +45,14 @@
             return $res;
         }
 
+        public static function getByMapId($mapId){
+            $sql ="SELECT * FROM Awards WHERE mapId = :map_id";
+            $req = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("map_id" => $mapId,);
+            $req->execute($values);
+            $req->setFetchMode(PDO::FETCH_CLASS, 'AwardModel');
+            $res = $req->fetchAll();
+            return $res;
+        }
+
     }

@@ -14,6 +14,10 @@
             return $this->gameId;
         }
 
+        public function getMapId(){
+            return $this->mapId;
+        }
+
         public function getNumberOfPlayers(){
             return $this->numberOfPlayers;
         }
