@@ -46,7 +46,7 @@
         }
 
         public static function getByMapId($mapId){
-            $sql ="SELECT * FROM Awards WHERE mapId = :map_id";
+            $sql ="SELECT * FROM Awards WHERE mapId = :map_id OR mapId = 4";
             $req = ConnectionModel::getPDO()->prepare($sql);
             $values = array("map_id" => $mapId,);
             $req->execute($values);
