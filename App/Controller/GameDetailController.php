@@ -70,7 +70,9 @@
                 array_push($playerArray, $player);
             }
             $goalArray = GoalModel::getByMapId($mapId);
+            array_push($goalArray, new GoalModel(6, 'Aeronaute', 4));
             $awardArray = AwardModel::getByMapId($mapId);
+            array_push($awardArray, new AwardModel(6, 'Venuphile', 4));
 
             $controller = "GameDetail";
             $view = "setGoalsAwards";
