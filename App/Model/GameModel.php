@@ -30,10 +30,6 @@
             return $this->winner;
         }
 
-        public function getMapId(){
-            return $this->mapId;
-        }
-
         public function setId($id){
             $this->gameId = $id;
         }
