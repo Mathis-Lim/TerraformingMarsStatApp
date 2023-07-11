@@ -710,8 +710,8 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$req_prep = ConnectionModel::getPDO()->prepare($sql);
             $values = array("gameId" => $gameId,);
             $req_prep->execute($values);
-			$res->setFetchMode(PDO::FETCH_OBJ);
-			$result = $res->fetchAll();
+			$req_prep->setFetchMode(PDO::FETCH_OBJ);
+			$result = $req_prep->fetchAll();
 
 			$detailArray = array();
 
