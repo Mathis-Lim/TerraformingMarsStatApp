@@ -79,20 +79,6 @@
             }
         }
 
-        public static function corporationStats(){
-
-            $corporationFrequencyRecords = GameDetailModel::getRecordChosenCorporation();
-            $mostChosenCorp = $corporationFrequencyRecords['most'];
-            $leastChosenCorp = $corporationFrequencyRecords['least'];
-            $recordWinnerCorporation = GameDetailModel::getRecordWinsCorporation();
-            $recordPointsCorporation = GameDetailModel::getRecordPointsCorporation();
-
-            $controller = "Game";
-            $view = "corporationStats";
-            $pageTitle = "Statistiques";
-            require File::build_path(array('View', 'BaseView.php'));
-        }
-
         public static function otherStats(){
 
             $nbGames = GameModel::getNumberOfGamesPlayed();
@@ -107,7 +93,7 @@
             $goalStats = GameModel::getGoalStats($nbGames);
             $awardStats = GameModel::getAwardStats($nbGames);
 
-            $controller = "Game";
+            $controller = "GameDetail";
             $view = "otherStats";
             $pageTitle = "Statistiques";
             require File::build_path(array('View', 'BaseView.php'));

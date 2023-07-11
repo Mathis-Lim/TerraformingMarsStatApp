@@ -132,6 +132,20 @@
             require File::build_path(array('View', 'BaseView.php'));
         }
 
+        public static function corporationStats(){
+
+            $corporationFrequencyRecords = GameDetailModel::getRecordChosenCorporation();
+            $mostChosenCorp = $corporationFrequencyRecords['most'];
+            $leastChosenCorp = $corporationFrequencyRecords['least'];
+            $recordWinnerCorporation = GameDetailModel::getRecordWinsCorporation();
+            $recordPointsCorporation = GameDetailModel::getRecordPointsCorporation();
+
+            $controller = "Game";
+            $view = "corporationStats";
+            $pageTitle = "Statistiques";
+            require File::build_path(array('View', 'BaseView.php'));
+        }
+
 
     }    
 
