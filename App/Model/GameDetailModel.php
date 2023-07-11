@@ -696,6 +696,108 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return array($scoreDetail, $trDetail, $boardDetail, $cardDetail, $goalDetail, $awardDetail);
 		}
 
+		public static function readGame($gameId){
+			
+			$sql = "SELECT COUNT(*) as nb FROM GameDetails WHERE gameId = :gameId";
+            $req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("gameId" => $gameId,);
+            $req_prep->execute($values);
+			$res->setFetchMode(PDO::FETCH_OBJ);
+			$result = $res->fetchAll();
+			$nbPlayers = $result[0]->{'nb'};
+
+			$sql = "SELECT * FROM GameDetails WHERE gameId = :gameId ORDER BY rank";
+			$req_prep = ConnectionModel::getPDO()->prepare($sql);
+            $values = array("gameId" => $gameId,);
+            $req_prep->execute($values);
+			$res->setFetchMode(PDO::FETCH_OBJ);
+			$result = $res->fetchAll();
+
+			$detailArray = array();
+
+			for ($i = 0; $i < $nbPlayers; $i++) {
+				
+				$current = $result[$i];
+
+				$chosenCorpId = $current->chosenCorporation;
+				$rejectedCorpId = $current->rejectedCorporation;
+				$playerId = $current->playerId;
+
+				$sql = "SELECT playerName FROM Players WHERE playerId = " . $playerId;
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$tempResult = $res->fetchAll();
+				$playerName = $tempResult[0]->{'playerName'};
+				
+				$sql = "SELECT corporationName FROM Corporations WHERE corporationId = " . $chosenCorpId;
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$tempResult = $res->fetchAll();
+				$usedCorporation = $tempResult[0]->{'corporationName'};
+
+				$sql = "SELECT corporationName FROM Corporations WHERE corporationId = " . $rejectedCorpId;
+				$res = ConnectionModel::getPDO()->query($sql);
+				$res->setFetchMode(PDO::FETCH_OBJ);
+				$tempResult = $res->fetchAll();
+				$unusedCorporation = $tempResult[0]->{'corporationName'};
+
+				$scoreDetail = array();
+				$totalScore = $res->score;
+				$trScore = $res->Score;
+				$boardScore = $res->boardScore;
+				$cardScore = $res->cardScore;
+				$goalScore = $res->goalScore;
+				$awardScore = $res->awardScore;
+
+				array_push($scoreDetail, array(
+					"description" => "Total",
+					"score" => $totalScore,
+					"proportion" => "100",
+				));
+
+				array_push($scoreDetail, array(
+					"description" => "NT",
+					"score" => $trScore,
+					"proportion" => round(($trScore/$totalScore) * 100, 2),
+				));
+
+				array_push($scoreDetail, array(
+					"description" => "Plateau",
+					"score" => $boardScore,
+					"proportion" => round(($boardScore/$totalScore) * 100, 2),
+				));
+
+				array_push($scoreDetail, array(
+					"description" => "Cartes",
+					"score" => $cardScore,
+					"proportion" => round(($cardScore/$totalScore) * 100, 2),
+				));
+
+				array_push($scoreDetail, array(
+					"description" => "Objectifs",
+					"score" => $goalScore,
+					"proportion" => round(($goalScore/$totalScore) * 100, 2),
+				));
+
+				array_push($scoreDetail, array(
+					"description" => "Récompenses",
+					"score" => $awardScore,
+					"proportion" => round(($awardScore/$totalScore) * 100, 2),
+				));
+
+				array_push($detailArray, array(
+					"player" => $playerName,
+					"chosen_corp" => $usedCorporation,
+					"rejected_corp" => $unusedCorporation,
+					"rank" => $res->rank,
+					"score" => $scoreDetail,
+				));
+			}
+
+			return $detailArray;
+
+        }
+
     }
 
 

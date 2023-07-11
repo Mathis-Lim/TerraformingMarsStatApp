@@ -148,6 +148,20 @@
             require File::build_path(array('View', 'BaseView.php'));
         }
 
+        public static function readGame(){
+            $gameId = null;
+            if(isset($_GET['game_id'])){
+                $gameId = $_GET['game_id'];
+            }
+
+            $playerDetails = GameDetailModel::readGame($gameId);
+           
+            $controller = "GameDetail";
+            $view = "details";
+            $pageTitle = "Détails";
+            require File::build_path(array('View', 'BaseView.php'));
+        }
+
 
     }    
 

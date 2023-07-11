@@ -18,6 +18,9 @@
     echo('<li>Carte utilisée: ' . $mapUsed . '</li>');
 ?>
 </ul>
+<?php
+    echo('<a href = "index.php?controller=GameDetail&action=readGame&game_id=' . $lastGameId);
+
 
 
 
