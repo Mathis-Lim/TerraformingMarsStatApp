@@ -269,6 +269,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			WHERE " . $table . "." . $idAttribute . " IN
 				(SELECT " . $idAttributeGD . " FROM GameDetails WHERE " . $pointAttribute . " = " . $max .")
 			AND gameId IN " . $gameIds;
+			var_dump($sql);
 			$res = ConnectionModel::getPDO()->query($sql);
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			$result = $res->fetchAll();
