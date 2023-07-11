@@ -140,7 +140,7 @@
             $recordWinnerCorporation = GameDetailModel::getRecordWinsCorporation();
             $recordPointsCorporation = GameDetailModel::getRecordPointsCorporation();
 
-            $controller = "Game";
+            $controller = "GameDetail";
             $view = "corporationStats";
             $pageTitle = "Statistiques";
             require File::build_path(array('View', 'BaseView.php'));
