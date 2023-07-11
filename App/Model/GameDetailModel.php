@@ -789,7 +789,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 					"player" => $playerName,
 					"chosen_corp" => $usedCorporation,
 					"rejected_corp" => $unusedCorporation,
-					"rank" => $res->rank,
+					"rank" => $current->rank,
 					"score" => $scoreDetail,
 				));
 			}
