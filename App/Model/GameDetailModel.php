@@ -282,7 +282,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 		public static function getRecordPoints($pointAttribute, $description, $gameIds, $type){
 			$idAttribute = $type . "Id";
 			$idAttributeGD = $idAttribute;
-			$nameAttribute = $type . "name";
+			$nameAttribute = $type . "Name";
 			$table = ucfirst($type) . "s";
 			if($type === "corporation"){
 				$idAttributeGD = "chosenCorporation";
