@@ -742,12 +742,12 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 				$unusedCorporation = $tempResult[0]->{'corporationName'};
 
 				$scoreDetail = array();
-				$totalScore = $res->score;
-				$trScore = $res->Score;
-				$boardScore = $res->boardScore;
-				$cardScore = $res->cardScore;
-				$goalScore = $res->goalScore;
-				$awardScore = $res->awardScore;
+				$totalScore = $current->score;
+				$trScore = $current->Score;
+				$boardScore = $current->boardScore;
+				$cardScore = $current->cardScore;
+				$goalScore = $current->goalScore;
+				$awardScore = $current->awardScore;
 
 				array_push($scoreDetail, array(
 					"description" => "Total",
