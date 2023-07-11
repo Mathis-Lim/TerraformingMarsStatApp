@@ -140,6 +140,8 @@
             $recordWinnerCorporation = GameDetailModel::getRecordWinsCorporation();
             $recordPointsCorporation = GameDetailModel::getRecordPointsCorporation();
 
+            $nbPlayerDetails = GameDetailModel::getStatsByNbPlayer("corporation");
+
             $controller = "GameDetail";
             $view = "corporationStats";
             $pageTitle = "Statistiques";
