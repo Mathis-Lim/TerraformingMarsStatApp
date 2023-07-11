@@ -249,36 +249,6 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return $gameIds;
 		}
 
-		/*public static function getRecordPoints($pointAttribute, $description, $gameIds){
-			try{
-				$sql = "SELECT MAX(" . $pointAttribute .") as max FROM GameDetails WHERE gameId IN " . $gameIds;
-				$res = ConnectionModel::getPDO()->query($sql);
-				$res->setFetchMode(PDO::FETCH_OBJ);
-				$result = $res->fetchAll();
-				$max = $result[0]->{'max'};
-	
-				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
-				ON Players.playerId = GameDetails.playerId
-				WHERE Players.playerId IN
-					(SELECT playerId FROM GameDetails WHERE " . $pointAttribute . " = " . $max .")
-				AND gameId IN " . $gameIds;
-				$res = ConnectionModel::getPDO()->query($sql);
-				$res->setFetchMode(PDO::FETCH_OBJ);
-				$result = $res->fetchAll();
-				$playerName = $result[0]->{'playerName'};
-				$nbGames = $result[0]->{'nbGames'};
-	
-				return array(
-					"description" => $description,
-					"player" => $playerName,
-					"number" => $max,
-					"nb_games" => $nbGames,
-				);
-			} catch(PDOException $e) {
-                return null;
-            }
-		}*/
-
 		public static function getRecordPoints($pointAttribute, $description, $gameIds, $type){
 			$idAttribute = $type . "Id";
 			$idAttributeGD = $idAttribute;
@@ -302,7 +272,6 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$res = ConnectionModel::getPDO()->query($sql);
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			$result = $res->fetchAll();
-			var_dump($result[0]);
 			$playerName = $result[0]->{$nameAttribute};
 			$nbGames = $result[0]->{'nbGames'};
 
