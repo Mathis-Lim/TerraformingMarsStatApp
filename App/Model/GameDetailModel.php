@@ -743,7 +743,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 
 				$scoreDetail = array();
 				$totalScore = $current->score;
-				$trScore = $current->Score;
+				$trScore = $current->trScore;
 				$boardScore = $current->boardScore;
 				$cardScore = $current->cardScore;
 				$goalScore = $current->goalScore;
