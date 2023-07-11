@@ -302,7 +302,8 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$res = ConnectionModel::getPDO()->query($sql);
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			$result = $res->fetchAll();
-			$playerName = $result[0]->{'playerName'};
+			var_dump($result[0]);
+			$playerName = $result[0]->{$nameAttribute};
 			$nbGames = $result[0]->{'nbGames'};
 
 			return array(
