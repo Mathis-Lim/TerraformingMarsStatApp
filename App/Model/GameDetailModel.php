@@ -293,7 +293,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return ($detail);
 		}
 
-		public static function getStatsByNbPlayer(){
+		public static function getStatsByNbPlayer($type){
 			$details = array();
 			for($i = 2; $i < 6; $i++){
 				$gameIds = GameDetailModel::getGameIds($i);
@@ -301,9 +301,9 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 					array_push($details, 0);
 					continue;
 				}
-				$pointRecords = GameDetailModel::getPointsRecordDetails($gameIds, "player");
-				$avgPointRecords = GameDetailModel::getRecordAvgPointsDetail($gameIds, "player");
-				$winrateRecord = GameDetailModel::getRecordWinrate($gameIds, "player");
+				$pointRecords = GameDetailModel::getPointsRecordDetails($gameIds, $type);
+				$avgPointRecords = GameDetailModel::getRecordAvgPointsDetail($gameIds, $type);
+				$winrateRecord = GameDetailModel::getRecordWinrate($gameIds, $type);
 				$winnerStats = GameDetailModel::getWinnerStats($gameIds);
 
 				$detail = array(

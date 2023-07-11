@@ -124,7 +124,7 @@
             $mostPlayed = GameDetailModel::getMostPlayed();
             $recordWinner = GameModel::getRecordWinner();
             $recordWinrate = GameDetailModel::getRecordWinrate(null, "player");
-            $nbPlayerDetails = GameDetailModel::getStatsByNbPlayer();
+            $nbPlayerDetails = GameDetailModel::getStatsByNbPlayer("player");
 
             $controller = "GameDetail";
             $view = "playerStats";
