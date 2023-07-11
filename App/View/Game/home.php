@@ -19,7 +19,7 @@
 ?>
 </ul>
 <?php
-    echo('<a href = "index.php?controller=GameDetail&action=readGame&game_id=' . $lastGameId);
+    echo('<a href = "index.php?controller=GameDetail&action=readGame&game_id=' . $lastGameId . '>Détail</a>');
 
 
 
