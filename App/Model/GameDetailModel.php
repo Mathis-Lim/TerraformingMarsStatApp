@@ -249,7 +249,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return $gameIds;
 		}
 
-		public static function getRecordPoints($pointAttribute, $description, $gameIds){
+		/*public static function getRecordPoints($pointAttribute, $description, $gameIds){
 			try{
 				$sql = "SELECT MAX(" . $pointAttribute .") as max FROM GameDetails WHERE gameId IN " . $gameIds;
 				$res = ConnectionModel::getPDO()->query($sql);
@@ -277,13 +277,47 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			} catch(PDOException $e) {
                 return null;
             }
+		}*/
+
+		public static function getRecordPoints($pointAttribute, $description, $gameIds, $type){
+			$idAttribute = $type . "Id";
+			$idAttributeGD = $idAttribute;
+			$nameAttribute = $type . "name";
+			$table = ucfirst($type) . "s";
+			if($type === "corporation"){
+				$idAttributeGD = "chosenCorporation";
+			}
+
+			$sql = "SELECT MAX(" . $pointAttribute .") as max FROM GameDetails WHERE gameId IN " . $gameIds;
+			$res = ConnectionModel::getPDO()->query($sql);
+			$res->setFetchMode(PDO::FETCH_OBJ);
+			$result = $res->fetchAll();
+			$max = $result[0]->{'max'};
+
+			$sql = "SELECT DISTINCT " . $nameAttribute . ", COUNT(*) as nbGames FROM " . $table . " JOIN GameDetails 
+			ON " . $table . "." . $idAttribute . " = GameDetails. " . $idAttributeGD . "
+			WHERE " . $table . "." . $idAttribute . " IN
+				(SELECT " . $idAttributeGD . " FROM GameDetails WHERE " . $pointAttribute . " = " . $max .")
+			AND gameId IN " . $gameIds;
+			$res = ConnectionModel::getPDO()->query($sql);
+			$res->setFetchMode(PDO::FETCH_OBJ);
+			$result = $res->fetchAll();
+			$playerName = $result[0]->{'playerName'};
+			$nbGames = $result[0]->{'nbGames'};
+
+			return array(
+				"description" => $description,
+				"player" => $playerName,
+				"number" => $max,
+				"nb_games" => $nbGames,
+			);
 		}
 
-		public static function getPointsRecordDetails($gameIds){
-			$total = GameDetailModel::getRecordPoints("score", "en tout", $gameIds);
-			$tr = GameDetailModel::getRecordPoints("trScore", "de NT", $gameIds);
-			$board = GameDetailModel::getRecordPoints("boardScore", "de plateau", $gameIds);
-			$card = GameDetailModel::getRecordPoints("cardScore", "de carte", $gameIds);
+		public static function getPointsRecordDetails($gameIds, $type){
+			$total = GameDetailModel::getRecordPoints("score", "en tout", $gameIds, $type);
+			$tr = GameDetailModel::getRecordPoints("trScore", "de NT", $gameIds, $type);
+			$board = GameDetailModel::getRecordPoints("boardScore", "de plateau", $gameIds, $type);
+			$card = GameDetailModel::getRecordPoints("cardScore", "de carte", $gameIds, $type);
 
 			$detail = array($total, $tr, $board, $card);
 			return ($detail);
@@ -297,7 +331,7 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 					array_push($details, 0);
 					continue;
 				}
-				$pointRecords = GameDetailModel::getPointsRecordDetails($gameIds);
+				$pointRecords = GameDetailModel::getPointsRecordDetails($gameIds, "player");
 				$avgPointRecords = GameDetailModel::getRecordAvgPointsDetail($gameIds, "player");
 				$winrateRecord = GameDetailModel::getRecordWinrate($gameIds, "player");
 				$winnerStats = GameDetailModel::getWinnerStats($gameIds);
