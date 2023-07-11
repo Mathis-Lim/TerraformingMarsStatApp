@@ -273,6 +273,7 @@
 			$req_prep->execute($values);
 			$req_prep->setFetchMode(PDO::FETCH_OBJ);
 			$result = $req_prep->fetchAll();
+			var_dump($result[0]);
 			$trScore = $result[0]->{'tr'};
 			$boardScore = $result[0]->{'board'};
 			$cardScore = $result[0]->{'card'};
