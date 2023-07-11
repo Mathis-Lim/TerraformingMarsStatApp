@@ -267,9 +267,8 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			$sql = "SELECT DISTINCT " . $nameAttribute . ", COUNT(*) as nbGames FROM " . $table . " JOIN GameDetails 
 			ON " . $table . "." . $idAttribute . " = GameDetails. " . $idAttributeGD . "
 			WHERE " . $table . "." . $idAttribute . " IN
-				(SELECT " . $idAttributeGD . " FROM GameDetails WHERE " . $pointAttribute . " = " . $max .")
+				(SELECT " . $idAttributeGD . " FROM GameDetails WHERE " . $pointAttribute . " = " . $max ." AND gameId IN " . $gameIds . ")
 			AND gameId IN " . $gameIds;
-			var_dump($sql);
 			$res = ConnectionModel::getPDO()->query($sql);
 			$res->setFetchMode(PDO::FETCH_OBJ);
 			$result = $res->fetchAll();
