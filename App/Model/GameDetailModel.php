@@ -313,40 +313,6 @@ require_once File::build_path(array('Model','ConnectionModel.php'));
 			return $details;
 		}
 
-		/*public static function getRecordAvgPoints($pointAttribute, $description, $gameIds){
-			try{
-				$sql = "SELECT MAX(nb) FROM 
-					(SELECT ROUND(AVG(" . $pointAttribute . "), 2) as nb, playerId FROM
-					 GameDetails WHERE gameId IN " . $gameIds . " GROUP BY playerId) as subquery";
-				$res = ConnectionModel::getPDO()->query($sql);
-				$res->setFetchMode(PDO::FETCH_OBJ);
-				$result = $res->fetchAll();
-				$max = $result[0]->{'MAX(nb)'};   	
-	
-				$sql = "SELECT DISTINCT playerName, COUNT(*) as nbGames FROM Players JOIN GameDetails 
-				ON Players.playerId = GameDetails.playerId  
-				WHERE Players.playerId IN 
-					(SELECT playerId FROM (SELECT ROUND(AVG(" . $pointAttribute . "),2) as nb, playerId FROM 
-					GameDetails WHERE gameId IN " . $gameIds . " GROUP BY playerId)
-				as subquery WHERE nb = " .$max .")
-				AND gameId IN " . $gameIds;
-				$res = ConnectionModel::getPDO()->query($sql);
-				$res->setFetchMode(PDO::FETCH_OBJ);
-				$result = $res->fetchAll();
-				$playerName = $result[0]->{'playerName'};
-				$nbGames = $result[0]->{'nbGames'};
-	
-				return array(
-					"description" => $description,
-					"player" => $playerName,
-					"number" => $max,
-					"nb_games" => $nbGames,
-				);
-			} catch(PDOException $e) {
-                return null;
-            }
-		}*/
-
 		public static function getRecordAvgPoints($pointAttribute, $description, $gameIds, $type){
 			$idAttribute = $type . "Id";
 			$idAttributeGD = $idAttribute;
